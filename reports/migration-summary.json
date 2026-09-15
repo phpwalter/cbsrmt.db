@@ -11,13 +11,13 @@
     "conflicts": 0
   },
   "appear": {
-    "output": 5727,
-    "reconciliation_warnings": 1600,
-    "duplicates_removed": 1
+    "output": 0,
+    "reconciliation_warnings": 0,
+    "duplicates_removed": 0
   },
   "episode_writers": {
-    "created": 1266,
-    "unresolved": 130
+    "created": 0,
+    "unresolved": 0
   },
   "episode_adaptations": {
     "external_parsed": 208,
