@@ -80,6 +80,7 @@ Adaptation data is sourced primarily from `https://www.cbsrmt.com/adaptions.html
 
 ```text
 data/
+  appear.json
   cast.json
   episodes.json
   episode_adaptations.json
@@ -110,11 +111,13 @@ Validate the generated artifacts:
 python tools/validate_data.py
 ```
 
-The rebuild is deterministic for a given repository state and adaptation-page response. It:
+The rebuild intentionally reads the legacy source from `origin/main`. Generated branch artifacts are never re-used as migration input, so repeated rebuilds remain idempotent.
+
+The pipeline:
 
 1. merges writer records into cast by `cast_id`;
 2. resolves episode writer strings to cast IDs without fuzzy guessing;
-3. reduces `appear` to its three relational columns;
+3. reduces `appear` to its three relational columns and writes `data/appear.json`;
 4. parses the CBSRMT adaptations catalog;
 5. preserves legacy `origwriter` values as fallback adaptation records;
 6. removes `episode_writer` and `origwriter` from normalized episodes;
@@ -135,6 +138,10 @@ writer-unresolved.json
 ```
 
 These reports are intentional. The migration does not silently guess ambiguous legacy relationships.
+
+## Validation
+
+`tools/validate_data.py` validates the generated JSON and schema invariants. `sql/validate.sql` contains database-level integrity queries. The GitHub Actions rebuild workflow also imports the generated `sql/cbs.sql` into MySQL 8.4 before committing generated artifacts.
 
 ## Referential behavior
 
