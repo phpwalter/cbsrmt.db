@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import json
 import sys
-from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,35 +23,51 @@ def fail(message: str, failures: list[str]) -> None:
 
 def main() -> int:
     failures: list[str] = []
-
     cast = load("cast.json")
     episodes = load("episodes.json")
     genre = load("genre.json")
+    appear = load("appear.json")
     writers = load("episode_writers.json")
     adaptations = load("episode_adaptations.json")
 
     cast_ids = [str(int(row["cast_id"])) for row in cast]
     episode_ids = [str(int(row["episode_id"])) for row in episodes]
     genre_ids = [str(int(row["genre_id"])) for row in genre]
+    cast_set, episode_set, genre_set = set(cast_ids), set(episode_ids), set(genre_ids)
 
-    if len(cast_ids) != len(set(cast_ids)):
+    if len(cast_ids) != len(cast_set):
         fail("cast.cast_id values are not unique", failures)
-    if len(episode_ids) != len(set(episode_ids)):
+    if len(episode_ids) != len(episode_set):
         fail("episodes.episode_id values are not unique", failures)
-    if len(genre_ids) != len(set(genre_ids)):
+    if len(genre_ids) != len(genre_set):
         fail("genre.genre_id values are not unique", failures)
+    if not appear:
+        fail("appear.json is empty", failures)
+    if not writers:
+        fail("episode_writers.json is empty", failures)
 
-    episode_set = set(episode_ids)
-    cast_set = set(cast_ids)
-    genre_set = set(genre_ids)
-
-    legacy_fields = {"episode_writer", "origwriter"}
     for row in episodes:
-        unexpected = legacy_fields.intersection(row)
-        if unexpected:
-            fail(f"episode {row['episode_id']} retains legacy fields {sorted(unexpected)}", failures)
+        if "episode_writer" in row or "origwriter" in row:
+            fail(f"episode {row['episode_id']} retains a legacy writer/origwriter field", failures)
         if str(int(row["genre_id"])) not in genre_set:
             fail(f"episode {row['episode_id']} references missing genre {row['genre_id']}", failures)
+
+    appear_ids: list[str] = []
+    appear_pairs: list[tuple[str, str]] = []
+    for row in appear:
+        aid = str(int(row["appear_id"]))
+        eid = str(int(row["episode_id"]))
+        cid = str(int(row["cast_id"]))
+        appear_ids.append(aid)
+        appear_pairs.append((eid, cid))
+        if eid not in episode_set:
+            fail(f"appear {aid} references missing episode {eid}", failures)
+        if cid not in cast_set:
+            fail(f"appear {aid} references missing cast {cid}", failures)
+    if len(appear_ids) != len(set(appear_ids)):
+        fail("appear.appear_id values are not unique", failures)
+    if len(appear_pairs) != len(set(appear_pairs)):
+        fail("appear contains duplicate (episode_id, cast_id) rows", failures)
 
     writer_pairs: list[tuple[str, str]] = []
     for row in writers:
@@ -73,11 +88,10 @@ def main() -> int:
         if eid not in episode_set:
             fail(f"episode_adaptations references missing episode {eid}", failures)
         if not str(row.get("adapted") or "").strip():
-            fail(f"episode_adaptations has blank adapted text for episode {eid}", failures)
+            fail(f"episode_adaptations has blank text for episode {eid}", failures)
     if len(adaptation_ids) != len(set(adaptation_ids)):
         fail("episode_adaptations contains duplicate episode_id rows", failures)
 
-    # Migration reports are required deliverables and must all be valid JSON.
     required_reports = [
         "writer-cast-conflicts.json",
         "writer-unresolved.json",
@@ -96,46 +110,30 @@ def main() -> int:
         except Exception as exc:  # noqa: BLE001
             fail(f"invalid JSON report {name}: {exc}", failures)
 
-    sql_path = ROOT / "sql" / "cbs.sql"
-    sql = sql_path.read_text(encoding="utf-8")
-    required_sql_fragments = [
-        "CREATE TABLE `genre`",
-        "CREATE TABLE `cast`",
-        "CREATE TABLE `episodes`",
-        "CREATE TABLE `appear`",
-        "CREATE TABLE `episode_writers`",
-        "CREATE TABLE `episode_adaptations`",
+    sql = (ROOT / "sql" / "cbs.sql").read_text(encoding="utf-8")
+    for fragment in [
+        "CREATE TABLE `genre`", "CREATE TABLE `cast`", "CREATE TABLE `episodes`",
+        "CREATE TABLE `appear`", "CREATE TABLE `episode_writers`", "CREATE TABLE `episode_adaptations`",
         "FOREIGN KEY (`genre_id`) REFERENCES `genre` (`genre_id`)",
         "FOREIGN KEY (`episode_id`) REFERENCES `episodes` (`episode_id`)",
-        "FOREIGN KEY (`cast_id`) REFERENCES `cast` (`cast_id`)",
-        "CHARSET=utf8mb4",
-    ]
-    for fragment in required_sql_fragments:
+        "FOREIGN KEY (`cast_id`) REFERENCES `cast` (`cast_id`)", "CHARSET=utf8mb4",
+    ]:
         if fragment not in sql:
             fail(f"sql/cbs.sql is missing required fragment: {fragment}", failures)
-
     if "`episode_writer`" in sql or "`origwriter`" in sql:
-        fail("sql/cbs.sql still defines a legacy episode writer/origwriter column", failures)
+        fail("sql/cbs.sql still defines a legacy writer/origwriter column", failures)
 
     if failures:
         print(f"\n{len(failures)} validation failure(s).")
         return 1
 
-    unresolved = []
-    unresolved_path = REPORTS / "writer-unresolved.json"
-    if unresolved_path.exists():
-        unresolved = json.loads(unresolved_path.read_text(encoding="utf-8"))
-
-    summary = {
-        "cast": len(cast),
-        "episodes": len(episodes),
-        "genres": len(genre),
-        "episode_writer_relationships": len(writers),
-        "episode_adaptations": len(adaptations),
-        "unresolved_writer_records": len(unresolved),
-    }
+    unresolved = json.loads((REPORTS / "writer-unresolved.json").read_text(encoding="utf-8"))
     print("PASS: normalized data integrity checks")
-    print(json.dumps(summary, indent=2))
+    print(json.dumps({
+        "cast": len(cast), "episodes": len(episodes), "genres": len(genre),
+        "appearances": len(appear), "episode_writer_relationships": len(writers),
+        "episode_adaptations": len(adaptations), "unresolved_writer_records": len(unresolved),
+    }, indent=2))
     return 0
 
 
