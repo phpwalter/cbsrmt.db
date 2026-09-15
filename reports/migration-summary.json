@@ -11,13 +11,13 @@
     "conflicts": 0
   },
   "appear": {
-    "output": 0,
-    "reconciliation_warnings": 0,
-    "duplicates_removed": 0
+    "output": 5727,
+    "reconciliation_warnings": 1600,
+    "duplicates_removed": 1
   },
   "episode_writers": {
-    "created": 0,
-    "unresolved": 0
+    "created": 1312,
+    "unresolved": 84
   },
   "episode_adaptations": {
     "external_parsed": 208,
@@ -29,6 +29,7 @@
     "count": 16
   },
   "source": {
+    "baseline_ref": "origin/main",
     "adaptations_url": "https://www.cbsrmt.com/adaptions.html"
   }
 }
