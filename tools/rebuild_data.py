@@ -124,12 +124,19 @@ def name_index(*collections: list[dict[str, Any]]) -> dict[str, set[str]]:
 # Verified legacy spelling aliases. These map source episode-writer spellings to the
 # existing cast identity, never to a newly invented person ID.
 WRITER_ALIASES = {
-    "george lowther": "83",      # writers.json has George Lowthar
-    "sidney sloan": "88",        # writers.json has Sidney Slon
-    "elizabeth pinnel": "291",   # approved -> Elizabeth Pennell
-    "elizabeth pinnell": "291",  # approved -> Elizabeth Pennell
-    "elizabeth pennel": "291",   # canonical source typo -> Elizabeth Pennell
-    "elizabeth pennell": "291",  # canonical corrected spelling
+    "george lowther": "83",       # writers.json has George Lowthar
+    "sidney sloan": "88",         # writers.json has Sidney Slon
+    "saul pattis": "284",         # approved -> Sol Panitz
+    "henry scheschner": "2",      # approved -> Henry Slesar
+    "elizabeth pinnel": "291",    # approved -> Elizabeth Pennell
+    "elizabeth pinnell": "291",   # approved -> Elizabeth Pennell
+    "elizabeth pennel": "291",    # canonical source typo -> Elizabeth Pennell
+    "elizabeth pennell": "291",   # canonical corrected spelling
+}
+
+# Explicitly approved non-writer tokens to discard during reconciliation.
+IGNORED_WRITER_TOKENS = {
+    "f230",  # stray token in episode 219; Ian Martin remains the sole writer
 }
 
 
@@ -165,6 +172,8 @@ def resolve_episode_writers(episodes: list[dict[str, Any]], aliases: dict[str, s
         for part in split_writer_text(raw):
             key = norm(part)
             ids = aliases.get(key, set())
+            if key in IGNORED_WRITER_TOKENS:
+                continue
             if len(ids) == 1:
                 resolved.append(int(next(iter(ids))))
             elif key in WRITER_ALIASES:
@@ -421,20 +430,20 @@ def generate_sql(genres, cast, episodes, appear, episode_writers, adaptations) -
         "",
         "CREATE TABLE `episode_writers` (",
         "  `episode_writer_id` int unsigned NOT NULL AUTO_INCREMENT,",
-        "  `episode_id` int unsigned NOT NULL,
-        "  `cast_id` int unsigned NOT NULL,
-        "  PRIMARY KEY (`episode_writer_id`),
-        "  UNIQUE KEY `uq_episode_writer` (`episode_id`,`cast_id`),
-        "  KEY `idx_episode_writer_episode` (`episode_id`),
-        "  KEY `idx_episode_writer_cast` (`cast_id`),
-        "  CONSTRAINT `fk_episode_writer_episode` FOREIGN KEY (`episode_id`) REFERENCES `episodes` (`episode_id`) ON UPDATE CASCADE ON DELETE CASCADE,
+        "  `episode_id` int unsigned NOT NULL,",
+        "  `cast_id` int unsigned NOT NULL,",
+        "  PRIMARY KEY (`episode_writer_id`),",
+        "  UNIQUE KEY `uq_episode_writer` (`episode_id`,`cast_id`),",
+        "  KEY `idx_episode_writer_episode` (`episode_id`),",
+        "  KEY `idx_episode_writer_cast` (`cast_id`),",
+        "  CONSTRAINT `fk_episode_writer_episode` FOREIGN KEY (`episode_id`) REFERENCES `episodes` (`episode_id`) ON UPDATE CASCADE ON DELETE CASCADE,",
         "  CONSTRAINT `fk_episode_writer_cast` FOREIGN KEY (`cast_id`) REFERENCES `cast` (`cast_id`) ON UPDATE CASCADE ON DELETE RESTRICT",
         ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
         "",
         "CREATE TABLE `episode_adaptations` (",
-        "  `episode_id` int unsigned NOT NULL,
-        "  `adapted` text NOT NULL,
-        "  PRIMARY KEY (`episode_id`),
+        "  `episode_id` int unsigned NOT NULL,",
+        "  `adapted` text NOT NULL,",
+        "  PRIMARY KEY (`episode_id`),",
         "  CONSTRAINT `fk_episode_adaptations_episode` FOREIGN KEY (`episode_id`) REFERENCES `episodes` (`episode_id`) ON UPDATE CASCADE ON DELETE CASCADE",
         ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
         "",
