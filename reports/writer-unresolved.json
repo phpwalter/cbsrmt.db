@@ -1,14 +1,5 @@
 [
   {
-    "episode_id": "256",
-    "episode_name": "The Intermediary",
-    "episode_writer": "Fieldin Farrington",
-    "unresolved_parts": [
-      "Fieldin Farrington"
-    ],
-    "ambiguous_parts": []
-  },
-  {
     "episode_id": "269",
     "episode_name": "The Transformation",
     "episode_writer": "Elspith Eric",
@@ -212,15 +203,6 @@
     "episode_writer": "Roy Windsor",
     "unresolved_parts": [
       "Roy Windsor"
-    ],
-    "ambiguous_parts": []
-  },
-  {
-    "episode_id": "531",
-    "episode_name": "Pool Of Fear",
-    "episode_writer": "Fieldin Farrington",
-    "unresolved_parts": [
-      "Fieldin Farrington"
     ],
     "ambiguous_parts": []
   },
