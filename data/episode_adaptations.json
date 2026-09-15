@@ -1,0 +1,834 @@
+[
+  {
+    "episode_id": "44",
+    "adapted": "Adapted from the Guy de Maupassant classic"
+  },
+  {
+    "episode_id": "50",
+    "adapted": "Adapted from the Montague R. James story 'Casting the Runes'"
+  },
+  {
+    "episode_id": "57",
+    "adapted": "Adapted from the Edgar Allan Poe classic"
+  },
+  {
+    "episode_id": "62",
+    "adapted": "Adapted from the Guy de Maupassant classic"
+  },
+  {
+    "episode_id": "66",
+    "adapted": "Adapted from the Edgar Allan Poe classic"
+  },
+  {
+    "episode_id": "80",
+    "adapted": "Adapted from the Guy de Maupassant classic"
+  },
+  {
+    "episode_id": "83",
+    "adapted": "Adapted from the Proster M"
+  },
+  {
+    "episode_id": "85",
+    "adapted": "Adapted from the Bram Stoker classic"
+  },
+  {
+    "episode_id": "87",
+    "adapted": "Adapted from the Robert Louis Stevenson classic"
+  },
+  {
+    "episode_id": "101",
+    "adapted": "Adapted from the Ambrose Bierce classic"
+  },
+  {
+    "episode_id": "105",
+    "adapted": "Adapted from the Nathaniel Hawthorne classic"
+  },
+  {
+    "episode_id": "107",
+    "adapted": "Adapted from the Robert Louis Stevenson classic"
+  },
+  {
+    "episode_id": "118",
+    "adapted": "Adapted from the Oscar Wilde classic"
+  },
+  {
+    "episode_id": "120",
+    "adapted": "Adapted from the Wilkie Collins classic"
+  },
+  {
+    "episode_id": "129",
+    "adapted": "Adapted from the Oscar Wilde classic"
+  },
+  {
+    "episode_id": "131",
+    "adapted": "Adapted from the Robert Louis Stevenson classic"
+  },
+  {
+    "episode_id": "143",
+    "adapted": "Adapted from the Robert Louis Stevenson classic"
+  },
+  {
+    "episode_id": "183",
+    "adapted": "Adapted from the Robert Louis Stevenson classic"
+  },
+  {
+    "episode_id": "185",
+    "adapted": "Adapted from the Ambrose Bierce classic"
+  },
+  {
+    "episode_id": "197",
+    "adapted": "Adapted from the Edgar Allan Poe classic"
+  },
+  {
+    "episode_id": "198",
+    "adapted": "Adapted from the Edgar Allan Poe classic"
+  },
+  {
+    "episode_id": "199",
+    "adapted": "Adapted from the Edgar Allan Poe classic"
+  },
+  {
+    "episode_id": "200",
+    "adapted": "Adapted from the Edgar Allan Poe classic"
+  },
+  {
+    "episode_id": "201",
+    "adapted": "Adapted from the Edgar Allan Poe classic"
+  },
+  {
+    "episode_id": "202",
+    "adapted": "Adapted from the Edgar Allan Poe classic"
+  },
+  {
+    "episode_id": "203",
+    "adapted": "Adapted from the Edgar Allan Poe classic"
+  },
+  {
+    "episode_id": "219",
+    "adapted": "Adapted from the Robert Louis Stevenson classic"
+  },
+  {
+    "episode_id": "233",
+    "adapted": "Adapted from the Edgar Allan Poe classic"
+  },
+  {
+    "episode_id": "239",
+    "adapted": "Adapted from the Robert Louis Stevenson classic"
+  },
+  {
+    "episode_id": "254",
+    "adapted": "Adapted from the Ambrose Bierce classic"
+  },
+  {
+    "episode_id": "264",
+    "adapted": "Adapted from the Gaston Leroux classic"
+  },
+  {
+    "episode_id": "266",
+    "adapted": "Adapted from the Wilkie Collins short story"
+  },
+  {
+    "episode_id": "269",
+    "adapted": "Adapted from the Mary Shelley classic"
+  },
+  {
+    "episode_id": "276",
+    "adapted": "Adapted from the Guy de Maupassant story"
+  },
+  {
+    "episode_id": "318",
+    "adapted": "Adapted from the Sheridan Le Fanu classic"
+  },
+  {
+    "episode_id": "334",
+    "adapted": "Adapted from the Algernon Blackwood story"
+  },
+  {
+    "episode_id": "347",
+    "adapted": "Adapted from the Henry James story"
+  },
+  {
+    "episode_id": "362",
+    "adapted": "Adapted from the Nathaniel Hawthorne story"
+  },
+  {
+    "episode_id": "366",
+    "adapted": "Adapted from the Andy Post short story"
+  },
+  {
+    "episode_id": "369",
+    "adapted": "Adapted from the William Austin story"
+  },
+  {
+    "episode_id": "372",
+    "adapted": "Adapted from the Sir Walter Scott classic"
+  },
+  {
+    "episode_id": "402",
+    "adapted": "Adapted from the Charles Dickens classic"
+  },
+  {
+    "episode_id": "406",
+    "adapted": "Adapted from the Ambrose Bierce classic"
+  },
+  {
+    "episode_id": "408",
+    "adapted": "Adapted from the Mark Twain Classic"
+  },
+  {
+    "episode_id": "409",
+    "adapted": "Adapted from the Mark Twain Classic"
+  },
+  {
+    "episode_id": "410",
+    "adapted": "Adapted from the Mark Twain Classic"
+  },
+  {
+    "episode_id": "411",
+    "adapted": "Adapted from the Mark Twain Classic"
+  },
+  {
+    "episode_id": "412",
+    "adapted": "Adapted from the Mark Twain Classic"
+  },
+  {
+    "episode_id": "413",
+    "adapted": "Adapted from the Mark Twain Classic"
+  },
+  {
+    "episode_id": "414",
+    "adapted": "Adapted from the Mark Twain Classic"
+  },
+  {
+    "episode_id": "415",
+    "adapted": "Adapted from the Thomas Hardy classic"
+  },
+  {
+    "episode_id": "423",
+    "adapted": "Adapted from the Edith Wharton classic"
+  },
+  {
+    "episode_id": "441",
+    "adapted": "Adapted from the Edith Horton story"
+  },
+  {
+    "episode_id": "442",
+    "adapted": "Adapted from the Ambrose Bierce story"
+  },
+  {
+    "episode_id": "444",
+    "adapted": "Adapted from the Alexander Pushkin classic"
+  },
+  {
+    "episode_id": "457",
+    "adapted": "Adapted from the Oscar Wilde story"
+  },
+  {
+    "episode_id": "482",
+    "adapted": "Adapted from the Joseph Conrad story"
+  },
+  {
+    "episode_id": "489",
+    "adapted": "Adapted from the Emile Zola story"
+  },
+  {
+    "episode_id": "510",
+    "adapted": "Adapted from the H. G. Wells classic"
+  },
+  {
+    "episode_id": "546",
+    "adapted": "Adapted from the H. G. Wells classic"
+  },
+  {
+    "episode_id": "548",
+    "adapted": "Adapted from the Guy de Maupausant classic 'What is a Dream'"
+  },
+  {
+    "episode_id": "573",
+    "adapted": "Adapted from the Guy de Maupaussant classic"
+  },
+  {
+    "episode_id": "580",
+    "adapted": "Adapted from the O. Henry classic"
+  },
+  {
+    "episode_id": "581",
+    "adapted": "Adapted from the O. Henry classic"
+  },
+  {
+    "episode_id": "582",
+    "adapted": "Adapted from the O. Henry classic"
+  },
+  {
+    "episode_id": "583",
+    "adapted": "Adapted from the O. Henry classic"
+  },
+  {
+    "episode_id": "584",
+    "adapted": "Adapted from the O. Henry classic"
+  },
+  {
+    "episode_id": "585",
+    "adapted": "Adapted from the O. Henry classic"
+  },
+  {
+    "episode_id": "586",
+    "adapted": "Adapted from the O. Henry classic"
+  },
+  {
+    "episode_id": "605",
+    "adapted": "Adapted from the Charlotte Bronte classic"
+  },
+  {
+    "episode_id": "608",
+    "adapted": "Adapted from the Rudyard Kipling classic"
+  },
+  {
+    "episode_id": "609",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle classic"
+  },
+  {
+    "episode_id": "613",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle classic"
+  },
+  {
+    "episode_id": "617",
+    "adapted": "Adapted from the E. and H. Heron story"
+  },
+  {
+    "episode_id": "623",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle classic"
+  },
+  {
+    "episode_id": "624",
+    "adapted": "Adapted from the Joseph Conrad classic"
+  },
+  {
+    "episode_id": "633",
+    "adapted": "Adapted from the Edith Nesbit story"
+  },
+  {
+    "episode_id": "639",
+    "adapted": "Adapted from the Anthony Hope story"
+  },
+  {
+    "episode_id": "641",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle classic"
+  },
+  {
+    "episode_id": "643",
+    "adapted": "Adapted from the Emily Bronte classic"
+  },
+  {
+    "episode_id": "644",
+    "adapted": "Adapted from the Leo Tolstoy story"
+  },
+  {
+    "episode_id": "654",
+    "adapted": "Adapted from the Honore de Balzac story"
+  },
+  {
+    "episode_id": "657",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "668",
+    "adapted": "Adapted from the Nathaniel Hawthorne story"
+  },
+  {
+    "episode_id": "673",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "680",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "681",
+    "adapted": "Adapted from the Honore de Balzac story"
+  },
+  {
+    "episode_id": "682",
+    "adapted": "Adapted from the Ambrose Bierce story"
+  },
+  {
+    "episode_id": "684",
+    "adapted": "Adapted from the Rudyard Kipling story"
+  },
+  {
+    "episode_id": "685",
+    "adapted": "Adapted from the Jules Verne story"
+  },
+  {
+    "episode_id": "688",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "696",
+    "adapted": "Adapted from the Algernon Blackwood story"
+  },
+  {
+    "episode_id": "699",
+    "adapted": "Adapted from the Miguel de Cervantes classic"
+  },
+  {
+    "episode_id": "721",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "723",
+    "adapted": "Adapted from the Edgar Allan Poe classic"
+  },
+  {
+    "episode_id": "728",
+    "adapted": "Adapted from the Charles Dickens classic"
+  },
+  {
+    "episode_id": "740",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "742",
+    "adapted": "Adapted from the Charles Dickens story"
+  },
+  {
+    "episode_id": "744",
+    "adapted": "Adapted from the H. Rider Haggard story"
+  },
+  {
+    "episode_id": "771",
+    "adapted": "Adapted from the Anton Chekov classic"
+  },
+  {
+    "episode_id": "776",
+    "adapted": "Adapted from the Bret Harte story"
+  },
+  {
+    "episode_id": "778",
+    "adapted": "Adapted from the Nathaniel Hawthorne classic"
+  },
+  {
+    "episode_id": "782",
+    "adapted": "Adapted from the Guy de Maupassant classic"
+  },
+  {
+    "episode_id": "788",
+    "adapted": "Adapted from the Peter Bulwer Lytton story"
+  },
+  {
+    "episode_id": "801",
+    "adapted": "Adapted from the Leo Tolstoy story"
+  },
+  {
+    "episode_id": "811",
+    "adapted": "Adapted from the Henry James story"
+  },
+  {
+    "episode_id": "812",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "817",
+    "adapted": "Adapted from the C. L. Perkus story"
+  },
+  {
+    "episode_id": "826",
+    "adapted": "Adapted from the Montague R. James story"
+  },
+  {
+    "episode_id": "831",
+    "adapted": "Adapted from the Maxime Gorki story"
+  },
+  {
+    "episode_id": "833",
+    "adapted": "Adapted from the Henry James classic"
+  },
+  {
+    "episode_id": "843",
+    "adapted": "Adapted from the Leopold Kompert story"
+  },
+  {
+    "episode_id": "848",
+    "adapted": "Adapted from the Ambrose Bierce story"
+  },
+  {
+    "episode_id": "854",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "866",
+    "adapted": "Adapted from the Robert Barr story"
+  },
+  {
+    "episode_id": "868",
+    "adapted": "Adapted from the Henry James story"
+  },
+  {
+    "episode_id": "871",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "878",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "879",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "887",
+    "adapted": "Adapted from the H. G. Wells story"
+  },
+  {
+    "episode_id": "891",
+    "adapted": "Adapted from the Frederick Fergis story"
+  },
+  {
+    "episode_id": "901",
+    "adapted": "Adapted from the Robert Hichens story"
+  },
+  {
+    "episode_id": "902",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "905",
+    "adapted": "Adapted from the Leo Tolstoy story"
+  },
+  {
+    "episode_id": "906",
+    "adapted": "Adapted from the Bryce Bond files"
+  },
+  {
+    "episode_id": "907",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "912",
+    "adapted": "Adapted from the Robert Barr story"
+  },
+  {
+    "episode_id": "913",
+    "adapted": "Adapted from the Joseph Sheridan le Fanu story"
+  },
+  {
+    "episode_id": "920",
+    "adapted": "Adapted from the Ambrose Bierce story"
+  },
+  {
+    "episode_id": "924",
+    "adapted": "Adapted from the T. L. Neuger classic"
+  },
+  {
+    "episode_id": "927",
+    "adapted": "Adapted from the Guy Boothby classic"
+  },
+  {
+    "episode_id": "930",
+    "adapted": "Adapted from the Anton Chekov classic"
+  },
+  {
+    "episode_id": "937",
+    "adapted": "Adapted from the Mark Twain Classic"
+  },
+  {
+    "episode_id": "945",
+    "adapted": "Adapted from the H. G. Wells classic"
+  },
+  {
+    "episode_id": "946",
+    "adapted": "Adapted from the Sir Edwin Arnold story"
+  },
+  {
+    "episode_id": "956",
+    "adapted": "Adapted from the Jaques Futrell story"
+  },
+  {
+    "episode_id": "958",
+    "adapted": "Adapted from the Wilkie Collins classic"
+  },
+  {
+    "episode_id": "960",
+    "adapted": "Adapted from the H. G. Wells story"
+  },
+  {
+    "episode_id": "969",
+    "adapted": "Adapted from the William Morrow story"
+  },
+  {
+    "episode_id": "971",
+    "adapted": "Adapted from the D. H. Maxwell story"
+  },
+  {
+    "episode_id": "977",
+    "adapted": "Adapted from the H. G. Wells story"
+  },
+  {
+    "episode_id": "984",
+    "adapted": "Adapted from the Mark Twain Classic"
+  },
+  {
+    "episode_id": "993",
+    "adapted": "Adapted from the Maurice LeBlanc story"
+  },
+  {
+    "episode_id": "996",
+    "adapted": "Adapted from the Maxime Gorki story"
+  },
+  {
+    "episode_id": "997",
+    "adapted": "Adapted from the Edith Horton story"
+  },
+  {
+    "episode_id": "1002",
+    "adapted": "Adapted from the Mark Twain Classic"
+  },
+  {
+    "episode_id": "1010",
+    "adapted": "Adapted from the Edith Wharton story"
+  },
+  {
+    "episode_id": "1013",
+    "adapted": "Adapted from the Washington Irving classic"
+  },
+  {
+    "episode_id": "1015",
+    "adapted": "Adapted from the 'unintelligible French writer' story"
+  },
+  {
+    "episode_id": "1017",
+    "adapted": "Adapted from the Edith Wharton story"
+  },
+  {
+    "episode_id": "1020",
+    "adapted": "Adapted from the Rudyard Kipling classic"
+  },
+  {
+    "episode_id": "1024",
+    "adapted": "Adapted from the Jacques Futrell story"
+  },
+  {
+    "episode_id": "1029",
+    "adapted": "Adapted from the Charles Collins story"
+  },
+  {
+    "episode_id": "1032",
+    "adapted": "Adapted from the Rudyard Kipling story"
+  },
+  {
+    "episode_id": "1035",
+    "adapted": "Adapted from the Washington Irving story"
+  },
+  {
+    "episode_id": "1044",
+    "adapted": "Adapted from the Jacques Futrell story"
+  },
+  {
+    "episode_id": "1045",
+    "adapted": "Adapted from the Edward George Bulwer-Lytton story"
+  },
+  {
+    "episode_id": "1046",
+    "adapted": "Adapted from the Edward George Bulwer-Lytton story"
+  },
+  {
+    "episode_id": "1047",
+    "adapted": "Adapted from the Edward George Bulwer-Lytton story"
+  },
+  {
+    "episode_id": "1048",
+    "adapted": "Adapted from the Edward George Bulwer-Lytton story"
+  },
+  {
+    "episode_id": "1049",
+    "adapted": "Adapted from the Edward George Bulwer-Lytton story"
+  },
+  {
+    "episode_id": "1050",
+    "adapted": "Adapted from the G. Bernard Shaw story"
+  },
+  {
+    "episode_id": "1052",
+    "adapted": "Adapted from the E. Herder and H. Herder story"
+  },
+  {
+    "episode_id": "1055",
+    "adapted": "Adapted from the Jacques Futrell story"
+  },
+  {
+    "episode_id": "1056",
+    "adapted": "Adapted from the Rudyard Kipling classic"
+  },
+  {
+    "episode_id": "1063",
+    "adapted": "Adapted from the Jules Verne story"
+  },
+  {
+    "episode_id": "1067",
+    "adapted": "Adapted from the Jacques Futrell story"
+  },
+  {
+    "episode_id": "1073",
+    "adapted": "Adapted from the Licarrio Hearn story"
+  },
+  {
+    "episode_id": "1080",
+    "adapted": "Adapted from the Henry James story"
+  },
+  {
+    "episode_id": "1083",
+    "adapted": "Adapted from the O. Henry classic"
+  },
+  {
+    "episode_id": "1084",
+    "adapted": "Adapted from the Henry James story"
+  },
+  {
+    "episode_id": "1099",
+    "adapted": "Adapted from the Henry James classic"
+  },
+  {
+    "episode_id": "1107",
+    "adapted": "Adapted from the Nathaniel Hawthorne story"
+  },
+  {
+    "episode_id": "1108",
+    "adapted": "Adapted from the Jacques Futrell story"
+  },
+  {
+    "episode_id": "1120",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle classic"
+  },
+  {
+    "episode_id": "1121",
+    "adapted": "Adapted from the Plutarch, Cicero, and Plutonius texts"
+  },
+  {
+    "episode_id": "1129",
+    "adapted": "Adapted from the Henry James story"
+  },
+  {
+    "episode_id": "1130",
+    "adapted": "Adapted from the Edith Horton story"
+  },
+  {
+    "episode_id": "1132",
+    "adapted": "Adapted from the Edith Horton story"
+  },
+  {
+    "episode_id": "1134",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "1153",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "1166",
+    "adapted": "Adapted from the Jacques Futrell story"
+  },
+  {
+    "episode_id": "1169",
+    "adapted": "Adapted from the Jacques Futrell story"
+  },
+  {
+    "episode_id": "1197",
+    "adapted": "Adapted from the Jacques Futrell story"
+  },
+  {
+    "episode_id": "1215",
+    "adapted": "Adapted from the Hector Bellios story"
+  },
+  {
+    "episode_id": "1224",
+    "adapted": "Adapted from the Algernon Blackwood story"
+  },
+  {
+    "episode_id": "1236",
+    "adapted": "Adapted from the Rudyard Kipling story"
+  },
+  {
+    "episode_id": "1238",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "1240",
+    "adapted": "Adapted from the Honore de Balzac story"
+  },
+  {
+    "episode_id": "1245",
+    "adapted": "Adapted from the Bram Stoker story"
+  },
+  {
+    "episode_id": "1246",
+    "adapted": "Adapted from the Henry James story"
+  },
+  {
+    "episode_id": "1250",
+    "adapted": "Adapted from the George Griffith story"
+  },
+  {
+    "episode_id": "1275",
+    "adapted": "Adapted from the Victor Hugo story"
+  },
+  {
+    "episode_id": "1276",
+    "adapted": "Adapted from the Victor Hugo story"
+  },
+  {
+    "episode_id": "1277",
+    "adapted": "Adapted from the Victor Hugo story"
+  },
+  {
+    "episode_id": "1278",
+    "adapted": "Adapted from the Victor Hugo story"
+  },
+  {
+    "episode_id": "1279",
+    "adapted": "Adapted from the Victor Hugo story"
+  },
+  {
+    "episode_id": "1305",
+    "adapted": "Adapted from the Henry James story"
+  },
+  {
+    "episode_id": "1310",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "1315",
+    "adapted": "Adapted from the M. R. James story"
+  },
+  {
+    "episode_id": "1322",
+    "adapted": "Adapted from the Alexander Pushkin story"
+  },
+  {
+    "episode_id": "1330",
+    "adapted": "Adapted from the Anton Chekov story"
+  },
+  {
+    "episode_id": "1337",
+    "adapted": "Adapted from the Maurice LeBlanc story"
+  },
+  {
+    "episode_id": "1371",
+    "adapted": "Adapted from the France Monar story"
+  },
+  {
+    "episode_id": "1390",
+    "adapted": "Adapted from the Anton Chekov story"
+  },
+  {
+    "episode_id": "1396",
+    "adapted": "Adapted from the Sir Arthur Conan Doyle story"
+  },
+  {
+    "episode_id": "1397",
+    "adapted": "Adapted from the Barry Payne story"
+  },
+  {
+    "episode_id": "1399",
+    "adapted": "Adapted from the Anton Chekov story"
+  }
+]

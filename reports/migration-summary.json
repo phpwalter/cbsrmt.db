@@ -1,0 +1,34 @@
+{
+  "episodes": {
+    "input": 1399,
+    "output": 1399
+  },
+  "cast": {
+    "original": 337,
+    "output": 337,
+    "writers_matched": 31,
+    "new_people_added": 0,
+    "conflicts": 0
+  },
+  "appear": {
+    "output": 5727,
+    "reconciliation_warnings": 1600,
+    "duplicates_removed": 1
+  },
+  "episode_writers": {
+    "created": 1266,
+    "unresolved": 130
+  },
+  "episode_adaptations": {
+    "external_parsed": 208,
+    "output": 208,
+    "origwriter_fallbacks": 0,
+    "external_reconciliation_warnings": 146
+  },
+  "genre": {
+    "count": 16
+  },
+  "source": {
+    "adaptations_url": "https://www.cbsrmt.com/adaptions.html"
+  }
+}
