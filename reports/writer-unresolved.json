@@ -1,14 +1,5 @@
 [
   {
-    "episode_id": "269",
-    "episode_name": "The Transformation",
-    "episode_writer": "Elspith Eric",
-    "unresolved_parts": [
-      "Elspith Eric"
-    ],
-    "ambiguous_parts": []
-  },
-  {
     "episode_id": "275",
     "episode_name": "The Rise And Fall Of The Fourth Reich",
     "episode_writer": "Henry Schlescher",
@@ -18,38 +9,11 @@
     "ambiguous_parts": []
   },
   {
-    "episode_id": "288",
-    "episode_name": "Fallen Angel",
-    "episode_writer": "Elspith Eric",
-    "unresolved_parts": [
-      "Elspith Eric"
-    ],
-    "ambiguous_parts": []
-  },
-  {
-    "episode_id": "294",
-    "episode_name": "The Climbing Boy",
-    "episode_writer": "Elspith Eric",
-    "unresolved_parts": [
-      "Elspith Eric"
-    ],
-    "ambiguous_parts": []
-  },
-  {
     "episode_id": "303",
     "episode_name": "The Slave",
     "episode_writer": "Henry Slessar",
     "unresolved_parts": [
       "Henry Slessar"
-    ],
-    "ambiguous_parts": []
-  },
-  {
-    "episode_id": "304",
-    "episode_name": "Guilty",
-    "episode_writer": "Elspith Eric",
-    "unresolved_parts": [
-      "Elspith Eric"
     ],
     "ambiguous_parts": []
   },
