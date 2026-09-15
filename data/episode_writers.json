@@ -180,6 +180,10 @@
     "cast_id": "2"
   },
   {
+    "episode_id": "46",
+    "cast_id": "284"
+  },
+  {
     "episode_id": "47",
     "cast_id": "2"
   },
@@ -488,8 +492,16 @@
     "cast_id": "245"
   },
   {
+    "episode_id": "124",
+    "cast_id": "291"
+  },
+  {
     "episode_id": "125",
     "cast_id": "70"
+  },
+  {
+    "episode_id": "126",
+    "cast_id": "2"
   },
   {
     "episode_id": "127",
@@ -574,6 +586,10 @@
   {
     "episode_id": "147",
     "cast_id": "12"
+  },
+  {
+    "episode_id": "148",
+    "cast_id": "291"
   },
   {
     "episode_id": "149",
@@ -756,6 +772,10 @@
     "cast_id": "70"
   },
   {
+    "episode_id": "194",
+    "cast_id": "291"
+  },
+  {
     "episode_id": "195",
     "cast_id": "12"
   },
@@ -849,6 +869,10 @@
   },
   {
     "episode_id": "218",
+    "cast_id": "12"
+  },
+  {
+    "episode_id": "219",
     "cast_id": "12"
   },
   {
@@ -1190,6 +1214,10 @@
   {
     "episode_id": "311",
     "cast_id": "70"
+  },
+  {
+    "episode_id": "312",
+    "cast_id": "291"
   },
   {
     "episode_id": "313",
@@ -1572,6 +1600,10 @@
     "cast_id": "70"
   },
   {
+    "episode_id": "415",
+    "cast_id": "291"
+  },
+  {
     "episode_id": "416",
     "cast_id": "70"
   },
@@ -1802,6 +1834,10 @@
   {
     "episode_id": "481",
     "cast_id": "70"
+  },
+  {
+    "episode_id": "482",
+    "cast_id": "291"
   },
   {
     "episode_id": "483",
@@ -2248,6 +2284,10 @@
     "cast_id": "12"
   },
   {
+    "episode_id": "600",
+    "cast_id": "291"
+  },
+  {
     "episode_id": "601",
     "cast_id": "70"
   },
@@ -2262,6 +2302,10 @@
   {
     "episode_id": "604",
     "cast_id": "12"
+  },
+  {
+    "episode_id": "605",
+    "cast_id": "291"
   },
   {
     "episode_id": "607",
@@ -2394,6 +2438,10 @@
   {
     "episode_id": "642",
     "cast_id": "70"
+  },
+  {
+    "episode_id": "643",
+    "cast_id": "291"
   },
   {
     "episode_id": "644",
@@ -3198,6 +3246,10 @@
   {
     "episode_id": "859",
     "cast_id": "70"
+  },
+  {
+    "episode_id": "860",
+    "cast_id": "291"
   },
   {
     "episode_id": "861",
@@ -4128,6 +4180,10 @@
     "cast_id": "12"
   },
   {
+    "episode_id": "1102",
+    "cast_id": "291"
+  },
+  {
     "episode_id": "1103",
     "cast_id": "2"
   },
@@ -4782,6 +4838,10 @@
   {
     "episode_id": "1271",
     "cast_id": "259"
+  },
+  {
+    "episode_id": "1272",
+    "cast_id": "291"
   },
   {
     "episode_id": "1273",

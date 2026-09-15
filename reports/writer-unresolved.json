@@ -1,59 +1,5 @@
 [
   {
-    "episode_id": "46",
-    "episode_name": "The Edge Of Death",
-    "episode_writer": "Saul Pattis",
-    "unresolved_parts": [
-      "Saul Pattis"
-    ],
-    "ambiguous_parts": []
-  },
-  {
-    "episode_id": "124",
-    "episode_name": "Ghost At High Noon",
-    "episode_writer": "Elizabeth Pinnel",
-    "unresolved_parts": [
-      "Elizabeth Pinnel"
-    ],
-    "ambiguous_parts": []
-  },
-  {
-    "episode_id": "126",
-    "episode_name": "The Hit Man",
-    "episode_writer": "Henry Scheschner",
-    "unresolved_parts": [
-      "Henry Scheschner"
-    ],
-    "ambiguous_parts": []
-  },
-  {
-    "episode_id": "148",
-    "episode_name": "Whatever Happened To Mrs. Forbush?",
-    "episode_writer": "Elizabeth Pennell",
-    "unresolved_parts": [
-      "Elizabeth Pennell"
-    ],
-    "ambiguous_parts": []
-  },
-  {
-    "episode_id": "194",
-    "episode_name": "The Deadly Pearls",
-    "episode_writer": "Elizabeth Pinnel",
-    "unresolved_parts": [
-      "Elizabeth Pinnel"
-    ],
-    "ambiguous_parts": []
-  },
-  {
-    "episode_id": "219",
-    "episode_name": "The Sire De Maletroit's Door",
-    "episode_writer": "Ian Martin+F230",
-    "unresolved_parts": [
-      "F230"
-    ],
-    "ambiguous_parts": []
-  },
-  {
     "episode_id": "256",
     "episode_name": "The Intermediary",
     "episode_writer": "Fieldin Farrington",
@@ -117,15 +63,6 @@
     "ambiguous_parts": []
   },
   {
-    "episode_id": "312",
-    "episode_name": "Fateful Reunion",
-    "episode_writer": "Elizabeth Pinnel",
-    "unresolved_parts": [
-      "Elizabeth Pinnel"
-    ],
-    "ambiguous_parts": []
-  },
-  {
     "episode_id": "326",
     "episode_name": "The Root Of All Evil",
     "episode_writer": "Roy Windsor",
@@ -185,15 +122,6 @@
     "episode_writer": "Roy Widnsor",
     "unresolved_parts": [
       "Roy Widnsor"
-    ],
-    "ambiguous_parts": []
-  },
-  {
-    "episode_id": "415",
-    "episode_name": "What The Shepherd Saw",
-    "episode_writer": "Elizabeth Pinnell",
-    "unresolved_parts": [
-      "Elizabeth Pinnell"
     ],
     "ambiguous_parts": []
   },
@@ -270,15 +198,6 @@
     "ambiguous_parts": []
   },
   {
-    "episode_id": "482",
-    "episode_name": "The Secret Sharer",
-    "episode_writer": "Elizabeth Pinnel",
-    "unresolved_parts": [
-      "Elizabeth Pinnel"
-    ],
-    "ambiguous_parts": []
-  },
-  {
     "episode_id": "498",
     "episode_name": "The Last Trip Of Charter Boat Sally",
     "episode_writer": "Roy Windsor",
@@ -333,24 +252,6 @@
     "ambiguous_parts": []
   },
   {
-    "episode_id": "600",
-    "episode_name": "Stamped For Death",
-    "episode_writer": "Elizabeth Pinnel",
-    "unresolved_parts": [
-      "Elizabeth Pinnel"
-    ],
-    "ambiguous_parts": []
-  },
-  {
-    "episode_id": "605",
-    "episode_name": "Jane Eyre",
-    "episode_writer": "Elizabeth Pinnel",
-    "unresolved_parts": [
-      "Elizabeth Pinnel"
-    ],
-    "ambiguous_parts": []
-  },
-  {
     "episode_id": "606",
     "episode_name": "Last Judgement",
     "episode_writer": "Roy Windsor",
@@ -383,15 +284,6 @@
     "episode_writer": "Fletcher Markle",
     "unresolved_parts": [
       "Fletcher Markle"
-    ],
-    "ambiguous_parts": []
-  },
-  {
-    "episode_id": "643",
-    "episode_name": "Wuthering Heights",
-    "episode_writer": "Elizabeth Pinnel",
-    "unresolved_parts": [
-      "Elizabeth Pinnel"
     ],
     "ambiguous_parts": []
   },
@@ -531,15 +423,6 @@
     "ambiguous_parts": []
   },
   {
-    "episode_id": "860",
-    "episode_name": "The Four-Fifteen Express",
-    "episode_writer": "Elizabeth Pinnell",
-    "unresolved_parts": [
-      "Elizabeth Pinnell"
-    ],
-    "ambiguous_parts": []
-  },
-  {
     "episode_id": "866",
     "episode_name": "The Absent-Minded League",
     "episode_writer": "Gerald Kean",
@@ -621,15 +504,6 @@
     "ambiguous_parts": []
   },
   {
-    "episode_id": "1102",
-    "episode_name": "Nightmare In Gilette Castle",
-    "episode_writer": "Elizabeth Pinnel",
-    "unresolved_parts": [
-      "Elizabeth Pinnel"
-    ],
-    "ambiguous_parts": []
-  },
-  {
     "episode_id": "1109",
     "episode_name": "The Return Of Edward Blair",
     "episode_writer": "Roy Windsor",
@@ -653,15 +527,6 @@
     "episode_writer": "Roy Windsor",
     "unresolved_parts": [
       "Roy Windsor"
-    ],
-    "ambiguous_parts": []
-  },
-  {
-    "episode_id": "1272",
-    "episode_name": "Too Early Too Late",
-    "episode_writer": "Elizabeth Pinnel",
-    "unresolved_parts": [
-      "Elizabeth Pinnel"
     ],
     "ambiguous_parts": []
   },
