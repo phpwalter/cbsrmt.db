@@ -57,6 +57,12 @@ def full_name(person: dict[str, Any]) -> str:
     )
 
 
+# Canonical corrections approved during manual reconciliation.
+PERSON_CORRECTIONS: dict[str, dict[str, str]] = {
+    "291": {"last_name": "Pennell"},
+}
+
+
 def merge_writers_into_cast(cast: list[dict[str, Any]], writers: list[dict[str, Any]]):
     by_id = {str(row["cast_id"]): dict(row) for row in cast}
     conflicts: list[dict[str, Any]] = []
@@ -88,6 +94,10 @@ def merge_writers_into_cast(cast: list[dict[str, Any]], writers: list[dict[str, 
                     "resolution": "cast_value_retained",
                 })
 
+    for cid, corrections in PERSON_CORRECTIONS.items():
+        if cid in by_id:
+            by_id[cid].update(corrections)
+
     return sorted(by_id.values(), key=lambda r: int(r["cast_id"])), conflicts, matched, added
 
 
@@ -114,8 +124,12 @@ def name_index(*collections: list[dict[str, Any]]) -> dict[str, set[str]]:
 # Verified legacy spelling aliases. These map source episode-writer spellings to the
 # existing cast identity, never to a newly invented person ID.
 WRITER_ALIASES = {
-    "george lowther": "83",   # writers.json has George Lowthar
-    "sidney sloan": "88",     # writers.json has Sidney Slon
+    "george lowther": "83",      # writers.json has George Lowthar
+    "sidney sloan": "88",        # writers.json has Sidney Slon
+    "elizabeth pinnel": "291",   # approved -> Elizabeth Pennell
+    "elizabeth pinnell": "291",  # approved -> Elizabeth Pennell
+    "elizabeth pennel": "291",   # canonical source typo -> Elizabeth Pennell
+    "elizabeth pennell": "291",  # canonical corrected spelling
 }
 
 
@@ -407,20 +421,20 @@ def generate_sql(genres, cast, episodes, appear, episode_writers, adaptations) -
         "",
         "CREATE TABLE `episode_writers` (",
         "  `episode_writer_id` int unsigned NOT NULL AUTO_INCREMENT,",
-        "  `episode_id` int unsigned NOT NULL,",
-        "  `cast_id` int unsigned NOT NULL,",
-        "  PRIMARY KEY (`episode_writer_id`),",
-        "  UNIQUE KEY `uq_episode_writer` (`episode_id`,`cast_id`),",
-        "  KEY `idx_episode_writer_episode` (`episode_id`),",
-        "  KEY `idx_episode_writer_cast` (`cast_id`),",
-        "  CONSTRAINT `fk_episode_writer_episode` FOREIGN KEY (`episode_id`) REFERENCES `episodes` (`episode_id`) ON UPDATE CASCADE ON DELETE CASCADE,",
+        "  `episode_id` int unsigned NOT NULL,
+        "  `cast_id` int unsigned NOT NULL,
+        "  PRIMARY KEY (`episode_writer_id`),
+        "  UNIQUE KEY `uq_episode_writer` (`episode_id`,`cast_id`),
+        "  KEY `idx_episode_writer_episode` (`episode_id`),
+        "  KEY `idx_episode_writer_cast` (`cast_id`),
+        "  CONSTRAINT `fk_episode_writer_episode` FOREIGN KEY (`episode_id`) REFERENCES `episodes` (`episode_id`) ON UPDATE CASCADE ON DELETE CASCADE,
         "  CONSTRAINT `fk_episode_writer_cast` FOREIGN KEY (`cast_id`) REFERENCES `cast` (`cast_id`) ON UPDATE CASCADE ON DELETE RESTRICT",
         ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
         "",
         "CREATE TABLE `episode_adaptations` (",
-        "  `episode_id` int unsigned NOT NULL,",
-        "  `adapted` text NOT NULL,",
-        "  PRIMARY KEY (`episode_id`),",
+        "  `episode_id` int unsigned NOT NULL,
+        "  `adapted` text NOT NULL,
+        "  PRIMARY KEY (`episode_id`),
         "  CONSTRAINT `fk_episode_adaptations_episode` FOREIGN KEY (`episode_id`) REFERENCES `episodes` (`episode_id`) ON UPDATE CASCADE ON DELETE CASCADE",
         ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
         "",
