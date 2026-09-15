@@ -128,6 +128,7 @@ WRITER_ALIASES = {
     "sidney sloan": "88",         # writers.json has Sidney Slon
     "saul pattis": "284",         # approved -> Sol Panitz
     "henry scheschner": "2",      # approved -> Henry Slesar
+    "henry schlescher": "2",      # approved -> Henry Slesar
     "fieldin farrington": "222",   # approved -> Fielden Farrington
     "elspith eric": "245",         # approved -> Elspeth Eric
     "elizabeth pinnel": "291",    # approved -> Elizabeth Pennell
