@@ -20,6 +20,10 @@ SQL = ROOT / "sql"
 REPORTS = ROOT / "reports"
 ADAPTATIONS_URL = "https://www.cbsrmt.com/adaptions.html"
 BASE_REF = "origin/main"
+SERIES_FORMAT_EQUIVALENT_EPISODES = {
+    "1045", "1046", "1047", "1048", "1049",
+    "1275", "1276", "1277", "1278", "1279",
+}
 
 
 def source_text(path: str) -> str:
@@ -208,7 +212,7 @@ def build_adaptations(episodes: list[dict[str, Any]], external_rows: list[dict[s
         if episode is None: warnings.append({**row,"issue":"episode_id_not_found"}); continue
         external_title = sortable_title(row["title"])
         database_title = sortable_title(episode.get("episode_name") or "")
-        if norm(external_title) != norm(database_title):
+        if row["episode_id"] not in SERIES_FORMAT_EQUIVALENT_EPISODES and norm(external_title) != norm(database_title):
             warnings.append({**row,"issue":"title_mismatch","database_title":database_title,"resolution":"episode_id_accepted"})
         values[row["episode_id"]]=row["adapted"]
     for episode in episodes:
