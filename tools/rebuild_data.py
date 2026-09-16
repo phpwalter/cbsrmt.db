@@ -240,7 +240,7 @@ def normalize_episode_name(value: Any) -> str:
 def normalize_episodes(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     fields=("episode_id","episode_date","episode_name","episode_plot","genre_id"); out=[]
     for row in rows:
-        normalized={field:row.get(field,"") for field in fields]
+        normalized={field:row.get(field,"") for field in fields}
         normalized["episode_name"]=canonical_episode_title(row["episode_id"],row.get("episode_name",""))
         normalized["repeat_of_episode_id"]=row.get("repeat_of_episode_id")
         normalized["otrw_id"]=row.get("otrw_id")
