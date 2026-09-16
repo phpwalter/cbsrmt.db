@@ -134,6 +134,7 @@ WRITER_ALIASES = {
     "elspith eric": "245",        # approved -> Elspeth Eric
     "roy windsor": "55",          # approved -> Roy Winsor
     "roy widnsor": "55",          # approved -> Roy Winsor
+    "roy windor": "55",           # approved -> Roy Winsor
     "elizabeth pinnel": "291",    # approved -> Elizabeth Pennell
     "elizabeth pinnell": "291",   # approved -> Elizabeth Pennell
     "elizabeth pennel": "291",    # canonical source typo -> Elizabeth Pennell
