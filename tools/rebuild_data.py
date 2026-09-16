@@ -124,6 +124,7 @@ WRITER_ALIASES = {
     "murray bur": "114",
     "gerald kean": "167",
     "gerald keene": "167",
+    "karen thorson": "263",
     "roy windsor": "55",
     "roy widnsor": "55",
     "roy windor": "55",
