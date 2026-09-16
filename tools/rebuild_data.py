@@ -107,6 +107,21 @@ CANONICAL_PEOPLE: dict[str, dict[str, Any]] = {
         "other_series": "",
         "credit": "",
     },
+    "341": {
+        "cast_id": "341",
+        "cast_id_name": "fmarkle",
+        "first_name": "Fletcher",
+        "middle_name": "",
+        "last_name": "Markle",
+        "image_url": "",
+        "soundclip_url": "",
+        "bio": "",
+        "born_on": "0000-00-00",
+        "died_on": "0000-00-00",
+        "offsite_url": "",
+        "other_series": "",
+        "credit": "",
+    },
 }
 
 
@@ -200,6 +215,7 @@ EPISODE_WRITER_OVERRIDES: dict[str, list[int]] = {
     "406": [28, 186],
     "433": [340],
     "442": [28, 186],
+    "631": [341],
     "696": [55],
     "708": [186, 28],
     "908": [245],
