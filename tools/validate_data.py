@@ -49,6 +49,8 @@ def main() -> int:
     for row in episodes:
         if "episode_writer" in row or "origwriter" in row:
             fail(f"episode {row['episode_id']} retains a legacy writer/origwriter field", failures)
+        if str(row.get("episode_name") or "").startswith("The "):
+            fail(f"episode {row['episode_id']} still has a leading 'The' article", failures)
         if str(int(row["genre_id"])) not in genre_set:
             fail(f"episode {row['episode_id']} references missing genre {row['genre_id']}", failures)
 
