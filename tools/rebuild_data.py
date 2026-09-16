@@ -92,6 +92,21 @@ CANONICAL_PEOPLE: dict[str, dict[str, Any]] = {
         "other_series": "",
         "credit": "",
     },
+    "340": {
+        "cast_id": "340",
+        "cast_id_name": "spanitz2",
+        "first_name": "Saul",
+        "middle_name": "",
+        "last_name": "Panitz",
+        "image_url": "",
+        "soundclip_url": "",
+        "bio": "",
+        "born_on": "0000-00-00",
+        "died_on": "0000-00-00",
+        "offsite_url": "",
+        "other_series": "",
+        "credit": "",
+    },
 }
 
 
@@ -183,6 +198,7 @@ EPISODE_WRITER_OVERRIDES: dict[str, list[int]] = {
     "123": [83],
     "347": [186, 28],
     "406": [28, 186],
+    "433": [340],
     "442": [28, 186],
     "696": [55],
     "708": [186, 28],
