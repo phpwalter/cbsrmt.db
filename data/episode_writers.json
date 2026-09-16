@@ -489,7 +489,7 @@
   },
   {
     "episode_id": "123",
-    "cast_id": "245"
+    "cast_id": "83"
   },
   {
     "episode_id": "124",
@@ -4089,7 +4089,7 @@
   },
   {
     "episode_id": "1022",
-    "cast_id": "245"
+    "cast_id": "70"
   },
   {
     "episode_id": "1023",
@@ -5026,6 +5026,10 @@
   {
     "episode_id": "1258",
     "cast_id": "70"
+  },
+  {
+    "episode_id": "1259",
+    "cast_id": "245"
   },
   {
     "episode_id": "1260",
