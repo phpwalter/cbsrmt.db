@@ -141,6 +141,12 @@ WRITER_ALIASES = {
     "elizabeth pennell": "291",   # canonical corrected spelling
 }
 
+# Explicit episode-level corrections. These are intentionally scoped to an episode
+# so a genuine author name elsewhere is never globally aliased to another person.
+EPISODE_WRITER_OVERRIDES: dict[str, list[int]] = {
+    "696": [55],  # In The Fog -> Roy Winsor
+}
+
 # Explicitly approved non-writer tokens to discard during reconciliation.
 IGNORED_WRITER_TOKENS = {
     "f230",  # stray token in episode 219; Ian Martin remains the sole writer
@@ -160,6 +166,13 @@ def resolve_episode_writers(episodes: list[dict[str, Any]], aliases: dict[str, s
     unresolved: list[dict[str, Any]] = []
 
     for episode in episodes:
+        episode_id = str(episode["episode_id"])
+        override_ids = EPISODE_WRITER_OVERRIDES.get(episode_id)
+        if override_ids is not None:
+            for cid in override_ids:
+                relationships.add((int(episode_id), int(cid)))
+            continue
+
         raw = str(episode.get("episode_writer") or "").strip()
         if not raw:
             continue
