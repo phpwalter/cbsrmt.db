@@ -77,6 +77,21 @@ CANONICAL_PEOPLE: dict[str, dict[str, Any]] = {
         "other_series": "",
         "credit": "",
     },
+    "339": {
+        "cast_id": "339",
+        "cast_id_name": "slehrman",
+        "first_name": "Steve",
+        "middle_name": "",
+        "last_name": "Lehrman",
+        "image_url": "",
+        "soundclip_url": "",
+        "bio": "",
+        "born_on": "0000-00-00",
+        "died_on": "0000-00-00",
+        "offsite_url": "",
+        "other_series": "",
+        "credit": "",
+    },
 }
 
 
@@ -177,9 +192,11 @@ EPISODE_WRITER_OVERRIDES: dict[str, list[int]] = {
     "1072": [70],
     "1259": [245],
     "1292": [338],
+    "1311": [339],
     "1320": [338],
     "1338": [338],
     "1360": [338],
+    "1364": [339],
 }
 
 IGNORED_WRITER_TOKENS = {"f230"}
