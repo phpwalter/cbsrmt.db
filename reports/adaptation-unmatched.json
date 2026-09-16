@@ -36,51 +36,6 @@
     "resolution": "episode_id_accepted"
   },
   {
-    "episode_id": "1045",
-    "title": "Last Days of Pompeii (1 of 5) - The City of the Dead (The)",
-    "adapted": "Adapted from the Edward George Bulwer-Lytton story",
-    "source_url": "https://www.cbsrmt.com/episode/1045-last-days-of-pompeii-1-of-5-the-city-of-the-dead-the.html",
-    "issue": "title_mismatch",
-    "database_title": "Last Days Of Pompeii, Part One: The City Of The Dead [The]",
-    "resolution": "episode_id_accepted"
-  },
-  {
-    "episode_id": "1046",
-    "title": "Last Days of Pompeii (2 of 5) - Thrown to the Lions (The)",
-    "adapted": "Adapted from the Edward George Bulwer-Lytton story",
-    "source_url": "https://www.cbsrmt.com/episode/1046-last-days-of-pompeii-2-of-5-thrown-to-the-lions-the.html",
-    "issue": "title_mismatch",
-    "database_title": "Last Days Of Pompeii, Part Two: Thrown To The Lions [The]",
-    "resolution": "episode_id_accepted"
-  },
-  {
-    "episode_id": "1047",
-    "title": "Last Days of Pompeii (3 of 5) - Half Prophet, Half Friend (The)",
-    "adapted": "Adapted from the Edward George Bulwer-Lytton story",
-    "source_url": "https://www.cbsrmt.com/episode/1047-last-days-of-pompeii-3-of-5-half-prophet-half-friend-the.html",
-    "issue": "title_mismatch",
-    "database_title": "Last Days Of Pompeii, Part Three: Half Prophet, Half Friend [The]",
-    "resolution": "episode_id_accepted"
-  },
-  {
-    "episode_id": "1048",
-    "title": "Last Days of Pompeii (4 of 5) - Danger, Love and Death (The)",
-    "adapted": "Adapted from the Edward George Bulwer-Lytton story",
-    "source_url": "https://www.cbsrmt.com/episode/1048-last-days-of-pompeii-4-of-5-danger-love-and-death-the.html",
-    "issue": "title_mismatch",
-    "database_title": "Last Days Of Pompeii, Part Four: Danger, Love And Death [The]",
-    "resolution": "episode_id_accepted"
-  },
-  {
-    "episode_id": "1049",
-    "title": "Last Days of Pompeii (5 of 5) - The Buried City (The)",
-    "adapted": "Adapted from the Edward George Bulwer-Lytton story",
-    "source_url": "https://www.cbsrmt.com/episode/1049-last-days-of-pompeii-5-of-5-the-buried-city-the.html",
-    "issue": "title_mismatch",
-    "database_title": "Last Days Of Pompeii, Part Five: The Buried City [The]",
-    "resolution": "episode_id_accepted"
-  },
-  {
     "episode_id": "1240",
     "title": "Episode of the Terror",
     "adapted": "Adapted from the Honore de Balzac story",
@@ -96,51 +51,6 @@
     "source_url": "https://www.cbsrmt.com/episode/1250-five-hundred-carats-the.html",
     "issue": "title_mismatch",
     "database_title": "500 Carats [The]",
-    "resolution": "episode_id_accepted"
-  },
-  {
-    "episode_id": "1275",
-    "title": "Les Miserables (1 of 5) - The Thief and the Bishop",
-    "adapted": "Adapted from the Victor Hugo story",
-    "source_url": "https://www.cbsrmt.com/episode/1275-les-miserables-1-of-5-the-thief-and-the-bishop.html",
-    "issue": "title_mismatch",
-    "database_title": "Les Miserables, Part I: The Thief And The Bishop",
-    "resolution": "episode_id_accepted"
-  },
-  {
-    "episode_id": "1276",
-    "title": "Les Miserables (2 of 5) - The Lawless and the Law",
-    "adapted": "Adapted from the Victor Hugo story",
-    "source_url": "https://www.cbsrmt.com/episode/1276-les-miserables-2-of-5-the-lawless-and-the-law.html",
-    "issue": "title_mismatch",
-    "database_title": "Les Miserables, Part II: The Lawless And The Law",
-    "resolution": "episode_id_accepted"
-  },
-  {
-    "episode_id": "1277",
-    "title": "Les Miserables (3 of 5) - No Escape",
-    "adapted": "Adapted from the Victor Hugo story",
-    "source_url": "https://www.cbsrmt.com/episode/1277-les-miserables-3-of-5-no-escape.html",
-    "issue": "title_mismatch",
-    "database_title": "Les Miserables, Part III: No Escape",
-    "resolution": "episode_id_accepted"
-  },
-  {
-    "episode_id": "1278",
-    "title": "Les Miserables (4 of 5) - Fear, Love, and Death",
-    "adapted": "Adapted from the Victor Hugo story",
-    "source_url": "https://www.cbsrmt.com/episode/1278-les-miserables-4-of-5-fear-love-and-death.html",
-    "issue": "title_mismatch",
-    "database_title": "Les Miserables, Part IV: Fear, Love And Death",
-    "resolution": "episode_id_accepted"
-  },
-  {
-    "episode_id": "1279",
-    "title": "Les Miserables (5 of 5) - The Final Chapter",
-    "adapted": "Adapted from the Victor Hugo story",
-    "source_url": "https://www.cbsrmt.com/episode/1279-les-miserables-5-of-5-the-final-chapter.html",
-    "issue": "title_mismatch",
-    "database_title": "Les Miserables, Part V: The Final Chapter",
     "resolution": "episode_id_accepted"
   }
 ]
