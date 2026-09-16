@@ -378,9 +378,22 @@ def build_adaptations(episodes: list[dict[str, Any]], external_rows: list[dict[s
     return [{"episode_id": eid, "adapted": values[eid]} for eid in sorted(values, key=int)], warnings, fallbacks
 
 
+def normalize_episode_name(value: Any) -> str:
+    """Move a leading 'The' article to a sortable title suffix."""
+    name = str(value or "")
+    if name.startswith("The "):
+        return f"{name[4:]} [The]"
+    return name
+
+
 def normalize_episodes(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     fields = ("episode_id", "episode_date", "episode_name", "episode_plot", "genre_id")
-    return [{field: row.get(field, "") for field in fields} for row in rows]
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        normalized = {field: row.get(field, "") for field in fields}
+        normalized["episode_name"] = normalize_episode_name(row.get("episode_name", ""))
+        out.append(normalized)
+    return out
 
 
 def normalize_genre(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
