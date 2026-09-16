@@ -1,12 +1,5 @@
 [
   {
-    "appear_id": 4,
-    "episode_id": "344",
-    "issue": "episode_name_mismatch",
-    "appear_value": "Little Old Lady Killer",
-    "episode_value": "Little Old Lady Killer [The]"
-  },
-  {
     "appear_id": 6,
     "episode_id": "906",
     "issue": "episode_name_mismatch",
@@ -201,13 +194,6 @@
     "issue": "episode_name_mismatch",
     "appear_value": "Hand",
     "episode_value": "Hand [The]"
-  },
-  {
-    "appear_id": 76,
-    "episode_id": "81",
-    "issue": "episode_name_mismatch",
-    "appear_value": "Sunset to Sunrise",
-    "episode_value": "Sunrise To Sunset"
   },
   {
     "appear_id": 78,
@@ -4844,27 +4830,6 @@
     "episode_value": "Portrait Of Death [A]"
   },
   {
-    "appear_id": 2392,
-    "episode_id": "81",
-    "issue": "episode_name_mismatch",
-    "appear_value": "Sunset to Sunrise",
-    "episode_value": "Sunrise To Sunset"
-  },
-  {
-    "appear_id": 2393,
-    "episode_id": "81",
-    "issue": "episode_name_mismatch",
-    "appear_value": "Sunset to Sunrise",
-    "episode_value": "Sunrise To Sunset"
-  },
-  {
-    "appear_id": 2396,
-    "episode_id": "81",
-    "issue": "episode_name_mismatch",
-    "appear_value": "Sunset to Sunrise",
-    "episode_value": "Sunrise To Sunset"
-  },
-  {
     "appear_id": 2402,
     "episode_id": "87",
     "issue": "episode_name_mismatch",
@@ -7000,27 +6965,6 @@
     "episode_value": "Only Blood [The]"
   },
   {
-    "appear_id": 3792,
-    "episode_id": "344",
-    "issue": "episode_name_mismatch",
-    "appear_value": "Little Old Lady Killer",
-    "episode_value": "Little Old Lady Killer [The]"
-  },
-  {
-    "appear_id": 3794,
-    "episode_id": "344",
-    "issue": "episode_name_mismatch",
-    "appear_value": "Little Old Lady Killer",
-    "episode_value": "Little Old Lady Killer [The]"
-  },
-  {
-    "appear_id": 3796,
-    "episode_id": "344",
-    "issue": "episode_name_mismatch",
-    "appear_value": "Little Old Lady Killer",
-    "episode_value": "Little Old Lady Killer [The]"
-  },
-  {
     "appear_id": 3824,
     "episode_id": "212",
     "issue": "episode_name_mismatch",
@@ -7257,13 +7201,6 @@
     "issue": "episode_name_mismatch",
     "appear_value": "Gloria Scott",
     "episode_value": "Gloria Scott [The]"
-  },
-  {
-    "appear_id": 4099,
-    "episode_id": "344",
-    "issue": "episode_name_mismatch",
-    "appear_value": "Little Old Lady Killer",
-    "episode_value": "Little Old Lady Killer [The]"
   },
   {
     "appear_id": 4109,
