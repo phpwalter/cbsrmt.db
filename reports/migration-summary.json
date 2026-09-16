@@ -5,9 +5,9 @@
   },
   "cast": {
     "original": 337,
-    "output": 340,
+    "output": 341,
     "writers_matched": 31,
-    "new_people_added": 3,
+    "new_people_added": 4,
     "conflicts": 0
   },
   "appear": {
@@ -16,8 +16,8 @@
     "duplicates_removed": 1
   },
   "episode_writers": {
-    "created": 1400,
-    "unresolved": 1
+    "created": 1401,
+    "unresolved": 0
   },
   "episode_adaptations": {
     "external_parsed": 208,
