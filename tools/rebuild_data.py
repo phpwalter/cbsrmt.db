@@ -24,6 +24,10 @@ SERIES_FORMAT_EQUIVALENT_EPISODES = {
     "1045", "1046", "1047", "1048", "1049",
     "1275", "1276", "1277", "1278", "1279",
 }
+EPISODE_TITLE_OVERRIDES = {
+    "81": "Sunset to Sunrise",
+    "344": "Little Old Lady Killer",
+}
 
 
 def source_text(path: str) -> str:
@@ -65,6 +69,11 @@ def sortable_title(value: Any) -> str:
     if name.startswith("A "):
         return f"{name[2:]} [A]"
     return name
+
+
+def canonical_episode_title(episode_id: Any, value: Any) -> str:
+    eid = str(int(episode_id))
+    return sortable_title(EPISODE_TITLE_OVERRIDES.get(eid, value))
 
 
 def full_name(person: dict[str, Any]) -> str:
@@ -187,7 +196,8 @@ def extract_appear(sql_text: str, episodes_by_id: dict[str, dict[str, Any]], cas
         if episode is None: reconciliation.append({"appear_id":int(appear_id),"episode_id":episode_id,"issue":"missing_episode"})
         else:
             if episode_date!=str(episode.get("episode_date") or ""): reconciliation.append({"appear_id":int(appear_id),"episode_id":episode_id,"issue":"episode_date_mismatch","appear_value":episode_date,"episode_value":episode.get("episode_date")})
-            if norm(sortable_title(episode_name))!=norm(sortable_title(str(episode.get("episode_name") or ""))): reconciliation.append({"appear_id":int(appear_id),"episode_id":episode_id,"issue":"episode_name_mismatch","appear_value":episode_name,"episode_value":sortable_title(episode.get("episode_name"))})
+            expected_title=canonical_episode_title(episode_id,episode.get("episode_name"))
+            if norm(sortable_title(episode_name))!=norm(expected_title): reconciliation.append({"appear_id":int(appear_id),"episode_id":episode_id,"issue":"episode_name_mismatch","appear_value":episode_name,"episode_value":expected_title})
         if person is None: reconciliation.append({"appear_id":int(appear_id),"cast_id":cast_id,"issue":"missing_cast"})
         elif norm(cast_id_name)!=norm(str(person.get("cast_id_name") or "")): reconciliation.append({"appear_id":int(appear_id),"cast_id":cast_id,"issue":"cast_id_name_mismatch","appear_value":cast_id_name,"cast_value":person.get("cast_id_name")})
         rows.append({"appear_id":str(int(appear_id)),"episode_id":episode_id,"cast_id":cast_id})
@@ -211,14 +221,14 @@ def build_adaptations(episodes: list[dict[str, Any]], external_rows: list[dict[s
         episode=by_id.get(row["episode_id"])
         if episode is None: warnings.append({**row,"issue":"episode_id_not_found"}); continue
         external_title = sortable_title(row["title"])
-        database_title = sortable_title(episode.get("episode_name") or "")
+        database_title = canonical_episode_title(row["episode_id"], episode.get("episode_name") or "")
         if row["episode_id"] not in SERIES_FORMAT_EQUIVALENT_EPISODES and norm(external_title) != norm(database_title):
             warnings.append({**row,"issue":"title_mismatch","database_title":database_title,"resolution":"episode_id_accepted"})
         values[row["episode_id"]]=row["adapted"]
     for episode in episodes:
         eid=str(int(episode["episode_id"])); origwriter=str(episode.get("origwriter") or "").strip()
         if origwriter and eid not in values:
-            adapted=f"Adapted from {origwriter}"; values[eid]=adapted; fallbacks.append({"episode_id":eid,"episode_name":sortable_title(episode.get("episode_name","")),"origwriter":origwriter,"generated_adapted":adapted})
+            adapted=f"Adapted from {origwriter}"; values[eid]=adapted; fallbacks.append({"episode_id":eid,"episode_name":canonical_episode_title(eid,episode.get("episode_name","")),"origwriter":origwriter,"generated_adapted":adapted})
     return [{"episode_id":eid,"adapted":values[eid]} for eid in sorted(values,key=int)],warnings,fallbacks
 
 
@@ -230,7 +240,7 @@ def normalize_episode_name(value: Any) -> str:
 def normalize_episodes(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     fields=("episode_id","episode_date","episode_name","episode_plot","genre_id"); out=[]
     for row in rows:
-        normalized={field:row.get(field,"") for field in fields}; normalized["episode_name"]=normalize_episode_name(row.get("episode_name","")); out.append(normalized)
+        normalized={field:row.get(field,"") for field in fields}; normalized["episode_name"]=canonical_episode_title(row["episode_id"],row.get("episode_name","")); out.append(normalized)
     return out
 
 
