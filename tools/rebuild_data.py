@@ -138,6 +138,10 @@ WRITER_TEXT_CORRECTIONS = {
     "steve laerman": "Steve Lehrman",
 }
 
+EPISODE_WRITER_TEXT_OVERRIDES: dict[str, str] = {
+    "1320": "Bryce Walton",
+}
+
 EPISODE_WRITER_OVERRIDES: dict[str, list[int]] = {
     "123": [83],
     "347": [186, 28],
@@ -169,7 +173,7 @@ def resolve_episode_writers(episodes: list[dict[str, Any]], aliases: dict[str, s
             for cid in override_ids:
                 relationships.add((int(episode_id), int(cid)))
             continue
-        raw = str(episode.get("episode_writer") or "").strip()
+        raw = EPISODE_WRITER_TEXT_OVERRIDES.get(episode_id, str(episode.get("episode_writer") or "").strip())
         if not raw:
             continue
         raw = WRITER_TEXT_CORRECTIONS.get(norm(raw), raw)
