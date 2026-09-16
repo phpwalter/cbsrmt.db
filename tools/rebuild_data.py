@@ -132,6 +132,7 @@ WRITER_ALIASES = {
     "henry slessar": "2",         # approved -> Henry Slesar
     "fieldin farrington": "222",  # approved -> Fielden Farrington
     "elspith eric": "245",        # approved -> Elspeth Eric
+    "roy windsor": "55",          # approved -> Roy Winsor
     "elizabeth pinnel": "291",    # approved -> Elizabeth Pennell
     "elizabeth pinnell": "291",   # approved -> Elizabeth Pennell
     "elizabeth pennel": "291",    # canonical source typo -> Elizabeth Pennell
