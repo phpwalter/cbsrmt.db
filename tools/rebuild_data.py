@@ -61,6 +61,24 @@ PERSON_CORRECTIONS: dict[str, dict[str, str]] = {
     "291": {"last_name": "Pennell"},
 }
 
+CANONICAL_PEOPLE: dict[str, dict[str, Any]] = {
+    "338": {
+        "cast_id": "338",
+        "cast_id_name": "bwalton",
+        "first_name": "Bryce",
+        "middle_name": "",
+        "last_name": "Walton",
+        "image_url": "",
+        "soundclip_url": "",
+        "bio": "",
+        "born_on": "0000-00-00",
+        "died_on": "0000-00-00",
+        "offsite_url": "",
+        "other_series": "",
+        "credit": "",
+    },
+}
+
 
 def merge_writers_into_cast(cast: list[dict[str, Any]], writers: list[dict[str, Any]]):
     by_id = {str(row["cast_id"]): dict(row) for row in cast}
@@ -85,6 +103,12 @@ def merge_writers_into_cast(cast: list[dict[str, Any]], writers: list[dict[str, 
                 target[key] = writer_value
             elif not cast_empty and not writer_empty and str(cast_value).strip() != str(writer_value).strip():
                 conflicts.append({"cast_id": cid, "field": key, "cast_value": cast_value, "writer_value": writer_value, "resolution": "cast_value_retained"})
+    for cid, person in CANONICAL_PEOPLE.items():
+        if cid in by_id:
+            conflicts.append({"cast_id": cid, "issue": "canonical_person_id_collision", "resolution": "existing_value_retained"})
+        else:
+            by_id[cid] = dict(person)
+            added += 1
     for cid, corrections in PERSON_CORRECTIONS.items():
         if cid in by_id:
             by_id[cid].update(corrections)
@@ -138,9 +162,7 @@ WRITER_TEXT_CORRECTIONS = {
     "steve laerman": "Steve Lehrman",
 }
 
-EPISODE_WRITER_TEXT_OVERRIDES: dict[str, str] = {
-    "1320": "Bryce Walton",
-}
+EPISODE_WRITER_TEXT_OVERRIDES: dict[str, str] = {}
 
 EPISODE_WRITER_OVERRIDES: dict[str, list[int]] = {
     "123": [83],
@@ -154,6 +176,10 @@ EPISODE_WRITER_OVERRIDES: dict[str, list[int]] = {
     "1022": [70],
     "1072": [70],
     "1259": [245],
+    "1292": [338],
+    "1320": [338],
+    "1338": [338],
+    "1360": [338],
 }
 
 IGNORED_WRITER_TOKENS = {"f230"}
