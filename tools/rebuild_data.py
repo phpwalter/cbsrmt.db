@@ -132,6 +132,7 @@ WRITER_ALIASES = {
     "henry slessar": "2",         # approved -> Henry Slesar
     "fieldin farrington": "222",  # approved -> Fielden Farrington
     "elspith eric": "245",        # approved -> Elspeth Eric
+    "g frederick louis": "94",    # approved -> G. Frederick Lewis
     "roy windsor": "55",          # approved -> Roy Winsor
     "roy widnsor": "55",          # approved -> Roy Winsor
     "roy windor": "55",           # approved -> Roy Winsor
