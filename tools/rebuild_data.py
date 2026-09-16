@@ -122,6 +122,7 @@ WRITER_ALIASES = {
     "elspith eric": "245",
     "g frederick louis": "94",
     "murray bur": "114",
+    "gerald kean": "167",
     "roy windsor": "55",
     "roy widnsor": "55",
     "roy windor": "55",
