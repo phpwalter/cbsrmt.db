@@ -139,6 +139,7 @@ EPISODE_WRITER_OVERRIDES: dict[str, list[int]] = {
     "696": [55],
     "708": [186, 28],
     "908": [245],
+    "964": [167],
 }
 
 IGNORED_WRITER_TOKENS = {"f230"}
