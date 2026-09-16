@@ -187,7 +187,7 @@ def extract_appear(sql_text: str, episodes_by_id: dict[str, dict[str, Any]], cas
         if episode is None: reconciliation.append({"appear_id":int(appear_id),"episode_id":episode_id,"issue":"missing_episode"})
         else:
             if episode_date!=str(episode.get("episode_date") or ""): reconciliation.append({"appear_id":int(appear_id),"episode_id":episode_id,"issue":"episode_date_mismatch","appear_value":episode_date,"episode_value":episode.get("episode_date")})
-            if norm(episode_name)!=norm(str(episode.get("episode_name") or "")): reconciliation.append({"appear_id":int(appear_id),"episode_id":episode_id,"issue":"episode_name_mismatch","appear_value":episode_name,"episode_value":episode.get("episode_name")})
+            if norm(sortable_title(episode_name))!=norm(sortable_title(str(episode.get("episode_name") or ""))): reconciliation.append({"appear_id":int(appear_id),"episode_id":episode_id,"issue":"episode_name_mismatch","appear_value":episode_name,"episode_value":sortable_title(episode.get("episode_name"))})
         if person is None: reconciliation.append({"appear_id":int(appear_id),"cast_id":cast_id,"issue":"missing_cast"})
         elif norm(cast_id_name)!=norm(str(person.get("cast_id_name") or "")): reconciliation.append({"appear_id":int(appear_id),"cast_id":cast_id,"issue":"cast_id_name_mismatch","appear_value":cast_id_name,"cast_value":person.get("cast_id_name")})
         rows.append({"appear_id":str(int(appear_id)),"episode_id":episode_id,"cast_id":cast_id})
