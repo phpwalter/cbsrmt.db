@@ -57,7 +57,6 @@ def full_name(person: dict[str, Any]) -> str:
     )
 
 
-# Canonical corrections approved during manual reconciliation.
 PERSON_CORRECTIONS: dict[str, dict[str, str]] = {
     "291": {"last_name": "Pennell"},
 }
@@ -68,7 +67,6 @@ def merge_writers_into_cast(cast: list[dict[str, Any]], writers: list[dict[str, 
     conflicts: list[dict[str, Any]] = []
     matched = 0
     added = 0
-
     for writer in writers:
         cid = str(writer["cast_id"])
         if cid not in by_id:
@@ -86,18 +84,10 @@ def merge_writers_into_cast(cast: list[dict[str, Any]], writers: list[dict[str, 
             if cast_empty and not writer_empty:
                 target[key] = writer_value
             elif not cast_empty and not writer_empty and str(cast_value).strip() != str(writer_value).strip():
-                conflicts.append({
-                    "cast_id": cid,
-                    "field": key,
-                    "cast_value": cast_value,
-                    "writer_value": writer_value,
-                    "resolution": "cast_value_retained",
-                })
-
+                conflicts.append({"cast_id": cid, "field": key, "cast_value": cast_value, "writer_value": writer_value, "resolution": "cast_value_retained"})
     for cid, corrections in PERSON_CORRECTIONS.items():
         if cid in by_id:
             by_id[cid].update(corrections)
-
     return sorted(by_id.values(), key=lambda r: int(r["cast_id"])), conflicts, matched, added
 
 
@@ -121,55 +111,44 @@ def name_index(*collections: list[dict[str, Any]]) -> dict[str, set[str]]:
     return aliases
 
 
-# Verified legacy spelling aliases. These map source episode-writer spellings to the
-# existing cast identity, never to a newly invented person ID.
 WRITER_ALIASES = {
-    "george lowther": "83",       # writers.json has George Lowthar
-    "sidney sloan": "88",         # writers.json has Sidney Slon
-    "saul pattis": "284",         # approved -> Sol Panitz
-    "henry scheschner": "2",      # approved -> Henry Slesar
-    "henry schlescher": "2",      # approved -> Henry Slesar
-    "henry slessar": "2",         # approved -> Henry Slesar
-    "fieldin farrington": "222",  # approved -> Fielden Farrington
-    "elspith eric": "245",        # approved -> Elspeth Eric
-    "g frederick louis": "94",    # approved -> G. Frederick Lewis
-    "roy windsor": "55",          # approved -> Roy Winsor
-    "roy widnsor": "55",          # approved -> Roy Winsor
-    "roy windor": "55",           # approved -> Roy Winsor
-    "elizabeth pinnel": "291",    # approved -> Elizabeth Pennell
-    "elizabeth pinnell": "291",   # approved -> Elizabeth Pennell
-    "elizabeth pennel": "291",    # canonical source typo -> Elizabeth Pennell
-    "elizabeth pennell": "291",   # canonical corrected spelling
+    "george lowther": "83",
+    "sidney sloan": "88",
+    "saul pattis": "284",
+    "henry scheschner": "2",
+    "henry schlescher": "2",
+    "henry slessar": "2",
+    "fieldin farrington": "222",
+    "elspith eric": "245",
+    "g frederick louis": "94",
+    "murray bur": "114",
+    "roy windsor": "55",
+    "roy widnsor": "55",
+    "roy windor": "55",
+    "elizabeth pinnel": "291",
+    "elizabeth pinnell": "291",
+    "elizabeth pennel": "291",
+    "elizabeth pennell": "291",
 }
 
-# Explicit episode-level corrections. These are intentionally scoped to an episode
-# so a genuine author name elsewhere is never globally aliased to another person.
 EPISODE_WRITER_OVERRIDES: dict[str, list[int]] = {
-    "347": [186, 28],  # The Third Person -> Stella Moss, Arnold Moss
-    "406": [28, 186],  # One Of The Missing -> Arnold Moss, Stella Moss
-    "442": [28, 186],  # The Monk And The Hangman's Daughter -> Arnold Moss, Stella Moss
-    "696": [55],       # In The Fog -> Roy Winsor
-    "708": [186, 28],  # The Way To Dusty Death -> Stella Moss, Arnold Moss
+    "347": [186, 28],
+    "406": [28, 186],
+    "442": [28, 186],
+    "696": [55],
+    "708": [186, 28],
 }
 
-# Explicitly approved non-writer tokens to discard during reconciliation.
-IGNORED_WRITER_TOKENS = {
-    "f230",  # stray token in episode 219; Ian Martin remains the sole writer
-}
+IGNORED_WRITER_TOKENS = {"f230"}
 
 
 def split_writer_text(value: str) -> list[str]:
-    return [
-        part.strip()
-        for part in re.split(r"\s*(?:;|/|&|\+|\band\b)\s*", value.strip(), flags=re.IGNORECASE)
-        if part.strip()
-    ]
+    return [part.strip() for part in re.split(r"\s*(?:;|/|&|\+|\band\b)\s*", value.strip(), flags=re.IGNORECASE) if part.strip()]
 
 
 def resolve_episode_writers(episodes: list[dict[str, Any]], aliases: dict[str, set[str]]):
     relationships: set[tuple[int, int]] = set()
     unresolved: list[dict[str, Any]] = []
-
     for episode in episodes:
         episode_id = str(episode["episode_id"])
         override_ids = EPISODE_WRITER_OVERRIDES.get(episode_id)
@@ -177,11 +156,9 @@ def resolve_episode_writers(episodes: list[dict[str, Any]], aliases: dict[str, s
             for cid in override_ids:
                 relationships.add((int(episode_id), int(cid)))
             continue
-
         raw = str(episode.get("episode_writer") or "").strip()
         if not raw:
             continue
-
         whole_key = norm(raw)
         whole = aliases.get(whole_key, set())
         if len(whole) == 1:
@@ -190,7 +167,6 @@ def resolve_episode_writers(episodes: list[dict[str, Any]], aliases: dict[str, s
         if whole_key in WRITER_ALIASES:
             relationships.add((int(episode["episode_id"]), int(WRITER_ALIASES[whole_key])))
             continue
-
         resolved: list[int] = []
         unresolved_parts: list[str] = []
         ambiguous_parts: list[dict[str, Any]] = []
@@ -207,23 +183,12 @@ def resolve_episode_writers(episodes: list[dict[str, Any]], aliases: dict[str, s
                 ambiguous_parts.append({"writer": part, "cast_ids": sorted(ids, key=int)})
             else:
                 unresolved_parts.append(part)
-
         if resolved and not unresolved_parts and not ambiguous_parts:
             for cid in resolved:
                 relationships.add((int(episode["episode_id"]), cid))
         else:
-            unresolved.append({
-                "episode_id": str(episode["episode_id"]),
-                "episode_name": episode.get("episode_name", ""),
-                "episode_writer": raw,
-                "unresolved_parts": unresolved_parts,
-                "ambiguous_parts": ambiguous_parts,
-            })
-
-    return [
-        {"episode_id": str(eid), "cast_id": str(cid)}
-        for eid, cid in sorted(relationships)
-    ], unresolved
+            unresolved.append({"episode_id": str(episode["episode_id"]), "episode_name": episode.get("episode_name", ""), "episode_writer": raw, "unresolved_parts": unresolved_parts, "ambiguous_parts": ambiguous_parts})
+    return [{"episode_id": str(eid), "cast_id": str(cid)} for eid, cid in sorted(relationships)], unresolved
 
 
 def parse_sql_values(raw: str) -> list[str]:
@@ -255,52 +220,30 @@ def extract_appear(sql_text: str, episodes_by_id: dict[str, dict[str, Any]], cas
     rows: list[dict[str, str]] = []
     reconciliation: list[dict[str, Any]] = []
     seen: set[tuple[str, str]] = set()
-
     for match in re.finditer(r"INSERT INTO `appear` VALUES\((.*?)\);", sql_text, flags=re.DOTALL):
         fields = parse_sql_values(match.group(1))
         if len(fields) != 6:
             reconciliation.append({"issue": "unparseable_row", "raw": match.group(0)})
             continue
         appear_id, episode_id, episode_date, episode_name, cast_id, cast_id_name = fields
-        episode_id = str(int(episode_id))
-        cast_id = str(int(cast_id))
-        key = (episode_id, cast_id)
+        episode_id = str(int(episode_id)); cast_id = str(int(cast_id)); key = (episode_id, cast_id)
         if key in seen:
-            reconciliation.append({
-                "appear_id": int(appear_id), "episode_id": episode_id, "cast_id": cast_id,
-                "issue": "duplicate_episode_cast", "resolution": "duplicate_dropped",
-            })
+            reconciliation.append({"appear_id": int(appear_id), "episode_id": episode_id, "cast_id": cast_id, "issue": "duplicate_episode_cast", "resolution": "duplicate_dropped"})
             continue
         seen.add(key)
-
-        episode = episodes_by_id.get(episode_id)
-        person = cast_by_id.get(cast_id)
+        episode = episodes_by_id.get(episode_id); person = cast_by_id.get(cast_id)
         if episode is None:
             reconciliation.append({"appear_id": int(appear_id), "episode_id": episode_id, "issue": "missing_episode"})
         else:
             if episode_date != str(episode.get("episode_date") or ""):
-                reconciliation.append({
-                    "appear_id": int(appear_id), "episode_id": episode_id,
-                    "issue": "episode_date_mismatch", "appear_value": episode_date,
-                    "episode_value": episode.get("episode_date"),
-                })
+                reconciliation.append({"appear_id": int(appear_id), "episode_id": episode_id, "issue": "episode_date_mismatch", "appear_value": episode_date, "episode_value": episode.get("episode_date")})
             if norm(episode_name) != norm(str(episode.get("episode_name") or "")):
-                reconciliation.append({
-                    "appear_id": int(appear_id), "episode_id": episode_id,
-                    "issue": "episode_name_mismatch", "appear_value": episode_name,
-                    "episode_value": episode.get("episode_name"),
-                })
+                reconciliation.append({"appear_id": int(appear_id), "episode_id": episode_id, "issue": "episode_name_mismatch", "appear_value": episode_name, "episode_value": episode.get("episode_name")})
         if person is None:
             reconciliation.append({"appear_id": int(appear_id), "cast_id": cast_id, "issue": "missing_cast"})
         elif norm(cast_id_name) != norm(str(person.get("cast_id_name") or "")):
-            reconciliation.append({
-                "appear_id": int(appear_id), "cast_id": cast_id,
-                "issue": "cast_id_name_mismatch", "appear_value": cast_id_name,
-                "cast_value": person.get("cast_id_name"),
-            })
-
+            reconciliation.append({"appear_id": int(appear_id), "cast_id": cast_id, "issue": "cast_id_name_mismatch", "appear_value": cast_id_name, "cast_value": person.get("cast_id_name")})
         rows.append({"appear_id": str(int(appear_id)), "episode_id": episode_id, "cast_id": cast_id})
-
     return sorted(rows, key=lambda r: int(r["appear_id"])), reconciliation
 
 
@@ -320,49 +263,26 @@ def parse_adaptations_page() -> list[dict[str, str]]:
         adapted_match = re.search(r"(Adapted\s+from\b.*)$", text, flags=re.IGNORECASE)
         if not adapted_match:
             continue
-        by_episode[eid] = {
-            "episode_id": eid,
-            "title": anchor.get_text(" ", strip=True),
-            "adapted": re.sub(r"\s+", " ", adapted_match.group(1)).strip(),
-            "source_url": requests.compat.urljoin(ADAPTATIONS_URL, href),
-        }
+        by_episode[eid] = {"episode_id": eid, "title": anchor.get_text(" ", strip=True), "adapted": re.sub(r"\s+", " ", adapted_match.group(1)).strip(), "source_url": requests.compat.urljoin(ADAPTATIONS_URL, href)}
     return [by_episode[eid] for eid in sorted(by_episode, key=int)]
 
 
 def build_adaptations(episodes: list[dict[str, Any]], external_rows: list[dict[str, str]]):
     by_id = {str(int(row["episode_id"])): row for row in episodes}
-    values: dict[str, str] = {}
-    warnings: list[dict[str, Any]] = []
-    fallbacks: list[dict[str, Any]] = []
-
+    values: dict[str, str] = {}; warnings: list[dict[str, Any]] = []; fallbacks: list[dict[str, Any]] = []
     for row in external_rows:
         episode = by_id.get(row["episode_id"])
         if episode is None:
-            warnings.append({**row, "issue": "episode_id_not_found"})
-            continue
+            warnings.append({**row, "issue": "episode_id_not_found"}); continue
         if norm(row["title"]) != norm(str(episode.get("episode_name") or "")):
-            warnings.append({
-                **row, "issue": "title_mismatch", "database_title": episode.get("episode_name", ""),
-                "resolution": "episode_id_accepted",
-            })
+            warnings.append({**row, "issue": "title_mismatch", "database_title": episode.get("episode_name", ""), "resolution": "episode_id_accepted"})
         values[row["episode_id"]] = row["adapted"]
-
     for episode in episodes:
-        eid = str(int(episode["episode_id"]))
-        origwriter = str(episode.get("origwriter") or "").strip()
+        eid = str(int(episode["episode_id"])); origwriter = str(episode.get("origwriter") or "").strip()
         if origwriter and eid not in values:
-            adapted = f"Adapted from {origwriter}"
-            values[eid] = adapted
-            fallbacks.append({
-                "episode_id": eid,
-                "episode_name": episode.get("episode_name", ""),
-                "origwriter": origwriter,
-                "generated_adapted": adapted,
-            })
-
-    return [
-        {"episode_id": eid, "adapted": values[eid]} for eid in sorted(values, key=int)
-    ], warnings, fallbacks
+            adapted = f"Adapted from {origwriter}"; values[eid] = adapted
+            fallbacks.append({"episode_id": eid, "episode_name": episode.get("episode_name", ""), "origwriter": origwriter, "generated_adapted": adapted})
+    return [{"episode_id": eid, "adapted": values[eid]} for eid in sorted(values, key=int)], warnings, fallbacks
 
 
 def normalize_episodes(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -374,184 +294,55 @@ def normalize_genre(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     out = []
     for row in rows:
         row = dict(row)
-        if str(row.get("genre_name") or "").strip() == "Unkown":
-            row["genre_name"] = "Unknown"
+        if str(row.get("genre_name") or "").strip() == "Unkown": row["genre_name"] = "Unknown"
         out.append(row)
     return sorted(out, key=lambda r: int(r["genre_id"]))
 
 
 def sql_string(value: Any) -> str:
-    if value is None:
-        return "NULL"
+    if value is None: return "NULL"
     text = str(value).replace("\\", "\\\\").replace("'", "''").replace("\r", "\\r").replace("\n", "\\n")
     return f"'{text}'"
 
 
 def sql_date(value: Any) -> str:
-    text = str(value or "").strip()
-    return "NULL" if not text or text == "0000-00-00" else sql_string(text)
+    text = str(value or "").strip(); return "NULL" if not text or text == "0000-00-00" else sql_string(text)
 
 
 def generate_sql(genres, cast, episodes, appear, episode_writers, adaptations) -> str:
-    lines = [
-        "-- CBS Radio Mystery Theater normalized database rebuild",
-        "-- Generated by tools/rebuild_data.py.",
-        "",
-        "DROP DATABASE IF EXISTS `cbs`;",
-        "CREATE DATABASE `cbs` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;",
-        "USE `cbs`;",
-        "SET FOREIGN_KEY_CHECKS=0;",
-        "SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO';",
-        "SET time_zone='+00:00';",
-        "",
-        "CREATE TABLE `genre` (",
-        "  `genre_id` tinyint unsigned NOT NULL,",
-        "  `genre_name` varchar(100) NOT NULL,",
-        "  PRIMARY KEY (`genre_id`)",
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
-        "",
-        "CREATE TABLE `cast` (",
-        "  `cast_id` int unsigned NOT NULL,",
-        "  `cast_id_name` varchar(100) NOT NULL DEFAULT '',",
-        "  `first_name` varchar(100) DEFAULT NULL,",
-        "  `middle_name` varchar(100) DEFAULT NULL,",
-        "  `last_name` varchar(100) DEFAULT NULL,",
-        "  `image_url` varchar(500) DEFAULT NULL,",
-        "  `soundclip_url` varchar(500) DEFAULT NULL,",
-        "  `bio` text,",
-        "  `born_on` date DEFAULT NULL,",
-        "  `died_on` date DEFAULT NULL,",
-        "  `offsite_url` varchar(500) DEFAULT NULL,",
-        "  `other_series` text,",
-        "  `credit` varchar(255) DEFAULT NULL,",
-        "  PRIMARY KEY (`cast_id`),",
-        "  KEY `idx_cast_id_name` (`cast_id_name`)",
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
-        "",
-        "CREATE TABLE `episodes` (",
-        "  `episode_id` int unsigned NOT NULL,",
-        "  `episode_date` date NOT NULL,",
-        "  `episode_name` varchar(150) NOT NULL,",
-        "  `episode_plot` text NOT NULL,",
-        "  `genre_id` tinyint unsigned NOT NULL,",
-        "  PRIMARY KEY (`episode_id`),",
-        "  KEY `idx_episodes_date` (`episode_date`),",
-        "  KEY `idx_episodes_name` (`episode_name`),",
-        "  KEY `idx_episodes_genre` (`genre_id`),",
-        "  CONSTRAINT `fk_episodes_genre` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`genre_id`) ON UPDATE CASCADE ON DELETE RESTRICT",
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
-        "",
-        "CREATE TABLE `appear` (",
-        "  `appear_id` int unsigned NOT NULL AUTO_INCREMENT,",
-        "  `episode_id` int unsigned NOT NULL,",
-        "  `cast_id` int unsigned NOT NULL,",
-        "  PRIMARY KEY (`appear_id`),",
-        "  UNIQUE KEY `uq_appear_episode_cast` (`episode_id`,`cast_id`),",
-        "  KEY `idx_appear_episode` (`episode_id`),",
-        "  KEY `idx_appear_cast` (`cast_id`),",
-        "  CONSTRAINT `fk_appear_episode` FOREIGN KEY (`episode_id`) REFERENCES `episodes` (`episode_id`) ON UPDATE CASCADE ON DELETE CASCADE,",
-        "  CONSTRAINT `fk_appear_cast` FOREIGN KEY (`cast_id`) REFERENCES `cast` (`cast_id`) ON UPDATE CASCADE ON DELETE RESTRICT",
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
-        "",
-        "CREATE TABLE `episode_writers` (",
-        "  `episode_writer_id` int unsigned NOT NULL AUTO_INCREMENT,",
-        "  `episode_id` int unsigned NOT NULL,",
-        "  `cast_id` int unsigned NOT NULL,",
-        "  PRIMARY KEY (`episode_writer_id`),",
-        "  UNIQUE KEY `uq_episode_writer` (`episode_id`,`cast_id`),",
-        "  KEY `idx_episode_writer_episode` (`episode_id`),",
-        "  KEY `idx_episode_writer_cast` (`cast_id`),",
-        "  CONSTRAINT `fk_episode_writer_episode` FOREIGN KEY (`episode_id`) REFERENCES `episodes` (`episode_id`) ON UPDATE CASCADE ON DELETE CASCADE,",
-        "  CONSTRAINT `fk_episode_writer_cast` FOREIGN KEY (`cast_id`) REFERENCES `cast` (`cast_id`) ON UPDATE CASCADE ON DELETE RESTRICT",
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
-        "",
-        "CREATE TABLE `episode_adaptations` (",
-        "  `episode_id` int unsigned NOT NULL,",
-        "  `adapted` text NOT NULL,",
-        "  PRIMARY KEY (`episode_id`),",
-        "  CONSTRAINT `fk_episode_adaptations_episode` FOREIGN KEY (`episode_id`) REFERENCES `episodes` (`episode_id`) ON UPDATE CASCADE ON DELETE CASCADE",
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
-        "",
-    ]
-
-    for row in genres:
-        lines.append(f"INSERT INTO `genre` (`genre_id`,`genre_name`) VALUES ({int(row['genre_id'])},{sql_string(row['genre_name'])});")
-
-    cast_fields = ["cast_id", "cast_id_name", "first_name", "middle_name", "last_name", "image_url", "soundclip_url", "bio", "born_on", "died_on", "offsite_url", "other_series", "credit"]
+    lines = ["-- CBS Radio Mystery Theater normalized database rebuild","-- Generated by tools/rebuild_data.py.","","DROP DATABASE IF EXISTS `cbs`;","CREATE DATABASE `cbs` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;","USE `cbs`;","SET FOREIGN_KEY_CHECKS=0;","SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO';","SET time_zone='+00:00';",""]
+    lines += ["CREATE TABLE `genre` (","  `genre_id` tinyint unsigned NOT NULL,","  `genre_name` varchar(100) NOT NULL,","  PRIMARY KEY (`genre_id`)",") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",""]
+    lines += ["CREATE TABLE `cast` (","  `cast_id` int unsigned NOT NULL,","  `cast_id_name` varchar(100) NOT NULL DEFAULT '',","  `first_name` varchar(100) DEFAULT NULL,","  `middle_name` varchar(100) DEFAULT NULL,","  `last_name` varchar(100) DEFAULT NULL,","  `image_url` varchar(500) DEFAULT NULL,","  `soundclip_url` varchar(500) DEFAULT NULL,","  `bio` text,","  `born_on` date DEFAULT NULL,","  `died_on` date DEFAULT NULL,","  `offsite_url` varchar(500) DEFAULT NULL,","  `other_series` text,","  `credit` varchar(255) DEFAULT NULL,","  PRIMARY KEY (`cast_id`),","  KEY `idx_cast_id_name` (`cast_id_name`)",") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",""]
+    lines += ["CREATE TABLE `episodes` (","  `episode_id` int unsigned NOT NULL,","  `episode_date` date NOT NULL,","  `episode_name` varchar(150) NOT NULL,","  `episode_plot` text NOT NULL,","  `genre_id` tinyint unsigned NOT NULL,","  PRIMARY KEY (`episode_id`),","  KEY `idx_episodes_date` (`episode_date`),","  KEY `idx_episodes_name` (`episode_name`),","  KEY `idx_episodes_genre` (`genre_id`),","  CONSTRAINT `fk_episodes_genre` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`genre_id`) ON UPDATE CASCADE ON DELETE RESTRICT",") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",""]
+    lines += ["CREATE TABLE `appear` (","  `appear_id` int unsigned NOT NULL AUTO_INCREMENT,","  `episode_id` int unsigned NOT NULL,","  `cast_id` int unsigned NOT NULL,","  PRIMARY KEY (`appear_id`),","  UNIQUE KEY `uq_appear_episode_cast` (`episode_id`,`cast_id`),","  KEY `idx_appear_episode` (`episode_id`),","  KEY `idx_appear_cast` (`cast_id`),","  CONSTRAINT `fk_appear_episode` FOREIGN KEY (`episode_id`) REFERENCES `episodes` (`episode_id`) ON UPDATE CASCADE ON DELETE CASCADE,","  CONSTRAINT `fk_appear_cast` FOREIGN KEY (`cast_id`) REFERENCES `cast` (`cast_id`) ON UPDATE CASCADE ON DELETE RESTRICT",") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",""]
+    lines += ["CREATE TABLE `episode_writers` (","  `episode_writer_id` int unsigned NOT NULL AUTO_INCREMENT,","  `episode_id` int unsigned NOT NULL,","  `cast_id` int unsigned NOT NULL,","  PRIMARY KEY (`episode_writer_id`),","  UNIQUE KEY `uq_episode_writer` (`episode_id`,`cast_id`),","  KEY `idx_episode_writer_episode` (`episode_id`),","  KEY `idx_episode_writer_cast` (`cast_id`),","  CONSTRAINT `fk_episode_writer_episode` FOREIGN KEY (`episode_id`) REFERENCES `episodes` (`episode_id`) ON UPDATE CASCADE ON DELETE CASCADE,","  CONSTRAINT `fk_episode_writer_cast` FOREIGN KEY (`cast_id`) REFERENCES `cast` (`cast_id`) ON UPDATE CASCADE ON DELETE RESTRICT",") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",""]
+    lines += ["CREATE TABLE `episode_adaptations` (","  `episode_id` int unsigned NOT NULL,","  `adapted` text NOT NULL,","  PRIMARY KEY (`episode_id`),","  CONSTRAINT `fk_episode_adaptations_episode` FOREIGN KEY (`episode_id`) REFERENCES `episodes` (`episode_id`) ON UPDATE CASCADE ON DELETE CASCADE",") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",""]
+    for row in genres: lines.append(f"INSERT INTO `genre` (`genre_id`,`genre_name`) VALUES ({int(row['genre_id'])},{sql_string(row['genre_name'])});")
+    cast_fields = ["cast_id","cast_id_name","first_name","middle_name","last_name","image_url","soundclip_url","bio","born_on","died_on","offsite_url","other_series","credit"]
     for row in cast:
         values = [str(int(row["cast_id"]))]
         for field in cast_fields[1:]:
-            value = row.get(field)
-            values.append(sql_date(value) if field in ("born_on", "died_on") else sql_string(value if value not in (None, "") else None))
+            value = row.get(field); values.append(sql_date(value) if field in ("born_on","died_on") else sql_string(value if value not in (None,"") else None))
         lines.append("INSERT INTO `cast` (`" + "`,`".join(cast_fields) + "`) VALUES (" + ",".join(values) + ");")
-
-    for row in episodes:
-        lines.append(
-            "INSERT INTO `episodes` (`episode_id`,`episode_date`,`episode_name`,`episode_plot`,`genre_id`) VALUES ("
-            f"{int(row['episode_id'])},{sql_date(row['episode_date'])},{sql_string(row['episode_name'])},{sql_string(row['episode_plot'])},{int(row['genre_id'])});"
-        )
-
-    for row in appear:
-        lines.append(f"INSERT INTO `appear` (`appear_id`,`episode_id`,`cast_id`) VALUES ({int(row['appear_id'])},{int(row['episode_id'])},{int(row['cast_id'])});")
-
-    for idx, row in enumerate(episode_writers, 1):
-        lines.append(f"INSERT INTO `episode_writers` (`episode_writer_id`,`episode_id`,`cast_id`) VALUES ({idx},{int(row['episode_id'])},{int(row['cast_id'])});")
-
-    for row in adaptations:
-        lines.append(f"INSERT INTO `episode_adaptations` (`episode_id`,`adapted`) VALUES ({int(row['episode_id'])},{sql_string(row['adapted'])});")
-
-    lines.extend(["", "SET FOREIGN_KEY_CHECKS=1;", ""])
-    return "\n".join(lines)
+    for row in episodes: lines.append("INSERT INTO `episodes` (`episode_id`,`episode_date`,`episode_name`,`episode_plot`,`genre_id`) VALUES (" + f"{int(row['episode_id'])},{sql_date(row['episode_date'])},{sql_string(row['episode_name'])},{sql_string(row['episode_plot'])},{int(row['genre_id'])});")
+    for row in appear: lines.append(f"INSERT INTO `appear` (`appear_id`,`episode_id`,`cast_id`) VALUES ({int(row['appear_id'])},{int(row['episode_id'])},{int(row['cast_id'])});")
+    for idx,row in enumerate(episode_writers,1): lines.append(f"INSERT INTO `episode_writers` (`episode_writer_id`,`episode_id`,`cast_id`) VALUES ({idx},{int(row['episode_id'])},{int(row['cast_id'])});")
+    for row in adaptations: lines.append(f"INSERT INTO `episode_adaptations` (`episode_id`,`adapted`) VALUES ({int(row['episode_id'])},{sql_string(row['adapted'])});")
+    lines.extend(["","SET FOREIGN_KEY_CHECKS=1;",""]); return "\n".join(lines)
 
 
 def main() -> None:
     REPORTS.mkdir(parents=True, exist_ok=True)
-
-    cast_legacy = source_json("data/cast.json")
-    writers = source_json("data/writers.json")
-    episodes_legacy = source_json("data/episodes.json")
-    genres_legacy = source_json("data/genre.json")
-    legacy_sql = source_text("sql/cbs.sql")
-
+    cast_legacy = source_json("data/cast.json"); writers = source_json("data/writers.json"); episodes_legacy = source_json("data/episodes.json"); genres_legacy = source_json("data/genre.json"); legacy_sql = source_text("sql/cbs.sql")
     merged_cast, conflicts, matched, added = merge_writers_into_cast(cast_legacy, writers)
-    aliases = name_index(merged_cast, writers)
-    episode_writers, unresolved = resolve_episode_writers(episodes_legacy, aliases)
-
-    episodes_by_id = {str(int(row["episode_id"])): row for row in episodes_legacy}
-    cast_by_id = {str(int(row["cast_id"])): row for row in merged_cast}
-    appear, appear_reconciliation = extract_appear(legacy_sql, episodes_by_id, cast_by_id)
-
-    external = parse_adaptations_page()
-    adaptations, adaptation_warnings, fallbacks = build_adaptations(episodes_legacy, external)
-    episodes = normalize_episodes(episodes_legacy)
-    genres = normalize_genre(genres_legacy)
-
-    write_json(DATA / "cast.json", merged_cast)
-    write_json(DATA / "episodes.json", episodes)
-    write_json(DATA / "appear.json", appear)
-    write_json(DATA / "episode_writers.json", episode_writers)
-    write_json(DATA / "episode_adaptations.json", adaptations)
-    write_json(DATA / "genre.json", genres)
-
-    write_json(REPORTS / "writer-cast-conflicts.json", conflicts)
-    write_json(REPORTS / "writer-unresolved.json", unresolved)
-    write_json(REPORTS / "appear-reconciliation.json", appear_reconciliation)
-    write_json(REPORTS / "adaptation-unmatched.json", adaptation_warnings)
-    write_json(REPORTS / "adaptation-origwriter-fallbacks.json", fallbacks)
-
+    aliases = name_index(merged_cast, writers); episode_writers, unresolved = resolve_episode_writers(episodes_legacy, aliases)
+    episodes_by_id = {str(int(row["episode_id"])): row for row in episodes_legacy}; cast_by_id = {str(int(row["cast_id"])): row for row in merged_cast}; appear, appear_reconciliation = extract_appear(legacy_sql, episodes_by_id, cast_by_id)
+    external = parse_adaptations_page(); adaptations, adaptation_warnings, fallbacks = build_adaptations(episodes_legacy, external); episodes = normalize_episodes(episodes_legacy); genres = normalize_genre(genres_legacy)
+    write_json(DATA / "cast.json", merged_cast); write_json(DATA / "episodes.json", episodes); write_json(DATA / "appear.json", appear); write_json(DATA / "episode_writers.json", episode_writers); write_json(DATA / "episode_adaptations.json", adaptations); write_json(DATA / "genre.json", genres)
+    write_json(REPORTS / "writer-cast-conflicts.json", conflicts); write_json(REPORTS / "writer-unresolved.json", unresolved); write_json(REPORTS / "appear-reconciliation.json", appear_reconciliation); write_json(REPORTS / "adaptation-unmatched.json", adaptation_warnings); write_json(REPORTS / "adaptation-origwriter-fallbacks.json", fallbacks)
     (SQL / "cbs.sql").write_text(generate_sql(genres, merged_cast, episodes, appear, episode_writers, adaptations), encoding="utf-8")
-
-    summary = {
-        "episodes": {"input": len(episodes_legacy), "output": len(episodes)},
-        "cast": {"original": len(cast_legacy), "output": len(merged_cast), "writers_matched": matched, "new_people_added": added, "conflicts": len(conflicts)},
-        "appear": {"output": len(appear), "reconciliation_warnings": len(appear_reconciliation), "duplicates_removed": sum(1 for r in appear_reconciliation if r.get("issue") == "duplicate_episode_cast")},
-        "episode_writers": {"created": len(episode_writers), "unresolved": len(unresolved)},
-        "episode_adaptations": {"external_parsed": len(external), "output": len(adaptations), "origwriter_fallbacks": len(fallbacks), "external_reconciliation_warnings": len(adaptation_warnings)},
-        "genre": {"count": len(genres)},
-        "source": {"baseline_ref": BASE_REF, "adaptations_url": ADAPTATIONS_URL},
-    }
-    write_json(REPORTS / "migration-summary.json", summary)
-    print(json.dumps(summary, indent=2))
+    summary = {"episodes":{"input":len(episodes_legacy),"output":len(episodes)},"cast":{"original":len(cast_legacy),"output":len(merged_cast),"writers_matched":matched,"new_people_added":added,"conflicts":len(conflicts)},"appear":{"output":len(appear),"reconciliation_warnings":len(appear_reconciliation),"duplicates_removed":sum(1 for r in appear_reconciliation if r.get("issue")=="duplicate_episode_cast")},"episode_writers":{"created":len(episode_writers),"unresolved":len(unresolved)},"episode_adaptations":{"external_parsed":len(external),"output":len(adaptations),"origwriter_fallbacks":len(fallbacks),"external_reconciliation_warnings":len(adaptation_warnings)},"genre":{"count":len(genres)},"source":{"baseline_ref":BASE_REF,"adaptations_url":ADAPTATIONS_URL}}
+    write_json(REPORTS / "migration-summary.json", summary); print(json.dumps(summary, indent=2))
 
 
 if __name__ == "__main__":
