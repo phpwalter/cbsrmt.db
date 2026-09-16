@@ -133,6 +133,7 @@ WRITER_ALIASES = {
 }
 
 EPISODE_WRITER_OVERRIDES: dict[str, list[int]] = {
+    "123": [83],
     "347": [186, 28],
     "406": [28, 186],
     "442": [28, 186],
@@ -140,6 +141,8 @@ EPISODE_WRITER_OVERRIDES: dict[str, list[int]] = {
     "708": [186, 28],
     "908": [245],
     "964": [167],
+    "1022": [70],
+    "1259": [245],
 }
 
 IGNORED_WRITER_TOKENS = {"f230"}
