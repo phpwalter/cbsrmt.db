@@ -144,7 +144,11 @@ WRITER_ALIASES = {
 # Explicit episode-level corrections. These are intentionally scoped to an episode
 # so a genuine author name elsewhere is never globally aliased to another person.
 EPISODE_WRITER_OVERRIDES: dict[str, list[int]] = {
-    "696": [55],  # In The Fog -> Roy Winsor
+    "347": [186, 28],  # The Third Person -> Stella Moss, Arnold Moss
+    "406": [28, 186],  # One Of The Missing -> Arnold Moss, Stella Moss
+    "442": [28, 186],  # The Monk And The Hangman's Daughter -> Arnold Moss, Stella Moss
+    "696": [55],       # In The Fog -> Roy Winsor
+    "708": [186, 28],  # The Way To Dusty Death -> Stella Moss, Arnold Moss
 }
 
 # Explicitly approved non-writer tokens to discard during reconciliation.
