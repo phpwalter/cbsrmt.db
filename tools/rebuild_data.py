@@ -133,6 +133,10 @@ WRITER_ALIASES = {
     "elizabeth pennell": "291",
 }
 
+WRITER_TEXT_CORRECTIONS = {
+    "steve laerman": "Steve Lehrman",
+}
+
 EPISODE_WRITER_OVERRIDES: dict[str, list[int]] = {
     "123": [83],
     "347": [186, 28],
@@ -167,6 +171,7 @@ def resolve_episode_writers(episodes: list[dict[str, Any]], aliases: dict[str, s
         raw = str(episode.get("episode_writer") or "").strip()
         if not raw:
             continue
+        raw = WRITER_TEXT_CORRECTIONS.get(norm(raw), raw)
         whole_key = norm(raw)
         whole = aliases.get(whole_key, set())
         if len(whole) == 1:
