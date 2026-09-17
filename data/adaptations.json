@@ -1,0 +1,2018 @@
+[
+  {
+    "record_id": "1",
+    "episode_title": "Absent-Minded League (The)",
+    "credited_source_note": "adapted from the Robert Barr story",
+    "identified_source_work": "The Absent-Minded Coterie",
+    "identified_author": "Robert Barr",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "2",
+    "episode_title": "Adventure of the Beryl Coronet (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Adventure of the Beryl Coronet",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "3",
+    "episode_title": "Adventure of the Blue Carbuncle (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Adventure of the Blue Carbuncle",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "4",
+    "episode_title": "Adventure of the Red-Headed League (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle classic",
+    "identified_source_work": "The Adventure of the Red-Headed League",
+    "identified_author": "Sir Arthur Conan Doyle",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "5",
+    "episode_title": "Adventure of the Speckled Band (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Adventure of the Speckled Band",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "6",
+    "episode_title": "Adventures of Don Quixote (The)",
+    "credited_source_note": "adapted from the Miguel de Cervantes classic",
+    "identified_source_work": "The Adventures of Don Quixote",
+    "identified_author": "Miguel de Cervantes",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "7",
+    "episode_title": "Afterward",
+    "credited_source_note": "adapted from the Edith Horton story",
+    "identified_source_work": "Afterward",
+    "identified_author": "Edith Horton",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "8",
+    "episode_title": "All Things Are Possible",
+    "credited_source_note": "adapted from the Leo Tolstoy story",
+    "identified_source_work": "Where Love Is, There God Is Also",
+    "identified_author": "Leo Tolstoy",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "9",
+    "episode_title": "Artist (The)",
+    "credited_source_note": "adapted from the Guy de Maupaussant classic",
+    "identified_source_work": "The Artist",
+    "identified_author": "Guy de Maupaussant",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "10",
+    "episode_title": "Assassination (The)",
+    "credited_source_note": "adapted from William Shakespeare",
+    "identified_source_work": "Julius Caesar",
+    "identified_author": "William Shakespeare",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "11",
+    "episode_title": "At the End of the Passage",
+    "credited_source_note": "adapted from the Rudyard Kipling classic",
+    "identified_source_work": "At the End of the Passage",
+    "identified_author": "Rudyard Kipling",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "12",
+    "episode_title": "Beach of Falesa (The)",
+    "credited_source_note": "adapted from the Robert Louis Stevenson classic",
+    "identified_source_work": "The Beach of Falesa",
+    "identified_author": "Robert Louis Stevenson",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "13",
+    "episode_title": "Beast (The)",
+    "credited_source_note": "adapted from the Edith Wharton story",
+    "identified_source_work": "The Beast",
+    "identified_author": "Edith Wharton",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "14",
+    "episode_title": "Berenice",
+    "credited_source_note": "adapted from the Edgar Allan Poe classic",
+    "identified_source_work": "Berenice",
+    "identified_author": "Edgar Allan Poe",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "15",
+    "episode_title": "Better Half (The)",
+    "credited_source_note": "adapted from the G. Bernard Shaw story",
+    "identified_source_work": "The Better Half",
+    "identified_author": "G. Bernard Shaw",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "16",
+    "episode_title": "Birthmark (The)",
+    "credited_source_note": "adapted from the Nathaniel Hawthorne story",
+    "identified_source_work": "The Birthmark",
+    "identified_author": "Nathaniel Hawthorne",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "17",
+    "episode_title": "Bisara of Pooree (The)",
+    "credited_source_note": "adapted from the Rudyard Kipling story",
+    "identified_source_work": "The Bisara of Pooree",
+    "identified_author": "Rudyard Kipling",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "18",
+    "episode_title": "Black Cat (The)",
+    "credited_source_note": "adapted from the Edgar Allan Poe classic",
+    "identified_source_work": "The Black Cat",
+    "identified_author": "Edgar Allan Poe",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "19",
+    "episode_title": "Black Door (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Sealed Room",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "20",
+    "episode_title": "Black Sheep and the Captain (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Winning Shot",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "21",
+    "episode_title": "Boatman and the Devil (The)",
+    "credited_source_note": "adapted from the Anton Chekov story",
+    "identified_source_work": "The Boatman and the Devil",
+    "identified_author": "Anton Chekov",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "22",
+    "episode_title": "Body Snatchers (The)",
+    "credited_source_note": "adapted from the Robert Louis Stevenson classic",
+    "identified_source_work": "The Body Snatcher",
+    "identified_author": "Robert Louis Stevenson",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "23",
+    "episode_title": "Boscombe Pool Mystery (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Boscombe Valley Mystery",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "24",
+    "episode_title": "Brooch (The)",
+    "credited_source_note": "adapted from the Anton Chekov story",
+    "identified_source_work": "The Brooch",
+    "identified_author": "Anton Chekov",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "25",
+    "episode_title": "By Word of Mouth",
+    "credited_source_note": "adapted from the Rudyard Kipling story",
+    "identified_source_work": "By Word of Mouth",
+    "identified_author": "Rudyard Kipling",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "26",
+    "episode_title": "Cabinet of the Unsolved (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Cabinet of the Unsolved",
+    "identified_author": "Sir Arthur Conan Doyle",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "27",
+    "episode_title": "Canterville Ghost (The)",
+    "credited_source_note": "adapted from the Oscar Wilde classic",
+    "identified_source_work": "The Canterville Ghost",
+    "identified_author": "Oscar Wilde",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "28",
+    "episode_title": "Captain of the PoleStar (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Captain of the PoleStar",
+    "identified_author": "Sir Arthur Conan Doyle",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "29",
+    "episode_title": "Carmilla",
+    "credited_source_note": "adapted from the Sheridan Le Fanu classic",
+    "identified_source_work": "Carmilla",
+    "identified_author": "Sheridan Le Fanu",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "30",
+    "episode_title": "Case of Chateau-Margaux (The)",
+    "credited_source_note": "adapted from the Edgar Allan Poe classic",
+    "identified_source_work": "The Case of Chateau-Margaux",
+    "identified_author": "Edgar Allan Poe",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "31",
+    "episode_title": "Cask of Amontillado (The)",
+    "credited_source_note": "adapted from the Edgar Allan Poe classic",
+    "identified_source_work": "The Cask of Amontillado",
+    "identified_author": "Edgar Allan Poe",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "32",
+    "episode_title": "Castle Kerfol",
+    "credited_source_note": "adapted from the Edith Wharton classic",
+    "identified_source_work": "Kerfol",
+    "identified_author": "Edith Wharton",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "33",
+    "episode_title": "Cezar Curse (The)",
+    "credited_source_note": "adapted from the Robert Louis Stevenson classic",
+    "identified_source_work": "The Cezar Curse",
+    "identified_author": "Robert Louis Stevenson",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "34",
+    "episode_title": "Cherchez la Femme",
+    "credited_source_note": "adapted from the O. Henry classic",
+    "identified_source_work": "Cherchez la Femme",
+    "identified_author": "O. Henry",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "35",
+    "episode_title": "Christmas Carol (A)",
+    "credited_source_note": "adapted from the Charles Dickens classic",
+    "identified_source_work": "A Christmas Carol",
+    "identified_author": "Charles Dickens",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "36",
+    "episode_title": "City of the Dead",
+    "credited_source_note": "adapted from the H. G. Wells classic",
+    "identified_source_work": "City of the Dead",
+    "identified_author": "H. G. Wells",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "37",
+    "episode_title": "Colonel Chabert (The)",
+    "credited_source_note": "adapted from the Honore de Balzac story",
+    "identified_source_work": "The Colonel Chabert",
+    "identified_author": "Honore de Balzac",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "38",
+    "episode_title": "Confession",
+    "credited_source_note": "adapted from the Henry James story",
+    "identified_source_work": "Confession",
+    "identified_author": "Henry James",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "39",
+    "episode_title": "Connecticut Yankee in King Arthur's Court (A)",
+    "credited_source_note": "adapted from the Mark Twain classic",
+    "identified_source_work": "A Connecticut Yankee in King Arthur's Court",
+    "identified_author": "Mark Twain",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "40",
+    "episode_title": "Corpse that Would Not Die (The)",
+    "credited_source_note": "adapted from the Emile Zola story",
+    "identified_source_work": "The Corpse that Would Not Die",
+    "identified_author": "Emile Zola",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "41",
+    "episode_title": "Countess (The)",
+    "credited_source_note": "adapted from the Honore de Balzac story",
+    "identified_source_work": "The Countess",
+    "identified_author": "Honore de Balzac",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "42",
+    "episode_title": "Crystal Gazer (The)",
+    "credited_source_note": "adapted from the Jacques Futrell story",
+    "identified_source_work": "The Crystal Gazer",
+    "identified_author": "Jacques Futrell",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "43",
+    "episode_title": "Curious Experience (A)",
+    "credited_source_note": "adapted from the Mark Twain classic",
+    "identified_source_work": "A Curious Experience",
+    "identified_author": "Mark Twain",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "44",
+    "episode_title": "Dagger of Almohades (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Case of Lady Sannox",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "45",
+    "episode_title": "Damned Thing (The)",
+    "credited_source_note": "adapted from the Ambrose Bierce classic",
+    "identified_source_work": "The Damned Thing",
+    "identified_author": "Ambrose Bierce",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "46",
+    "episode_title": "Dangerous Memory",
+    "credited_source_note": "adapted from the Jacques Futrell story",
+    "identified_source_work": "Dangerous Memory",
+    "identified_author": "Jacques Futrell",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "47",
+    "episode_title": "Dead House (The)",
+    "credited_source_note": "adapted from the Mark Twain classic",
+    "identified_source_work": "The Dead House",
+    "identified_author": "Mark Twain",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "48",
+    "episode_title": "Death of Halpin Fraser (The)",
+    "credited_source_note": "adapted from the Ambrose Bierce classic",
+    "identified_source_work": "The Death of Halpin Fraser",
+    "identified_author": "Ambrose Bierce",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "49",
+    "episode_title": "Departmental Case (A)",
+    "credited_source_note": "adapted from the O. Henry classic",
+    "identified_source_work": "A Departmental Case",
+    "identified_author": "O. Henry",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "50",
+    "episode_title": "Devil's Bargain (The)",
+    "credited_source_note": "adapted from the Guy Boothby classic",
+    "identified_source_work": "The Devil's Bargain",
+    "identified_author": "Guy Boothby",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "51",
+    "episode_title": "Diamond Necklace (The)",
+    "credited_source_note": "adapted from the Guy de Maupassant story",
+    "identified_source_work": "The Necklace",
+    "identified_author": "Guy de Maupassant",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "52",
+    "episode_title": "Diary of a Madman (The)",
+    "credited_source_note": "adapted from the Guy de Maupassant classic",
+    "identified_source_work": "The Diary of a Madman",
+    "identified_author": "Guy de Maupassant",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "53",
+    "episode_title": "Diogenes, Inc.",
+    "credited_source_note": "adapted from the Jacques Futrell story",
+    "identified_source_work": "Diogenes Pauses",
+    "identified_author": "Jacques Futrelle",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "54",
+    "episode_title": "Doctor Eduardo",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Story of the Black Doctor",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "55",
+    "episode_title": "Don't Die Without Me",
+    "credited_source_note": "adapted from the O. Henry classic",
+    "identified_source_work": "Don't Die Without Me",
+    "identified_author": "O. Henry",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "56",
+    "episode_title": "Dr. Heidegger's Experiment",
+    "credited_source_note": "adapted from the Nathaniel Hawthorne classic",
+    "identified_source_work": "Dr. Heidegger's Experiment",
+    "identified_author": "Nathaniel Hawthorne",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "57",
+    "episode_title": "Dr. Jekyll and Mr. Hyde",
+    "credited_source_note": "adapted from the Robert Louis Stevenson classic",
+    "identified_source_work": "Dr. Jekyll and Mr. Hyde",
+    "identified_author": "Robert Louis Stevenson",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "58",
+    "episode_title": "Dracula",
+    "credited_source_note": "adapted from the Bram Stoker classic",
+    "identified_source_work": "Dracula",
+    "identified_author": "Bram Stoker",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "59",
+    "episode_title": "Dream Woman (The)",
+    "credited_source_note": "adapted from the Wilkie Collins classic",
+    "identified_source_work": "The Dream Woman",
+    "identified_author": "Wilkie Collins",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "60",
+    "episode_title": "Edmund Orme",
+    "credited_source_note": "adapted from the Henry James classic",
+    "identified_source_work": "Edmund Orme",
+    "identified_author": "Henry James",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "61",
+    "episode_title": "End of a Memory",
+    "credited_source_note": "adapted from the Frederick Fergis story",
+    "identified_source_work": "End of a Memory",
+    "identified_author": "Frederick Fergis",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "62",
+    "episode_title": "Episode of the Terror",
+    "credited_source_note": "adapted from the Honore de Balzac story",
+    "identified_source_work": "Episode of the Terror",
+    "identified_author": "Honore de Balzac",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "63",
+    "episode_title": "Fall of the House of Usher (The)",
+    "credited_source_note": "adapted from the Edgar Allan Poe classic",
+    "identified_source_work": "The Fall of the House of Usher",
+    "identified_author": "Edgar Allan Poe",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "64",
+    "episode_title": "Fateful Bell (The)",
+    "credited_source_note": "adapted from the Licarrio Hearn story",
+    "identified_source_work": "The Soul of the Great Bell",
+    "identified_author": "Lafcadio Hearn",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "65",
+    "episode_title": "Figure in the Moonlight (The)",
+    "credited_source_note": "adapted from the Montague R. James story",
+    "identified_source_work": "The Mezzotint",
+    "identified_author": "M. R. James",
+    "confidence": "high",
+    "basis": "verified loose adaptation"
+  },
+  {
+    "record_id": "66",
+    "episode_title": "Five-Hundred Carats (The)",
+    "credited_source_note": "adapted from the George Griffith story",
+    "identified_source_work": "The Five-Hundred Carats",
+    "identified_author": "George Griffith",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "67",
+    "episode_title": "Flash Point",
+    "credited_source_note": "adapted from the H. G. Wells story",
+    "identified_source_work": "Flash Point",
+    "identified_author": "H. G. Wells",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "68",
+    "episode_title": "Flower of Evil",
+    "credited_source_note": "adapted from Euripides and Eugene O'Neill",
+    "identified_source_work": "Hippolytus",
+    "identified_author": "Euripides",
+    "confidence": "high",
+    "basis": "verified source lineage; also parallels Eugene O'Neill's Desire Under the Elms"
+  },
+  {
+    "record_id": "69",
+    "episode_title": "Fools (The)",
+    "credited_source_note": "adapted from the Maxime Gorki story",
+    "identified_source_work": "The Fools",
+    "identified_author": "Maxime Gorki",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "70",
+    "episode_title": "Fourth Bullet (The)",
+    "credited_source_note": "adapted from the Hector Bellios story",
+    "identified_source_work": "The Fourth Bullet",
+    "identified_author": "Hector Bellios",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "71",
+    "episode_title": "Gettysburg Address (The)",
+    "credited_source_note": "adapted from the 'unintelligible French writer' story",
+    "identified_source_work": "The Gettysburg Address",
+    "identified_author": "'unintelligible French writer'",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "72",
+    "episode_title": "Ghost of Andersonville (The)",
+    "credited_source_note": "adapted from a true story",
+    "identified_source_work": "The Ghost of Andersonville",
+    "identified_author": "a true",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "73",
+    "episode_title": "Gift of Doom (The)",
+    "credited_source_note": "inspired by a Greek tragedy entitled Madeya",
+    "identified_source_work": "Medea",
+    "identified_author": "Euripides",
+    "confidence": "high",
+    "basis": "verified derived adaptation"
+  },
+  {
+    "record_id": "74",
+    "episode_title": "Gilbert Stuart (The)",
+    "credited_source_note": "adapted from the Edith Horton story",
+    "identified_source_work": "The Gilbert Stuart",
+    "identified_author": "Edith Horton",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "75",
+    "episode_title": "Gloria Scott (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Adventure of the Gloria Scott",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "76",
+    "episode_title": "Goddess Caper (The)",
+    "credited_source_note": "adapted from the Mark Twain story",
+    "identified_source_work": "The Goddess Caper",
+    "identified_author": "Mark Twain",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "77",
+    "episode_title": "Goddess of Death (The)",
+    "credited_source_note": "adapted from the Barry Payne story",
+    "identified_source_work": "The Goddess of Death",
+    "identified_author": "Barry Payne",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "78",
+    "episode_title": "Graveyard (The)",
+    "credited_source_note": "adapted from the Guy de Maupausant classic 'What is a Dream'",
+    "identified_source_work": "The Graveyard",
+    "identified_author": "Guy de Maupausant classic 'What is a Dream'",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "79",
+    "episode_title": "Great Brain (The)",
+    "credited_source_note": "adapted from the Jaques Futrell story",
+    "identified_source_work": "The Problem of Cell 13",
+    "identified_author": "Jacques Futrelle",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "80",
+    "episode_title": "Green Eyed Monster (The)",
+    "credited_source_note": "adapted from William Shakespeare",
+    "identified_source_work": "Othello",
+    "identified_author": "William Shakespeare",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "81",
+    "episode_title": "Guillotine (The)",
+    "credited_source_note": "adapted from the Washington Irving classic",
+    "identified_source_work": "The Guillotine",
+    "identified_author": "Washington Irving",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "82",
+    "episode_title": "Guilt of the Innocent (The)",
+    "credited_source_note": "adapted from the Maxime Gorki story",
+    "identified_source_work": "The Guilt of the Innocent",
+    "identified_author": "Maxime Gorki",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "83",
+    "episode_title": "Guilty",
+    "credited_source_note": "adapted from the Edith Horton story",
+    "identified_source_work": "Guilty",
+    "identified_author": "Edith Horton",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "84",
+    "episode_title": "Hand (The)",
+    "credited_source_note": "adapted from the Guy de Maupassant classic",
+    "identified_source_work": "The Hand",
+    "identified_author": "Guy de Maupassant",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "85",
+    "episode_title": "Horla (The)",
+    "credited_source_note": "adapted from the Guy de Maupassant classic",
+    "identified_source_work": "The Horla",
+    "identified_author": "Guy de Maupassant",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "86",
+    "episode_title": "Hound of the Baskervilles (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle classic",
+    "identified_source_work": "The Hound of the Baskervilles",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "87",
+    "episode_title": "House Divided (A)",
+    "credited_source_note": "adapted from Euripides",
+    "identified_source_work": "Electra",
+    "identified_author": "Euripides",
+    "confidence": "high",
+    "basis": "verified derived adaptation"
+  },
+  {
+    "record_id": "88",
+    "episode_title": "House of the Dead Heart (The)",
+    "credited_source_note": "adapted from the Edith Horton story",
+    "identified_source_work": "The House of the Dead Heart",
+    "identified_author": "Edith Horton",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "89",
+    "episode_title": "House of the Seven Gables (The)",
+    "credited_source_note": "adapted from the Nathaniel Hawthorne classic",
+    "identified_source_work": "The House of the Seven Gables",
+    "identified_author": "Nathaniel Hawthorne",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "90",
+    "episode_title": "House without Mirrors",
+    "credited_source_note": "adapted from the Charles Collins story",
+    "identified_source_work": "House without Mirrors",
+    "identified_author": "Charles Collins",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "91",
+    "episode_title": "How Much Land Does a Man Need?",
+    "credited_source_note": "adapted from the Leo Tolstoy story",
+    "identified_source_work": "How Much Land Does a Man Need?",
+    "identified_author": "Leo Tolstoy",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "92",
+    "episode_title": "Hunted Down",
+    "credited_source_note": "adapted from the Charles Dickens story",
+    "identified_source_work": "Hunted Down",
+    "identified_author": "Charles Dickens",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "93",
+    "episode_title": "Imp in the Bottle (The)",
+    "credited_source_note": "adapted from the Robert Louis Stevenson classic",
+    "identified_source_work": "The Imp in the Bottle",
+    "identified_author": "Robert Louis Stevenson",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "94",
+    "episode_title": "In the Fog",
+    "credited_source_note": "adapted from the Algernon Blackwood story",
+    "identified_source_work": "In the Fog",
+    "identified_author": "Algernon Blackwood",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "95",
+    "episode_title": "Intruder (The)",
+    "credited_source_note": "adapted from the Jules Verne story",
+    "identified_source_work": "The Intruder",
+    "identified_author": "Jules Verne",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "96",
+    "episode_title": "Is He Living or Is He Dead?",
+    "credited_source_note": "adapted from the Mark Twain classic",
+    "identified_source_work": "Is He Living or Is He Dead?",
+    "identified_author": "Mark Twain",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "97",
+    "episode_title": "It's Hell to Pay the Piper",
+    "credited_source_note": "adapted from the Sir Walter Scott classic",
+    "identified_source_work": "It's Hell to Pay the Piper",
+    "identified_author": "Sir Walter Scott",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "98",
+    "episode_title": "Jane Eyre",
+    "credited_source_note": "adapted from the Charlotte Bronte classic",
+    "identified_source_work": "Jane Eyre",
+    "identified_author": "Charlotte Bronte",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "99",
+    "episode_title": "Jimmy Valentine's Gamble",
+    "credited_source_note": "adapted from the O. Henry classic",
+    "identified_source_work": "A Retrieved Reformation",
+    "identified_author": "O. Henry",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "100",
+    "episode_title": "Judge's House (The)",
+    "credited_source_note": "adapted from the Bram Stoker story",
+    "identified_source_work": "The Judge's House",
+    "identified_author": "Bram Stoker",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "101",
+    "episode_title": "Kiss of Death (The)",
+    "credited_source_note": "adapted from the Nathaniel Hawthorne story",
+    "identified_source_work": "The Kiss of Death",
+    "identified_author": "Nathaniel Hawthorne",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "102",
+    "episode_title": "Last Days of Pompeii (1 of 5) - The City of the Dead (The)",
+    "credited_source_note": "adapted from the Edward George Bulwer-Lytton story",
+    "identified_source_work": "The Last Days of Pompeii (1 of 5) - The City of the Dead",
+    "identified_author": "Edward George Bulwer-Lytton",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "103",
+    "episode_title": "Last Days of Pompeii (2 of 5) - Thrown to the Lions (The)",
+    "credited_source_note": "adapted from the Edward George Bulwer-Lytton story",
+    "identified_source_work": "The Last Days of Pompeii (2 of 5) - Thrown to the Lions",
+    "identified_author": "Edward George Bulwer-Lytton",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "104",
+    "episode_title": "Last Days of Pompeii (3 of 5) - Half Prophet, Half Friend (The)",
+    "credited_source_note": "adapted from the Edward George Bulwer-Lytton story",
+    "identified_source_work": "The Last Days of Pompeii (3 of 5) - Half Prophet, Half Friend",
+    "identified_author": "Edward George Bulwer-Lytton",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "105",
+    "episode_title": "Last Days of Pompeii (4 of 5) - Danger, Love and Death (The)",
+    "credited_source_note": "adapted from the Edward George Bulwer-Lytton story",
+    "identified_source_work": "The Last Days of Pompeii (4 of 5) - Danger, Love and Death",
+    "identified_author": "Edward George Bulwer-Lytton",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "106",
+    "episode_title": "Last Days of Pompeii (5 of 5) - The Buried City (The)",
+    "credited_source_note": "adapted from the Edward George Bulwer-Lytton story",
+    "identified_source_work": "The Last Days of Pompeii (5 of 5) - The Buried City",
+    "identified_author": "Edward George Bulwer-Lytton",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "107",
+    "episode_title": "Last Duel (The)",
+    "credited_source_note": "adapted from the Alexander Pushkin story",
+    "identified_source_work": "The Last Duel",
+    "identified_author": "Alexander Pushkin",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "108",
+    "episode_title": "Leopard Man (The)",
+    "credited_source_note": "adapted from the Rudyard Kipling story",
+    "identified_source_work": "The Leopard Man",
+    "identified_author": "Rudyard Kipling",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "109",
+    "episode_title": "Les Miserables (1 of 5) - The Thief and the Bishop",
+    "credited_source_note": "adapted from the Victor Hugo story",
+    "identified_source_work": "Les Miserables (1 of 5) - The Thief and the Bishop",
+    "identified_author": "Victor Hugo",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "110",
+    "episode_title": "Les Miserables (2 of 5) - The Lawless and the Law",
+    "credited_source_note": "adapted from the Victor Hugo story",
+    "identified_source_work": "Les Miserables (2 of 5) - The Lawless and the Law",
+    "identified_author": "Victor Hugo",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "111",
+    "episode_title": "Les Miserables (3 of 5) - No Escape",
+    "credited_source_note": "adapted from the Victor Hugo story",
+    "identified_source_work": "Les Miserables (3 of 5) - No Escape",
+    "identified_author": "Victor Hugo",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "112",
+    "episode_title": "Les Miserables (4 of 5) - Fear, Love, and Death",
+    "credited_source_note": "adapted from the Victor Hugo story",
+    "identified_source_work": "Les Miserables (4 of 5) - Fear, Love, and Death",
+    "identified_author": "Victor Hugo",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "113",
+    "episode_title": "Les Miserables (5 of 5) - The Final Chapter",
+    "credited_source_note": "adapted from the Victor Hugo story",
+    "identified_source_work": "Les Miserables (5 of 5) - The Final Chapter",
+    "identified_author": "Victor Hugo",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "114",
+    "episode_title": "Liar (The)",
+    "credited_source_note": "adapted from the Henry James story",
+    "identified_source_work": "The Liar",
+    "identified_author": "Henry James",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "115",
+    "episode_title": "Light that Failed (The)",
+    "credited_source_note": "adapted from the Rudyard Kipling classic",
+    "identified_source_work": "The Light that Failed",
+    "identified_author": "Rudyard Kipling",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "116",
+    "episode_title": "Locked Trunk (The)",
+    "credited_source_note": "adapted from the Henry James story",
+    "identified_source_work": "The Locked Trunk",
+    "identified_author": "Henry James",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "117",
+    "episode_title": "Long Live the King Is Dead",
+    "credited_source_note": "adapted from William Shakespeare",
+    "identified_source_work": "Hamlet",
+    "identified_author": "William Shakespeare",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "118",
+    "episode_title": "Long Way from Home (A)",
+    "credited_source_note": "adapted from the Ambrose Bierce story",
+    "identified_source_work": "A Long Way from Home",
+    "identified_author": "Ambrose Bierce",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "119",
+    "episode_title": "Long, Long Sleep (The)",
+    "credited_source_note": "adapted from the H. G. Wells classic",
+    "identified_source_work": "The Long, Long Sleep",
+    "identified_author": "H. G. Wells",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "120",
+    "episode_title": "Loser Take All",
+    "credited_source_note": "adapted from the Peter Bulwer Lytton story",
+    "identified_source_work": "Loser Take All",
+    "identified_author": "Peter Bulwer Lytton",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "121",
+    "episode_title": "Love Song of Death (The)",
+    "credited_source_note": "adapted from William Shakespeare",
+    "identified_source_work": "Romeo and Juliet",
+    "identified_author": "William Shakespeare",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "122",
+    "episode_title": "Mad Monkton",
+    "credited_source_note": "adapted from the Wilkie Collins short story",
+    "identified_source_work": "Mad Monkton",
+    "identified_author": "Wilkie Collins",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "123",
+    "episode_title": "Man in the Black Cap (The)",
+    "credited_source_note": "adapted from the Edith Wharton story",
+    "identified_source_work": "Afterward",
+    "identified_author": "Edith Wharton",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "124",
+    "episode_title": "Man that Corrupted Hadleyburg (The)",
+    "credited_source_note": "adapted from the Mark Twain classic",
+    "identified_source_work": "The Man That Corrupted Hadleyburg",
+    "identified_author": "Mark Twain",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "125",
+    "episode_title": "Man Who Could Work Miracles (The)",
+    "credited_source_note": "adapted from the H.G. Wells classic",
+    "identified_source_work": "The Man Who Could Work Miracles",
+    "identified_author": "H. G. Wells",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "126",
+    "episode_title": "Man with the Claret Mark (The)",
+    "credited_source_note": "adapted from the Joseph Sheridan le Fanu story",
+    "identified_source_work": "The Man with the Claret Mark",
+    "identified_author": "Joseph Sheridan le Fanu",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "127",
+    "episode_title": "Man-Sized in Marble",
+    "credited_source_note": "adapted from the Edith Nesbit story",
+    "identified_source_work": "Man-Sized in Marble",
+    "identified_author": "Edith Nesbit",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "128",
+    "episode_title": "Markheim: Man or Monster?",
+    "credited_source_note": "inspired by Robert Louis Stevenson",
+    "identified_source_work": "Markheim: Man or Monster?",
+    "identified_author": "Robert Louis Stevenson",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "129",
+    "episode_title": "Masque of the Red Death (The)",
+    "credited_source_note": "adapted from the Edgar Allan Poe classic",
+    "identified_source_work": "The Masque of the Red Death",
+    "identified_author": "Edgar Allan Poe",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "130",
+    "episode_title": "Master Minds (The)",
+    "credited_source_note": "adapted from the Jacques Futrell story",
+    "identified_source_work": "The Master Minds",
+    "identified_author": "Jacques Futrell",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "131",
+    "episode_title": "Matter of Conscience (A)",
+    "credited_source_note": "adapted from the Ambrose Bierce story",
+    "identified_source_work": "A Matter of Conscience",
+    "identified_author": "Ambrose Bierce",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "132",
+    "episode_title": "Maud-Evelyn",
+    "credited_source_note": "adapted from the Henry James classic",
+    "identified_source_work": "Maud-Evelyn",
+    "identified_author": "Henry James",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "133",
+    "episode_title": "Midas of Castle Hill (The)",
+    "credited_source_note": "adapted from the Robert Barr story",
+    "identified_source_work": "The Midas of Castle Hill",
+    "identified_author": "Robert Barr",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "134",
+    "episode_title": "Monk and the Hangman's Daughter (The)",
+    "credited_source_note": "adapted from the Ambrose Bierce story",
+    "identified_source_work": "The Monk and the Hangman's Daughter",
+    "identified_author": "Ambrose Bierce",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "135",
+    "episode_title": "Much Too Much",
+    "credited_source_note": "adapted from the Leo Tolstoy story",
+    "identified_source_work": "Much Too Much",
+    "identified_author": "Leo Tolstoy",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "136",
+    "episode_title": "Murder at Troyte's Hill",
+    "credited_source_note": "adapted from the C. L. Perkus story",
+    "identified_source_work": "Murder at Troyte's Hill",
+    "identified_author": "C. L. Perkus",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "137",
+    "episode_title": "Murder Most Foul",
+    "credited_source_note": "adapted from William Shakespeare",
+    "identified_source_work": "Macbeth",
+    "identified_author": "William Shakespeare",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "138",
+    "episode_title": "Murder of Caesar (The)",
+    "credited_source_note": "adapted from the Plutarch, Cicero, and Plutonius texts",
+    "identified_source_work": "The Murder of Caesar",
+    "identified_author": "Plutarch, Cicero, and Plutonius",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "139",
+    "episode_title": "Murder on the Space Shuttle",
+    "credited_source_note": "adapted from the Jacques Futrell story",
+    "identified_source_work": "Murder on the Space Shuttle",
+    "identified_author": "Jacques Futrell",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "140",
+    "episode_title": "Murders in the Rue Morgue (The)",
+    "credited_source_note": "adapted from the Edgar Allan Poe classic",
+    "identified_source_work": "The Murders in the Rue Morgue",
+    "identified_author": "Edgar Allan Poe",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "141",
+    "episode_title": "Musgrave Ritual (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Adventure of the Musgrave Ritual",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "142",
+    "episode_title": "My First Rogue",
+    "credited_source_note": "adapted from the Maurice LeBlanc story",
+    "identified_source_work": "My First Rogue",
+    "identified_author": "Maurice LeBlanc",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "143",
+    "episode_title": "Mysterious Hanging of Squire Huggins (The)",
+    "credited_source_note": "adapted from the Nathaniel Hawthorne story",
+    "identified_source_work": "The Mysterious Hanging of Squire Huggins",
+    "identified_author": "Nathaniel Hawthorne",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "144",
+    "episode_title": "Mysterious Island (The)",
+    "credited_source_note": "adapted from the Jules Verne story",
+    "identified_source_work": "The Mysterious Island",
+    "identified_author": "Jules Verne",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "145",
+    "episode_title": "Mysterious Rochdale Special (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle classic",
+    "identified_source_work": "The Story of the Lost Special",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "146",
+    "episode_title": "Mysterious Stranger (The)",
+    "credited_source_note": "adapted from the Mark Twain classic",
+    "identified_source_work": "The Mysterious Stranger",
+    "identified_author": "Mark Twain",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "147",
+    "episode_title": "Naval Treaty (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Adventure of the Naval Treaty",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "148",
+    "episode_title": "Never Answer an Advertisement",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "Never Answer an Advertisement",
+    "identified_author": "Sir Arthur Conan Doyle",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "149",
+    "episode_title": "Night of the Howling Dog",
+    "credited_source_note": "adapted from the Algernon Blackwood story",
+    "identified_source_work": "Night of the Howling Dog",
+    "identified_author": "Algernon Blackwood",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "150",
+    "episode_title": "Night Visitor",
+    "credited_source_note": "Fourth-century BC Macedonian ghost story",
+    "identified_source_work": "Night Visitor",
+    "identified_author": "Fourth-century BC Macedonian ghost",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "151",
+    "episode_title": "Oblong Box (The)",
+    "credited_source_note": "adapted from the Edgar Allan Poe classic",
+    "identified_source_work": "The Oblong Box",
+    "identified_author": "Edgar Allan Poe",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "152",
+    "episode_title": "Occurrence at Owl Creek Bridge (An)",
+    "credited_source_note": "adapted from the Ambrose Bierce classic",
+    "identified_source_work": "An Occurrence at Owl Creek Bridge",
+    "identified_author": "Ambrose Bierce",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "153",
+    "episode_title": "Once Upon an Island",
+    "credited_source_note": "adapted from the E. Herder and H. Herder story",
+    "identified_source_work": "Once Upon an Island",
+    "identified_author": "E. Herder and H. Herder",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "154",
+    "episode_title": "One of the Missing",
+    "credited_source_note": "adapted from the Ambrose Bierce classic",
+    "identified_source_work": "One of the Missing",
+    "identified_author": "Ambrose Bierce",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "155",
+    "episode_title": "Parasite (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Parasite",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "156",
+    "episode_title": "Passing of Black Eagle (The)",
+    "credited_source_note": "adapted from the O. Henry classic",
+    "identified_source_work": "The Passing of Black Eagle",
+    "identified_author": "O. Henry",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "157",
+    "episode_title": "Penny for Your Thoughts (A)",
+    "credited_source_note": "adapted from a classic myth",
+    "identified_source_work": "A Penny for Your Thoughts",
+    "identified_author": "a classic myth",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "158",
+    "episode_title": "Permanent Man (The)",
+    "credited_source_note": "adapted from the William Morrow story",
+    "identified_source_work": "The Permanent Man",
+    "identified_author": "William Morrow",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "159",
+    "episode_title": "Phantom of the Opera (The)",
+    "credited_source_note": "adapted from the Gaston Leroux classic",
+    "identified_source_work": "The Phantom of the Opera",
+    "identified_author": "Gaston Leroux",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "160",
+    "episode_title": "Picture of Dorian Gray (The)",
+    "credited_source_note": "adapted from the Oscar Wilde classic",
+    "identified_source_work": "The Picture of Dorian Gray",
+    "identified_author": "Oscar Wilde",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "161",
+    "episode_title": "Pit and the Pendulum (The)",
+    "credited_source_note": "adapted from the Edgar Allan Poe classic",
+    "identified_source_work": "The Pit and the Pendulum",
+    "identified_author": "Edgar Allan Poe",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "162",
+    "episode_title": "Portrait of a Memory",
+    "credited_source_note": "adapted from the Henry James story",
+    "identified_source_work": "Portrait of a Memory",
+    "identified_author": "Henry James",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "163",
+    "episode_title": "Postmistress of Laurel Run (The)",
+    "credited_source_note": "adapted from the Bret Harte story",
+    "identified_source_work": "The Postmistress of Laurel Run",
+    "identified_author": "Bret Harte",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "164",
+    "episode_title": "Premature Burial (The)",
+    "credited_source_note": "adapted from the Edgar Allan Poe classic",
+    "identified_source_work": "The Premature Burial",
+    "identified_author": "Edgar Allan Poe",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "165",
+    "episode_title": "Prince of Evil (The)",
+    "credited_source_note": "adapted from William Shakespeare",
+    "identified_source_work": "Richard III",
+    "identified_author": "William Shakespeare",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "166",
+    "episode_title": "Prisoner of Zenda (The)",
+    "credited_source_note": "adapted from the Anthony Hope story",
+    "identified_source_work": "The Prisoner of Zenda",
+    "identified_author": "Anthony Hope",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "167",
+    "episode_title": "Queen of Spades (The)",
+    "credited_source_note": "adapted from the Alexander Pushkin classic",
+    "identified_source_work": "The Queen of Spades",
+    "identified_author": "Alexander Pushkin",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "168",
+    "episode_title": "Raft (The)",
+    "credited_source_note": "adapted from the Jacques Futrell story",
+    "identified_source_work": "The Tragedy of the Life Raft",
+    "identified_author": "Jacques Futrelle",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "169",
+    "episode_title": "Reigate Mystery (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Reigate Puzzle / The Reigate Squires",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "170",
+    "episode_title": "Revenge Is Not Sweet",
+    "credited_source_note": "adapted from the Jacques Futrell story",
+    "identified_source_work": "Revenge Is Not Sweet",
+    "identified_author": "Jacques Futrell",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "171",
+    "episode_title": "Revenge Is Sweet",
+    "credited_source_note": "adapted from the Guy de Maupassant classic",
+    "identified_source_work": "Revenge Is Sweet",
+    "identified_author": "Guy de Maupassant",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "172",
+    "episode_title": "Ring of Evil",
+    "credited_source_note": "adapted from the D. H. Maxwell story",
+    "identified_source_work": "Ring of Evil",
+    "identified_author": "D. H. Maxwell",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "173",
+    "episode_title": "Rivalry (The)",
+    "credited_source_note": "adapted from the Maurice LeBlanc story",
+    "identified_source_work": "The Rivalry",
+    "identified_author": "Maurice LeBlanc",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "174",
+    "episode_title": "Romany Revenge (The)",
+    "credited_source_note": "adapted from the T. L. Neuger classic",
+    "identified_source_work": "The Romany Revenge",
+    "identified_author": "T. L. Neuger",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "175",
+    "episode_title": "Russian Passport (The)",
+    "credited_source_note": "adapted from the Mark Twain classic",
+    "identified_source_work": "The Russian Passport",
+    "identified_author": "Mark Twain",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "176",
+    "episode_title": "Safety Match (The)",
+    "credited_source_note": "adapted from the Anton Chekov classic",
+    "identified_source_work": "The Safety Match",
+    "identified_author": "Anton Chekov",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "177",
+    "episode_title": "Saxon Curse (The)",
+    "credited_source_note": "adapted from the Oscar Wilde story",
+    "identified_source_work": "The Saxon Curse",
+    "identified_author": "Oscar Wilde",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "178",
+    "episode_title": "Scandal in Bohemia (A)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "A Scandal in Bohemia",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "179",
+    "episode_title": "School Mistress (The)",
+    "credited_source_note": "adapted from the Anton Chekov story",
+    "identified_source_work": "The School Mistress",
+    "identified_author": "Anton Chekov",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "180",
+    "episode_title": "Sealed Room Murder (The)",
+    "credited_source_note": "adapted from the Andy Post short story",
+    "identified_source_work": "The Doomdorf Mystery",
+    "identified_author": "Melville Davisson Post",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "181",
+    "episode_title": "Search for Eden",
+    "credited_source_note": "adapted from the H. G. Wells story",
+    "identified_source_work": "Search for Eden",
+    "identified_author": "H. G. Wells",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "182",
+    "episode_title": "Secret of the Fifth Bell (The)",
+    "credited_source_note": "adapted from the Jacques Futrell story",
+    "identified_source_work": "The Haunted Bell",
+    "identified_author": "Jacques Futrelle",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "183",
+    "episode_title": "Secret Sharer (The)",
+    "credited_source_note": "adapted from the Joseph Conrad story",
+    "identified_source_work": "The Secret Sharer",
+    "identified_author": "Joseph Conrad",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "184",
+    "episode_title": "Serpent of the Nile (The)",
+    "credited_source_note": "adapted from William Shakespeare",
+    "identified_source_work": "Antony and Cleopatra",
+    "identified_author": "William Shakespeare",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "185",
+    "episode_title": "Shadow of Love",
+    "credited_source_note": "adapted from the Robert Hichens story",
+    "identified_source_work": "Shadow of Love",
+    "identified_author": "Robert Hichens",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "186",
+    "episode_title": "Shadows from the Grave",
+    "credited_source_note": "adapted from the Wilkie Collins classic",
+    "identified_source_work": "Shadows from the Grave",
+    "identified_author": "Wilkie Collins",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "187",
+    "episode_title": "She",
+    "credited_source_note": "adapted from the H. Rider Haggard story",
+    "identified_source_work": "She",
+    "identified_author": "H. Rider Haggard",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "188",
+    "episode_title": "Shining Man (The)",
+    "credited_source_note": "adapted from the E. and H. Heron story",
+    "identified_source_work": "The Shining Man",
+    "identified_author": "E. and H. Heron",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "189",
+    "episode_title": "Sign of Four (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle classic",
+    "identified_source_work": "The Sign of the Four",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "190",
+    "episode_title": "Silent Woman (The)",
+    "credited_source_note": "adapted from the Leopold Kompert story",
+    "identified_source_work": "The Silent Woman",
+    "identified_author": "Leopold Kompert",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "191",
+    "episode_title": "Sire De Maletroit's Door (The)",
+    "credited_source_note": "adapted from the Robert Louis Stevenson classic",
+    "identified_source_work": "The Sire De Maletroit's Door",
+    "identified_author": "Robert Louis Stevenson",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "192",
+    "episode_title": "So Shall Ye Reap",
+    "credited_source_note": "inspired by Sophocles",
+    "identified_source_work": "Oedipus Rex / Oedipus the King",
+    "identified_author": "Sophocles",
+    "confidence": "high",
+    "basis": "verified derived adaptation"
+  },
+  {
+    "record_id": "193",
+    "episode_title": "Specter Bridegroom (The)",
+    "credited_source_note": "adapted from the Washington Irving story",
+    "identified_source_work": "The Specter Bridegroom",
+    "identified_author": "Washington Irving",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "194",
+    "episode_title": "Stolen White Elephant (The)",
+    "credited_source_note": "adapted from the Mark Twain classic",
+    "identified_source_work": "The Stolen White Elephant",
+    "identified_author": "Mark Twain",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "195",
+    "episode_title": "Storm Breeder (The)",
+    "credited_source_note": "adapted from the William Austin story",
+    "identified_source_work": "The Storm Breeder",
+    "identified_author": "William Austin",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "196",
+    "episode_title": "Study in Scarlet (A)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle classic",
+    "identified_source_work": "A Study in Scarlet",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "197",
+    "episode_title": "Suicide Club (The)",
+    "credited_source_note": "adapted from the Robert Louis Stevenson classic",
+    "identified_source_work": "The Suicide Club",
+    "identified_author": "Robert Louis Stevenson",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "198",
+    "episode_title": "Tell-Tale Heart (The)",
+    "credited_source_note": "adapted from the Edgar Allan Poe classic",
+    "identified_source_work": "The Tell-Tale Heart",
+    "identified_author": "Edgar Allan Poe",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "199",
+    "episode_title": "That's What Friends Are For",
+    "credited_source_note": "adapted from the Rudyard Kipling classic",
+    "identified_source_work": "That's What Friends Are For",
+    "identified_author": "Rudyard Kipling",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "200",
+    "episode_title": "Thing at Nolan (The)",
+    "credited_source_note": "adapted from the Ambrose Bierce story",
+    "identified_source_work": "The Thing at Nolan",
+    "identified_author": "Ambrose Bierce",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "201",
+    "episode_title": "Third Person (The)",
+    "credited_source_note": "adapted from the Henry James story",
+    "identified_source_work": "The Third Person",
+    "identified_author": "Henry James",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "202",
+    "episode_title": "This Will Kill You",
+    "credited_source_note": "adapted from the Montague R. James story 'Casting the Runes'",
+    "identified_source_work": "Casting the Runes",
+    "identified_author": "M. R. James",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "203",
+    "episode_title": "Three Times Dead",
+    "credited_source_note": "adapted from W. W. Jacobs' short story",
+    "identified_source_work": "Three Times Dead",
+    "identified_author": "W. W. Jacobs'",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "204",
+    "episode_title": "Tobin's Palm",
+    "credited_source_note": "adapted from the O. Henry classic",
+    "identified_source_work": "Tobin's Palm",
+    "identified_author": "O. Henry",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "205",
+    "episode_title": "Tom Sawyer, Detective",
+    "credited_source_note": "adapted from the Mark Twain classic",
+    "identified_source_work": "Tom Sawyer, Detective",
+    "identified_author": "Mark Twain",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "206",
+    "episode_title": "Tomorrow Is Never",
+    "credited_source_note": "adapted from the Henry James story",
+    "identified_source_work": "Tomorrow Is Never",
+    "identified_author": "Henry James",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "207",
+    "episode_title": "Tool Shed (The)",
+    "credited_source_note": "adapted from the Henry James story",
+    "identified_source_work": "The Tool Shed",
+    "identified_author": "Henry James",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "208",
+    "episode_title": "Toy Death",
+    "credited_source_note": "adapted from the Algernon Blackwood story",
+    "identified_source_work": "Toy Death",
+    "identified_author": "Algernon Blackwood",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "209",
+    "episode_title": "Tragedy of Error (A)",
+    "credited_source_note": "adapted from the Henry James story",
+    "identified_source_work": "A Tragedy of Error",
+    "identified_author": "Henry James",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "210",
+    "episode_title": "Transformation (The)",
+    "credited_source_note": "adapted from the Mary Shelley classic",
+    "identified_source_work": "The Transformation",
+    "identified_author": "Mary Shelley",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "211",
+    "episode_title": "Trial for Murder",
+    "credited_source_note": "adapted from the Charles Dickens classic",
+    "identified_source_work": "Trial for Murder",
+    "identified_author": "Charles Dickens",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  },
+  {
+    "record_id": "212",
+    "episode_title": "Two Renegades",
+    "credited_source_note": "adapted from the O. Henry classic",
+    "identified_source_work": "Two Renegades",
+    "identified_author": "O. Henry",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "213",
+    "episode_title": "Vanishing Herd (The)",
+    "credited_source_note": "adapted from the Sir Arthur Conan Doyle story",
+    "identified_source_work": "The Adventure of the Priory School",
+    "identified_author": "Arthur Conan Doyle",
+    "confidence": "high",
+    "basis": "verified retitled adaptation"
+  },
+  {
+    "record_id": "214",
+    "episode_title": "Venus d'Ile (The)",
+    "credited_source_note": "adapted from the Proster Mérimée classic",
+    "identified_source_work": "The Venus d'Ile",
+    "identified_author": "Proster Mérimée",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "215",
+    "episode_title": "Visions of Sir Philip Sidney (The)",
+    "credited_source_note": "adapted from the M. R. James story",
+    "identified_source_work": "The Visions of Sir Philip Sidney",
+    "identified_author": "M. R. James",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "216",
+    "episode_title": "Wandering Wind (The)",
+    "credited_source_note": "adapted from the Sir Edwin Arnold story",
+    "identified_source_work": "The Wandering Wind",
+    "identified_author": "Sir Edwin Arnold",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "217",
+    "episode_title": "Wanted, a Husband",
+    "credited_source_note": "adapted from the O. Henry classic",
+    "identified_source_work": "Wanted, a Husband",
+    "identified_author": "O. Henry",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "218",
+    "episode_title": "Ward Six",
+    "credited_source_note": "adapted from the Anton Chekov classic",
+    "identified_source_work": "Ward Six",
+    "identified_author": "Anton Chekov",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "219",
+    "episode_title": "Warriors from Loanda (The)",
+    "credited_source_note": "adapted from the Joseph Conrad classic",
+    "identified_source_work": "The Warriors from Loanda",
+    "identified_author": "Joseph Conrad",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "220",
+    "episode_title": "Watcher of the Living",
+    "credited_source_note": "adapted from the H. G. Wells story",
+    "identified_source_work": "Watcher of the Living",
+    "identified_author": "H. G. Wells",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "221",
+    "episode_title": "Way Station (The)",
+    "credited_source_note": "adapted from the France Monar story",
+    "identified_source_work": "The Way Station",
+    "identified_author": "France Monar",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "222",
+    "episode_title": "What the Shepherd Saw",
+    "credited_source_note": "adapted from the Thomas Hardy classic",
+    "identified_source_work": "What the Shepherd Saw",
+    "identified_author": "Thomas Hardy",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "223",
+    "episode_title": "Winds of Time (The)",
+    "credited_source_note": "adapted from the Bryce Bond files",
+    "identified_source_work": "The Winds of Time",
+    "identified_author": "Bryce Bond files",
+    "confidence": "medium",
+    "basis": "same-title attribution from Literary Adaptations list; exact original title not independently verified"
+  },
+  {
+    "record_id": "224",
+    "episode_title": "Wuthering Heights",
+    "credited_source_note": "adapted from the Emily Bronte classic",
+    "identified_source_work": "Wuthering Heights",
+    "identified_author": "Emily Bronte",
+    "confidence": "high",
+    "basis": "canonical title of same-source work"
+  }
+]
