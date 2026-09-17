@@ -1,0 +1,19 @@
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'cbsrmt_api') THEN CREATE ROLE cbsrmt_api NOLOGIN; END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'cbsrmt_admin') THEN CREATE ROLE cbsrmt_admin NOLOGIN; END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'cbsrmt_import') THEN CREATE ROLE cbsrmt_import NOLOGIN; END IF;
+END $$;
+
+REVOKE ALL ON SCHEMA catalog FROM PUBLIC;
+REVOKE ALL ON ALL TABLES IN SCHEMA catalog FROM PUBLIC;
+
+GRANT USAGE ON SCHEMA api TO cbsrmt_api, cbsrmt_admin;
+GRANT USAGE ON SCHEMA admin TO cbsrmt_admin;
+GRANT USAGE ON SCHEMA stage, import TO cbsrmt_import;
+
+GRANT SELECT, INSERT, UPDATE ON stage.source_document TO cbsrmt_import;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA api GRANT EXECUTE ON FUNCTIONS TO cbsrmt_api, cbsrmt_admin;
+ALTER DEFAULT PRIVILEGES IN SCHEMA admin GRANT EXECUTE ON FUNCTIONS TO cbsrmt_admin;
+ALTER DEFAULT PRIVILEGES IN SCHEMA import GRANT EXECUTE ON FUNCTIONS TO cbsrmt_import;
