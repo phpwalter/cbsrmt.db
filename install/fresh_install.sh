@@ -65,11 +65,11 @@ DSN="host=$HOST port=$PORT dbname=$DATABASE user=$USER_NAME"
 echo "CBS RMT PostgreSQL fresh installer"
 echo "Target: $USER_NAME@$HOST:$PORT/$DATABASE"
 
-existing="$("${PSQL[@]}" -tA -c "SELECT EXISTS (SELECT 1 FROM pg_namespace WHERE nspname IN ('catalog','api','admin','stage','import'));" | tr -d '[:space:]')"
+existing="$("${PSQL[@]}" -tA -c "SELECT EXISTS (SELECT 1 FROM pg_namespace WHERE nspname IN ('catalog','api','admin','stage','import','account'));" | tr -d '[:space:]')"
 
 if [[ "$REBUILD" -eq 1 ]]; then
   echo "Rebuild requested: dropping CBS RMT schemas only."
-  "${PSQL[@]}" -c "DROP SCHEMA IF EXISTS admin, api, import, stage, catalog CASCADE;"
+  "${PSQL[@]}" -c "DROP SCHEMA IF EXISTS admin, api, import, stage, account, catalog CASCADE;"
 elif [[ "$existing" == "t" ]]; then
   echo "CBS RMT schemas already exist. Re-run with --rebuild to replace only CBS RMT schemas." >&2
   exit 1
