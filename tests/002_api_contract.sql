@@ -36,6 +36,12 @@ BEGIN
     v := api.get_episodes(1,5,NULL,NULL,'Mystery',NULL,NULL,'broadcast_date','asc');
     IF NOT (v ? 'data') OR NOT (v ? 'pagination') THEN RAISE EXCEPTION 'name-filtered episodes contract failed'; END IF;
 
+    v := api.get_episodes(1,5,'January 6, 1974',NULL,NULL,NULL,NULL,'episode_number','asc');
+    IF jsonb_array_length(v->'data') < 1 THEN RAISE EXCEPTION 'human-readable broadcast date search failed'; END IF;
+
+    v := api.get_episodes(1,5,'1974-01-06',NULL,NULL,NULL,NULL,'episode_number','asc');
+    IF jsonb_array_length(v->'data') < 1 THEN RAISE EXCEPTION 'ISO broadcast date search failed'; END IF;
+
     IF api.get_episode_cast(999999) IS NOT NULL THEN RAISE EXCEPTION 'missing episode cast must map to 404'; END IF;
 
     v := api.get_episode_cast(1);
