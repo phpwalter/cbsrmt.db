@@ -35,3 +35,64 @@ END $$;
 
 REVOKE ALL ON ALL FUNCTIONS IN SCHEMA admin FROM PUBLIC;
 GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA admin TO cbsrmt_admin;
+
+
+CREATE OR REPLACE FUNCTION admin.update_user(p_user_id bigint, p_patch jsonb)
+RETURNS jsonb
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path=pg_catalog,account,api
+AS $$
+DECLARE
+    v_avatar bytea;
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM account.app_user WHERE user_id=p_user_id) THEN
+        RETURN NULL;
+    END IF;
+
+    IF p_patch ? 'username' AND nullif(btrim(p_patch->>'username'),'') IS NULL THEN
+        RAISE EXCEPTION 'username must not be null or empty';
+    END IF;
+    IF p_patch ? 'first_name' AND p_patch->>'first_name' IS NULL THEN
+        RAISE EXCEPTION 'first_name must not be null';
+    END IF;
+    IF p_patch ? 'last_name' AND p_patch->>'last_name' IS NULL THEN
+        RAISE EXCEPTION 'last_name must not be null';
+    END IF;
+
+    IF p_patch ? 'avatar' THEN
+        IF p_patch->'avatar' IS NULL OR jsonb_typeof(p_patch->'avatar')='null' THEN
+            v_avatar := NULL;
+        ELSIF p_patch#>>'{avatar,avatar}' IS NULL THEN
+            RAISE EXCEPTION 'avatar.avatar is required when avatar is provided';
+        ELSE
+            v_avatar := decode(p_patch#>>'{avatar,avatar}','base64');
+        END IF;
+    END IF;
+
+    UPDATE account.app_user
+       SET username = CASE WHEN p_patch ? 'username' THEN btrim(p_patch->>'username') ELSE username END,
+           first_name = CASE WHEN p_patch ? 'first_name' THEN p_patch->>'first_name' ELSE first_name END,
+           last_name = CASE WHEN p_patch ? 'last_name' THEN p_patch->>'last_name' ELSE last_name END,
+           avatar = CASE WHEN p_patch ? 'avatar' THEN v_avatar ELSE avatar END,
+           updated_at = now()
+     WHERE user_id=p_user_id;
+
+    RETURN api.user_json(p_user_id);
+END
+$$;
+
+CREATE OR REPLACE FUNCTION admin.delete_user(p_user_id bigint)
+RETURNS boolean
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path=pg_catalog,account
+AS $$
+DECLARE
+    v_deleted bigint;
+BEGIN
+    DELETE FROM account.app_user WHERE user_id=p_user_id;
+    GET DIAGNOSTICS v_deleted = ROW_COUNT;
+    RETURN v_deleted=1;
+END
+$$;
