@@ -56,34 +56,67 @@ DECLARE
     v_total bigint;
     v_data jsonb;
 BEGIN
-    IF p_sort NOT IN ('episode_number','episode_name','original_air_date') THEN RAISE EXCEPTION 'Invalid sort field: %', p_sort; END IF;
-    IF lower(p_order) NOT IN ('asc','desc') THEN RAISE EXCEPTION 'Invalid sort direction: %', p_order; END IF;
+    IF p_sort NOT IN ('episode_number','episode_name','original_air_date') THEN
+        RAISE EXCEPTION 'Invalid sort field: %', p_sort;
+    END IF;
+    IF lower(p_order) NOT IN ('asc','desc') THEN
+        RAISE EXCEPTION 'Invalid sort direction: %', p_order;
+    END IF;
 
     WITH filtered AS (
-        SELECT DISTINCT e.*
+        SELECT e.*
         FROM catalog.episode e
-        LEFT JOIN catalog.episode_genre eg ON eg.episode_number=e.episode_number
-        LEFT JOIN catalog.episode_cast ec ON ec.episode_number=e.episode_number
-        LEFT JOIN catalog.episode_writer ew ON ew.episode_number=e.episode_number
-        WHERE (p_search IS NULL OR e.episode_name ILIKE '%'||p_search||'%' OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%')
+        WHERE (p_search IS NULL
+               OR e.episode_name ILIKE '%'||p_search||'%'
+               OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%')
           AND (p_year IS NULL OR extract(year from e.original_air_date)::integer=p_year)
-          AND (p_genre_id IS NULL OR eg.genre_id=p_genre_id)
-          AND (p_cast_id IS NULL OR ec.person_id=p_cast_id)
-          AND (p_writer_id IS NULL OR ew.person_id=p_writer_id)
+          AND (p_genre_id IS NULL OR EXISTS (
+                SELECT 1
+                FROM catalog.episode_genre eg
+                WHERE eg.episode_number=e.episode_number
+                  AND eg.genre_id=p_genre_id
+              ))
+          AND (p_cast_id IS NULL OR EXISTS (
+                SELECT 1
+                FROM catalog.episode_cast ec
+                WHERE ec.episode_number=e.episode_number
+                  AND ec.person_id=p_cast_id
+              ))
+          AND (p_writer_id IS NULL OR EXISTS (
+                SELECT 1
+                FROM catalog.episode_writer ew
+                WHERE ew.episode_number=e.episode_number
+                  AND ew.person_id=p_writer_id
+              ))
     )
-    SELECT count(*) INTO v_total FROM filtered;
+    SELECT count(*) INTO v_total
+    FROM filtered;
 
     WITH filtered AS (
-        SELECT DISTINCT e.*
+        SELECT e.*
         FROM catalog.episode e
-        LEFT JOIN catalog.episode_genre eg ON eg.episode_number=e.episode_number
-        LEFT JOIN catalog.episode_cast ec ON ec.episode_number=e.episode_number
-        LEFT JOIN catalog.episode_writer ew ON ew.episode_number=e.episode_number
-        WHERE (p_search IS NULL OR e.episode_name ILIKE '%'||p_search||'%' OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%')
+        WHERE (p_search IS NULL
+               OR e.episode_name ILIKE '%'||p_search||'%'
+               OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%')
           AND (p_year IS NULL OR extract(year from e.original_air_date)::integer=p_year)
-          AND (p_genre_id IS NULL OR eg.genre_id=p_genre_id)
-          AND (p_cast_id IS NULL OR ec.person_id=p_cast_id)
-          AND (p_writer_id IS NULL OR ew.person_id=p_writer_id)
+          AND (p_genre_id IS NULL OR EXISTS (
+                SELECT 1
+                FROM catalog.episode_genre eg
+                WHERE eg.episode_number=e.episode_number
+                  AND eg.genre_id=p_genre_id
+              ))
+          AND (p_cast_id IS NULL OR EXISTS (
+                SELECT 1
+                FROM catalog.episode_cast ec
+                WHERE ec.episode_number=e.episode_number
+                  AND ec.person_id=p_cast_id
+              ))
+          AND (p_writer_id IS NULL OR EXISTS (
+                SELECT 1
+                FROM catalog.episode_writer ew
+                WHERE ew.episode_number=e.episode_number
+                  AND ew.person_id=p_writer_id
+              ))
         ORDER BY
           CASE WHEN p_sort='episode_number' AND lower(p_order)='asc' THEN e.episode_number END ASC,
           CASE WHEN p_sort='episode_number' AND lower(p_order)='desc' THEN e.episode_number END DESC,
@@ -92,12 +125,22 @@ BEGIN
           CASE WHEN p_sort='original_air_date' AND lower(p_order)='asc' THEN e.original_air_date END ASC,
           CASE WHEN p_sort='original_air_date' AND lower(p_order)='desc' THEN e.original_air_date END DESC,
           e.episode_number
-        OFFSET (v_page-1)*v_limit LIMIT v_limit
+        OFFSET (v_page-1)*v_limit
+        LIMIT v_limit
     )
-    SELECT coalesce(jsonb_agg(api.episode_json(episode_number)), '[]'::jsonb) INTO v_data FROM filtered;
+    SELECT coalesce(jsonb_agg(api.episode_json(episode_number)), '[]'::jsonb)
+      INTO v_data
+    FROM filtered;
 
-    RETURN jsonb_build_object('data',v_data,'pagination',jsonb_build_object(
-        'page',v_page,'limit',v_limit,'total',v_total,'pages',CASE WHEN v_total=0 THEN 0 ELSE ceil(v_total::numeric/v_limit)::integer END));
+    RETURN jsonb_build_object(
+        'data', v_data,
+        'pagination', jsonb_build_object(
+            'page', v_page,
+            'limit', v_limit,
+            'total', v_total,
+            'pages', CASE WHEN v_total=0 THEN 0 ELSE ceil(v_total::numeric/v_limit)::integer END
+        )
+    );
 END
 $$;
 
