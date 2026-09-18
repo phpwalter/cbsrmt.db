@@ -6,6 +6,7 @@
 \ir ../migrations/004_indexes.sql
 \ir ../migrations/005_staging_tables.sql
 \ir ../migrations/006_roles_and_grants.sql
+\ir ../migrations/007_account_users.sql
 \ir ../functions/import/promote_json.sql
 \ir ../functions/api/catalog.sql
 \ir ../functions/admin/catalog.sql
