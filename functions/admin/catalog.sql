@@ -33,8 +33,6 @@ BEGIN
  RETURN jsonb_build_object('media_id',v_id,'episode_number',p_episode_number,'stream_url',p_stream_url,'duration_seconds',p_duration_seconds,'mime_type',p_mime_type);
 END $$;
 
-REVOKE ALL ON ALL FUNCTIONS IN SCHEMA admin FROM PUBLIC;
-GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA admin TO cbsrmt_admin;
 
 
 CREATE OR REPLACE FUNCTION admin.update_user(p_user_id bigint, p_patch jsonb)
@@ -96,3 +94,6 @@ BEGIN
     RETURN v_deleted=1;
 END
 $$;
+
+REVOKE ALL ON ALL FUNCTIONS IN SCHEMA admin FROM PUBLIC;
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA admin TO cbsrmt_admin;
