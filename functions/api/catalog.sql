@@ -165,7 +165,7 @@ SELECT CASE
         ), '[]'::jsonb)
     )
 END
-$;
+$$;
 
 CREATE OR REPLACE FUNCTION api.get_episode_writers(p_episode_number integer)
 RETURNS jsonb
@@ -185,7 +185,7 @@ SELECT CASE
         ), '[]'::jsonb)
     )
 END
-$;
+$$;
 
 CREATE OR REPLACE FUNCTION api.get_episodes(
     p_page integer DEFAULT 1,
