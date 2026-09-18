@@ -19,7 +19,7 @@ Options:
   --rebuild           Drop and recreate only CBS RMT schemas
   -h, --help          Show this help
 
-Authentication uses normal libpq behavior: PGPASSWORD, .pgpass, or prompt.
+Authentication uses normal libpq behavior. For unattended installs use PGPASSWORD or .pgpass.
 EOF
 }
 
