@@ -36,12 +36,16 @@ SELECT jsonb_build_object(
     'first_name', p.first_name,
     'last_name', p.last_name,
     'display_name', nullif(btrim(concat_ws(' ',p.first_name,p.middle_name,p.last_name)),''),
+    'cast_id_name', p.person_code,
     'appearance_count', (
         SELECT count(DISTINCT ec.episode_number)
         FROM catalog.episode_cast ec
         WHERE ec.person_id=p.person_id
     ),
-    'portrait', '/assets/cast/' || p.person_id::text || '.png'
+    'portrait', CASE
+        WHEN p.person_code IS NULL OR btrim(p.person_code)='' THEN NULL
+        ELSE '/assets/cast/' || p.person_code || '.png'
+    END
 )
 FROM catalog.person p
 WHERE p.person_id=p_person_id
