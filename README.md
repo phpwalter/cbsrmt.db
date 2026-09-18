@@ -11,7 +11,7 @@ The database separates canonical episodes from broadcast history.
 - `catalog.person`: shared person master for actors and writers.
 - normalized junction tables for cast, writers, genres, and literary adaptations.
 - `catalog.episode_media`: future audio metadata/stream URLs; audio bytes are not served by PostgreSQL.
-- thumbnail URLs are derived as `/public/assets/episodes/{episode_number}.png` and are not stored.
+- thumbnail URLs are derived as `/assets/episodes/{episode_number:04d}.png` and are not stored.
 
 ## Access boundary
 
@@ -64,7 +64,7 @@ A normal fresh install refuses to overwrite existing CBS RMT schemas.
 To intentionally rebuild the CBS RMT application schemas and data:
 
 ```powershell
-.\install\fresh_install.ps1 -Database cbsrmt -User postgres -Rebuild
+.\install\fresh_install.ps1 -Database cbsrmt -User root -Rebuild
 ```
 
 or:
