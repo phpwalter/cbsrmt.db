@@ -25,6 +25,8 @@ BEGIN
     v := api.get_episodes(1,5,NULL,NULL,'Mystery',NULL,NULL,'broadcast_date','asc');
     IF NOT (v ? 'data') OR NOT (v ? 'pagination') THEN RAISE EXCEPTION 'name-filtered episodes contract failed'; END IF;
 
+    IF api.get_episode_cast(999999) IS NOT NULL THEN RAISE EXCEPTION 'missing episode cast must map to 404'; END IF;
+
     v := api.get_episode_cast(1);
     IF NOT (v ? 'data') THEN RAISE EXCEPTION 'episode cast envelope failed'; END IF;
     IF jsonb_array_length(v->'data') > 0 AND NOT ((v->'data'->0) ? 'id') THEN
@@ -36,6 +38,10 @@ BEGIN
     IF jsonb_array_length(v->'data') > 0 AND NOT ((v->'data'->0) ? 'id') THEN
         RAISE EXCEPTION 'Writer.id missing';
     END IF;
+
+    IF api.get_cast_member(999999) IS NOT NULL THEN RAISE EXCEPTION 'missing cast member must map to 404'; END IF;
+    IF api.get_writer(999999) IS NOT NULL THEN RAISE EXCEPTION 'missing writer must map to 404'; END IF;
+    IF api.get_genre_episodes(999999) IS NOT NULL THEN RAISE EXCEPTION 'missing genre must map to 404'; END IF;
 
     v := api.get_cast();
     IF NOT (v ? 'data') OR NOT (v ? 'pagination') THEN RAISE EXCEPTION 'CastCollection contract failed'; END IF;
