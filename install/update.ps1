@@ -4,9 +4,8 @@ param(
     [int]$Port = 5432,
     [string]$Database = "cbsrmt",
     [string]$User = "root",
-    [Parameter(Mandatory = $true)]
     [ValidateRange(1, [long]::MaxValue)]
-    [long]$UserId
+    [Nullable[long]]$UserId = $null
 )
 
 $ErrorActionPreference = "Stop"
@@ -42,7 +41,9 @@ if ([string]::IsNullOrWhiteSpace($env:PGPASSWORD)) {
 
 Write-Host "CBS RMT PostgreSQL OpenAPI contract update"
 Write-Host "Target: $User@$HostName`:$Port/$Database"
-Write-Host "Application user ID: $UserId"
+if ($null -ne $UserId) {
+    Write-Host "Application user ID: $UserId"
+}
 Write-Host ""
 
 & psql -X -h $HostName -p $Port -U $User -d $Database -v ON_ERROR_STOP=1 -tAc "SELECT 1;"
@@ -57,21 +58,23 @@ Run-PsqlFile "functions/api/catalog.sql"
 Run-PsqlFile "functions/admin/catalog.sql"
 Run-PsqlFile "tests/002_api_contract.sql"
 
-Write-Host ""
-Write-Host "Checking application user ID $UserId..."
+if ($null -ne $UserId) {
+    Write-Host ""
+    Write-Host "Checking application user ID $UserId..."
 
-$userJson = & psql -X -h $HostName -p $Port -U $User -d $Database -v ON_ERROR_STOP=1 -tA -c "SELECT coalesce(api.get_user($UserId)::text, 'null');"
-if ($LASTEXITCODE -ne 0) {
-    throw "Unable to validate application user ID $UserId."
-}
+    $userJson = & psql -X -h $HostName -p $Port -U $User -d $Database -v ON_ERROR_STOP=1 -tA -c "SELECT coalesce(api.get_user($UserId)::text, 'null');"
+    if ($LASTEXITCODE -ne 0) {
+        throw "Unable to validate application user ID $UserId."
+    }
 
-$userJson = $userJson.Trim()
-if ($userJson -eq "null") {
-    Write-Warning "Application user ID $UserId does not currently exist in account.app_user."
-}
-else {
-    Write-Host "Application user ID $UserId is available through api.get_user()."
-    Write-Host $userJson
+    $userJson = $userJson.Trim()
+    if ($userJson -eq "null") {
+        Write-Warning "Application user ID $UserId does not currently exist in account.app_user."
+    }
+    else {
+        Write-Host "Application user ID $UserId is available through api.get_user()."
+        Write-Host $userJson
+    }
 }
 
 Write-Host ""
