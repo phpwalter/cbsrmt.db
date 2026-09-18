@@ -20,6 +20,18 @@ function Require-Command([string]$Name) {
 Require-Command "psql"
 Require-Command "python"
 
+# psql can prompt interactively, but psycopg cannot. Capture the password once
+# and expose it through libpq PGPASSWORD so both clients use the same credentials.
+if ([string]::IsNullOrWhiteSpace($env:PGPASSWORD)) {
+    $securePassword = Read-Host "PostgreSQL password for $User" -AsSecureString
+    $passwordPtr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($securePassword)
+    try {
+        $env:PGPASSWORD = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($passwordPtr)
+    } finally {
+        [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($passwordPtr)
+    }
+}
+
 if ($Database -notmatch "^[A-Za-z_][A-Za-z0-9_]*$") {
     throw "Database name may contain only letters, numbers, and underscores and may not begin with a number."
 }
