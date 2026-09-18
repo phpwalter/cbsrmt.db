@@ -29,10 +29,10 @@ Prerequisites:
 
 - PostgreSQL client tools, including `psql`
 - Python 3 with `venv`
-- an existing empty PostgreSQL database
+- access to the PostgreSQL maintenance database (`postgres`); the installer creates the target database if it is missing
 - credentials with permission to create schemas, extensions, and the CBS RMT roles
 
-The installer creates the PostgreSQL schemas, tables, indexes, roles, import/API/admin functions, Python virtual environment, reconciles and imports all JSON data, runs integrity tests, runs API-contract tests, and prints final database counts.
+The installer creates the target database when needed, then creates the PostgreSQL schemas, tables, indexes, roles, import/API/admin functions, Python virtual environment, reconciles and imports all JSON data, runs integrity tests, runs API-contract tests, and prints final database counts.
 
 ### Windows PowerShell
 
