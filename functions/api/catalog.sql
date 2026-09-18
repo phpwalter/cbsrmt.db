@@ -152,34 +152,40 @@ RETURNS jsonb
 LANGUAGE sql STABLE SECURITY DEFINER
 SET search_path = pg_catalog, catalog, api
 AS $$
-SELECT jsonb_build_object(
-    'data',
-    COALESCE((
-        SELECT jsonb_agg(api.cast_member_json(p.person_id)
-                         ORDER BY p.last_name,p.first_name,p.person_id)
-        FROM catalog.episode_cast ec
-        JOIN catalog.person p USING (person_id)
-        WHERE ec.episode_number=p_episode_number
-    ), '[]'::jsonb)
-)
-$$;
+SELECT CASE
+    WHEN NOT EXISTS (SELECT 1 FROM catalog.episode e WHERE e.episode_number=p_episode_number) THEN NULL
+    ELSE jsonb_build_object(
+        'data',
+        COALESCE((
+            SELECT jsonb_agg(api.cast_member_json(p.person_id)
+                             ORDER BY p.last_name,p.first_name,p.person_id)
+            FROM catalog.episode_cast ec
+            JOIN catalog.person p USING (person_id)
+            WHERE ec.episode_number=p_episode_number
+        ), '[]'::jsonb)
+    )
+END
+$;
 
 CREATE OR REPLACE FUNCTION api.get_episode_writers(p_episode_number integer)
 RETURNS jsonb
 LANGUAGE sql STABLE SECURITY DEFINER
 SET search_path = pg_catalog, catalog, api
 AS $$
-SELECT jsonb_build_object(
-    'data',
-    COALESCE((
-        SELECT jsonb_agg(api.writer_json(p.person_id)
-                         ORDER BY p.last_name,p.first_name,p.person_id)
-        FROM catalog.episode_writer ew
-        JOIN catalog.person p USING (person_id)
-        WHERE ew.episode_number=p_episode_number
-    ), '[]'::jsonb)
-)
-$$;
+SELECT CASE
+    WHEN NOT EXISTS (SELECT 1 FROM catalog.episode e WHERE e.episode_number=p_episode_number) THEN NULL
+    ELSE jsonb_build_object(
+        'data',
+        COALESCE((
+            SELECT jsonb_agg(api.writer_json(p.person_id)
+                             ORDER BY p.last_name,p.first_name,p.person_id)
+            FROM catalog.episode_writer ew
+            JOIN catalog.person p USING (person_id)
+            WHERE ew.episode_number=p_episode_number
+        ), '[]'::jsonb)
+    )
+END
+$;
 
 CREATE OR REPLACE FUNCTION api.get_episodes(
     p_page integer DEFAULT 1,
@@ -427,6 +433,10 @@ DECLARE
     v_data jsonb;
 BEGIN
     IF p_role NOT IN ('cast','writer') THEN RAISE EXCEPTION 'Invalid role'; END IF;
+    IF (p_role='cast' AND NOT EXISTS (SELECT 1 FROM catalog.episode_cast WHERE person_id=p_person_id))
+       OR (p_role='writer' AND NOT EXISTS (SELECT 1 FROM catalog.episode_writer WHERE person_id=p_person_id)) THEN
+        RETURN NULL;
+    END IF;
     IF p_sort NOT IN ('episode_number','episode_name','broadcast_date') THEN RAISE EXCEPTION 'Invalid sort field: %',p_sort; END IF;
     IF lower(p_order) NOT IN ('asc','desc') THEN RAISE EXCEPTION 'Invalid sort direction: %',p_order; END IF;
 
@@ -540,6 +550,9 @@ DECLARE
     v_total bigint;
     v_data jsonb;
 BEGIN
+    IF NOT EXISTS (SELECT 1 FROM catalog.genre WHERE genre_id=p_genre_id AND genre_id >= 1) THEN
+        RETURN NULL;
+    END IF;
     IF p_sort NOT IN ('episode_number','episode_name','broadcast_date') THEN RAISE EXCEPTION 'Invalid sort field: %',p_sort; END IF;
     IF lower(p_order) NOT IN ('asc','desc') THEN RAISE EXCEPTION 'Invalid sort direction: %',p_order; END IF;
 
@@ -707,7 +720,7 @@ SELECT jsonb_strip_nulls(jsonb_build_object(
     'first_name',u.first_name,
     'last_name',u.last_name,
     'avatar',CASE WHEN u.avatar IS NULL THEN NULL
-                  ELSE jsonb_build_object('avatar',encode(u.avatar,'base64')) END
+                  ELSE jsonb_build_object('avatar',replace(encode(u.avatar,'base64'),E'\\n','')) END
 ))
 FROM account.app_user u
 WHERE u.user_id=p_user_id
