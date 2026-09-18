@@ -36,6 +36,12 @@ BEGIN
     v := api.get_episodes(1,5,NULL,NULL,'Mystery',NULL,NULL,'broadcast_date','asc');
     IF NOT (v ? 'data') OR NOT (v ? 'pagination') THEN RAISE EXCEPTION 'name-filtered episodes contract failed'; END IF;
 
+    v := api.get_episodes(1,5,NULL,NULL,'Mystery,Suspense',NULL,NULL,'episode_number','asc');
+    IF (v#>>'{pagination,total}')::integer < (api.get_episodes(1,5,NULL,NULL,'Mystery',NULL,NULL,'episode_number','asc')#>>'{pagination,total}')::integer
+       OR (v#>>'{pagination,total}')::integer < (api.get_episodes(1,5,NULL,NULL,'Suspense',NULL,NULL,'episode_number','asc')#>>'{pagination,total}')::integer THEN
+        RAISE EXCEPTION 'OR genre filtering contract failed';
+    END IF;
+
     v := api.get_episodes(1,5,'January 6, 1974',NULL,NULL,NULL,NULL,'episode_number','asc');
     IF jsonb_array_length(v->'data') < 1 THEN RAISE EXCEPTION 'human-readable broadcast date search failed'; END IF;
 
