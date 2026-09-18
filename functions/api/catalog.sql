@@ -286,7 +286,20 @@ BEGIN
         OFFSET (v_page-1)*v_limit
         LIMIT v_limit
     )
-    SELECT COALESCE(jsonb_agg(api.episode_summary_json(episode_number)), '[]'::jsonb)
+    SELECT COALESCE(
+        jsonb_agg(
+            api.episode_summary_json(episode_number)
+            ORDER BY
+              CASE WHEN p_sort='episode_number' AND lower(p_order)='asc' THEN episode_number END ASC,
+              CASE WHEN p_sort='episode_number' AND lower(p_order)='desc' THEN episode_number END DESC,
+              CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN episode_name END ASC,
+              CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN episode_name END DESC,
+              CASE WHEN p_sort='broadcast_date' AND lower(p_order)='asc' THEN original_air_date END ASC,
+              CASE WHEN p_sort='broadcast_date' AND lower(p_order)='desc' THEN original_air_date END DESC,
+              episode_number
+        ),
+        '[]'::jsonb
+    )
       INTO v_data
     FROM filtered;
 
@@ -476,7 +489,20 @@ BEGIN
         OFFSET (v_page-1)*v_limit
         LIMIT v_limit
     )
-    SELECT COALESCE(jsonb_agg(api.episode_summary_json(episode_number)), '[]'::jsonb)
+    SELECT COALESCE(
+        jsonb_agg(
+            api.episode_summary_json(episode_number)
+            ORDER BY
+              CASE WHEN p_sort='episode_number' AND lower(p_order)='asc' THEN episode_number END ASC,
+              CASE WHEN p_sort='episode_number' AND lower(p_order)='desc' THEN episode_number END DESC,
+              CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN episode_name END ASC,
+              CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN episode_name END DESC,
+              CASE WHEN p_sort='broadcast_date' AND lower(p_order)='asc' THEN original_air_date END ASC,
+              CASE WHEN p_sort='broadcast_date' AND lower(p_order)='desc' THEN original_air_date END DESC,
+              episode_number
+        ),
+        '[]'::jsonb
+    )
       INTO v_data
     FROM filtered;
 
@@ -586,7 +612,20 @@ BEGIN
         OFFSET (v_page-1)*v_limit
         LIMIT v_limit
     )
-    SELECT COALESCE(jsonb_agg(api.episode_summary_json(episode_number)), '[]'::jsonb)
+    SELECT COALESCE(
+        jsonb_agg(
+            api.episode_summary_json(episode_number)
+            ORDER BY
+              CASE WHEN p_sort='episode_number' AND lower(p_order)='asc' THEN episode_number END ASC,
+              CASE WHEN p_sort='episode_number' AND lower(p_order)='desc' THEN episode_number END DESC,
+              CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN episode_name END ASC,
+              CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN episode_name END DESC,
+              CASE WHEN p_sort='broadcast_date' AND lower(p_order)='asc' THEN original_air_date END ASC,
+              CASE WHEN p_sort='broadcast_date' AND lower(p_order)='desc' THEN original_air_date END DESC,
+              episode_number
+        ),
+        '[]'::jsonb
+    )
       INTO v_data
     FROM filtered;
 
