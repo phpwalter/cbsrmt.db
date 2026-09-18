@@ -54,7 +54,7 @@ bash install/fresh_install.sh \
     --user postgres
 ```
 
-Authentication uses normal PostgreSQL/libpq behavior. For a complete unattended install, use `PGPASSWORD` or `.pgpass` so both `psql` and the Python loader can authenticate.
+On an interactive install, the scripts prompt once for the PostgreSQL password and export it through `PGPASSWORD` so both `psql` and the Python loader use the same credentials. For unattended installs, set `PGPASSWORD` or configure `.pgpass` before running the installer.
 
 ### Rebuild mode
 
