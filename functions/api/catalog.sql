@@ -435,7 +435,7 @@ CREATE OR REPLACE FUNCTION api.get_cast(
 ) RETURNS jsonb
 LANGUAGE plpgsql STABLE SECURITY DEFINER
 SET search_path=pg_catalog,catalog,api
-AS $
+AS $get_cast$
 DECLARE
     v_page integer := greatest(coalesce(p_page,1),1);
     v_limit integer := least(greatest(coalesce(p_limit,10),1),100);
