@@ -30,7 +30,7 @@ CREATE OR REPLACE FUNCTION api.cast_member_json(p_person_id integer)
 RETURNS jsonb
 LANGUAGE sql STABLE SECURITY DEFINER
 SET search_path = pg_catalog, catalog
-AS $$
+AS $cast_member$
 SELECT jsonb_build_object(
     'id', p.person_id,
     'first_name', p.first_name,
@@ -45,7 +45,7 @@ SELECT jsonb_build_object(
 )
 FROM catalog.person p
 WHERE p.person_id=p_person_id
-$;
+$cast_member$;
 
 CREATE OR REPLACE FUNCTION api.writer_json(p_person_id integer)
 RETURNS jsonb
