@@ -8,6 +8,17 @@ BEGIN
     v := api.ping();
     IF v->>'status' <> 'ok' THEN RAISE EXCEPTION 'ping contract failed'; END IF;
 
+    v := api.get_anniversary_broadcasts(DATE '1974-01-06');
+    IF v->>'requested_date' <> '1974-01-06' THEN RAISE EXCEPTION 'anniversary requested_date failed'; END IF;
+    IF v->>'resolved_broadcast_date' <> '1974-01-06' THEN RAISE EXCEPTION 'anniversary exact-date resolution failed'; END IF;
+    IF (v->>'fallback_used')::boolean THEN RAISE EXCEPTION 'anniversary exact date incorrectly marked fallback'; END IF;
+    IF jsonb_array_length(v->'broadcasts') < 1 THEN RAISE EXCEPTION 'anniversary exact date returned no broadcasts'; END IF;
+
+    v := api.get_anniversary_broadcasts(DATE '1982-01-01');
+    IF NOT (v->>'fallback_used')::boolean THEN RAISE EXCEPTION 'anniversary no-broadcast date did not use fallback'; END IF;
+    IF (v->>'resolved_broadcast_date')::date >= DATE '1982-01-01' THEN RAISE EXCEPTION 'anniversary fallback did not resolve to prior date'; END IF;
+    IF jsonb_array_length(v->'broadcasts') < 1 THEN RAISE EXCEPTION 'anniversary fallback returned no broadcasts'; END IF;
+
     v := api.get_episode(1);
     IF v->>'episode_number' <> '1' THEN RAISE EXCEPTION 'get_episode(1) failed'; END IF;
     IF NOT (v ? 'broadcast_date') THEN RAISE EXCEPTION 'Episode.broadcast_date missing'; END IF;
