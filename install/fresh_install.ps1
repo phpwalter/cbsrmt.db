@@ -20,6 +20,22 @@ function Require-Command([string]$Name) {
 Require-Command "psql"
 Require-Command "python"
 
+if ($Database -notmatch "^[A-Za-z_][A-Za-z0-9_]*$") {
+    throw "Database name may contain only letters, numbers, and underscores and may not begin with a number."
+}
+
+$MaintenanceArgs = @("-X", "-v", "ON_ERROR_STOP=1", "-h", $HostName, "-p", "$Port", "-U", $User, "-d", "postgres")
+$databaseExistsSql = "SELECT EXISTS (SELECT 1 FROM pg_database WHERE datname = '$Database');"
+$databaseExists = (& psql @MaintenanceArgs -tA -c $databaseExistsSql).Trim()
+if ($LASTEXITCODE -ne 0) { throw "Unable to connect to the PostgreSQL maintenance database." }
+
+if ($databaseExists -ne "t") {
+    Write-Host "Database '$Database' does not exist; creating it..."
+    $createDatabaseSql = "CREATE DATABASE `"$Database`";"
+    & psql @MaintenanceArgs -c $createDatabaseSql
+    if ($LASTEXITCODE -ne 0) { throw "Unable to create database '$Database'." }
+}
+
 $PsqlArgs = @("-X", "-v", "ON_ERROR_STOP=1", "-h", $HostName, "-p", "$Port", "-U", $User, "-d", $Database)
 $Dsn = "host=$HostName port=$Port dbname=$Database user=$User"
 
