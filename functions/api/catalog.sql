@@ -221,14 +221,14 @@ BEGIN
                OR e.episode_name ILIKE '%'||p_search||'%'
                OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%'
                OR e.original_air_date::text ILIKE '%'||p_search||'%'
-               OR to_char(e.original_air_date,'FMMonth DD, YYYY') ILIKE '%'||p_search||'%'
+               OR to_char(e.original_air_date,'FMMonth FMDD, YYYY') ILIKE '%'||p_search||'%'
                OR EXISTS (
                     SELECT 1
                     FROM catalog.broadcast b
                     WHERE b.episode_number=e.episode_number
                       AND (
                           b.broadcast_date::text ILIKE '%'||p_search||'%'
-                          OR to_char(b.broadcast_date,'FMMonth DD, YYYY') ILIKE '%'||p_search||'%'
+                          OR to_char(b.broadcast_date,'FMMonth FMDD, YYYY') ILIKE '%'||p_search||'%'
                       )
                ))
           AND (p_year IS NULL OR extract(year from e.original_air_date)::integer=p_year)
@@ -269,14 +269,14 @@ BEGIN
                OR e.episode_name ILIKE '%'||p_search||'%'
                OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%'
                OR e.original_air_date::text ILIKE '%'||p_search||'%'
-               OR to_char(e.original_air_date,'FMMonth DD, YYYY') ILIKE '%'||p_search||'%'
+               OR to_char(e.original_air_date,'FMMonth FMDD, YYYY') ILIKE '%'||p_search||'%'
                OR EXISTS (
                     SELECT 1
                     FROM catalog.broadcast b
                     WHERE b.episode_number=e.episode_number
                       AND (
                           b.broadcast_date::text ILIKE '%'||p_search||'%'
-                          OR to_char(b.broadcast_date,'FMMonth DD, YYYY') ILIKE '%'||p_search||'%'
+                          OR to_char(b.broadcast_date,'FMMonth FMDD, YYYY') ILIKE '%'||p_search||'%'
                       )
                ))
           AND (p_year IS NULL OR extract(year from e.original_air_date)::integer=p_year)
