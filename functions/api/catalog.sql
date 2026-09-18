@@ -232,16 +232,16 @@ BEGIN
                       )
                ))
           AND (p_year IS NULL OR extract(year from e.original_air_date)::integer=p_year)
-          AND (p_genre IS NULL OR NOT EXISTS (
+          AND (p_genre IS NULL OR EXISTS (
                 SELECT 1
-                FROM unnest(string_to_array(p_genre, ',')) requested_genre(name)
-                WHERE btrim(requested_genre.name) <> ''
-                  AND NOT EXISTS (
+                FROM catalog.episode_genre eg
+                JOIN catalog.genre g USING (genre_id)
+                WHERE eg.episode_number=e.episode_number
+                  AND g.genre_id >= 1
+                  AND EXISTS (
                     SELECT 1
-                    FROM catalog.episode_genre eg
-                    JOIN catalog.genre g USING (genre_id)
-                    WHERE eg.episode_number=e.episode_number
-                      AND g.genre_id >= 1
+                    FROM unnest(string_to_array(p_genre, ',')) requested_genre(name)
+                    WHERE btrim(requested_genre.name) <> ''
                       AND lower(g.genre_name)=lower(btrim(requested_genre.name))
                   )
               ))
@@ -280,16 +280,16 @@ BEGIN
                       )
                ))
           AND (p_year IS NULL OR extract(year from e.original_air_date)::integer=p_year)
-          AND (p_genre IS NULL OR NOT EXISTS (
+          AND (p_genre IS NULL OR EXISTS (
                 SELECT 1
-                FROM unnest(string_to_array(p_genre, ',')) requested_genre(name)
-                WHERE btrim(requested_genre.name) <> ''
-                  AND NOT EXISTS (
+                FROM catalog.episode_genre eg
+                JOIN catalog.genre g USING (genre_id)
+                WHERE eg.episode_number=e.episode_number
+                  AND g.genre_id >= 1
+                  AND EXISTS (
                     SELECT 1
-                    FROM catalog.episode_genre eg
-                    JOIN catalog.genre g USING (genre_id)
-                    WHERE eg.episode_number=e.episode_number
-                      AND g.genre_id >= 1
+                    FROM unnest(string_to_array(p_genre, ',')) requested_genre(name)
+                    WHERE btrim(requested_genre.name) <> ''
                       AND lower(g.genre_name)=lower(btrim(requested_genre.name))
                   )
               ))
