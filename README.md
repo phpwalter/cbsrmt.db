@@ -20,6 +20,7 @@ Application roles do not query production tables directly.
 - `api.*`: read/query functions for the public API.
 - `admin.*`: mutation functions.
 - `stage.*` + `import.*`: controlled JSON staging and promotion.
+- `account.*`: protected user resources used by the authenticated `/users` routes.
 
 ## Fresh installation
 
@@ -80,9 +81,25 @@ api
 admin
 stage
 import
+account
 ```
 
 It does **not** drop the PostgreSQL database.
+
+## Upgrade an existing PostgreSQL v1 database
+
+If the catalog data has already been installed successfully, OpenAPI contract alignment does not require re-importing the CBS RMT episode data. After pulling the latest `postgresql-v1` branch, run:
+
+```powershell
+psql -h localhost -p 5432 -U postgres -d cbsrmt -v ON_ERROR_STOP=1 -f migrations/001_extensions_and_schemas.sql
+psql -h localhost -p 5432 -U postgres -d cbsrmt -v ON_ERROR_STOP=1 -f migrations/007_account_users.sql
+psql -h localhost -p 5432 -U postgres -d cbsrmt -v ON_ERROR_STOP=1 -f migrations/006_roles_and_grants.sql
+psql -h localhost -p 5432 -U postgres -d cbsrmt -v ON_ERROR_STOP=1 -f functions/api/catalog.sql
+psql -h localhost -p 5432 -U postgres -d cbsrmt -v ON_ERROR_STOP=1 -f functions/admin/catalog.sql
+psql -h localhost -p 5432 -U postgres -d cbsrmt -v ON_ERROR_STOP=1 -f tests/002_api_contract.sql
+```
+
+The API function installer removes obsolete pre-alignment overloads before creating the OpenAPI-compatible signatures, preventing ambiguous calls on upgraded databases.
 
 ## Manual installation
 
