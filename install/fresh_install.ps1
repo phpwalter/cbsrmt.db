@@ -54,13 +54,13 @@ $Dsn = "host=$HostName port=$Port dbname=$Database user=$User"
 Write-Host "CBS RMT PostgreSQL fresh installer"
 Write-Host "Target: $User@$HostName`:$Port/$Database"
 
-$schemaCheckSql = "SELECT EXISTS (SELECT 1 FROM pg_namespace WHERE nspname IN ('catalog','api','admin','stage','import'));"
+$schemaCheckSql = "SELECT EXISTS (SELECT 1 FROM pg_namespace WHERE nspname IN ('catalog','api','admin','stage','import','account'));"
 $existing = (& psql @PsqlArgs -tA -c $schemaCheckSql).Trim()
 if ($LASTEXITCODE -ne 0) { throw "Unable to inspect target database." }
 
 if ($Rebuild) {
     Write-Host "Rebuild requested: dropping CBS RMT schemas only."
-    & psql @PsqlArgs -c "DROP SCHEMA IF EXISTS admin, api, import, stage, catalog CASCADE;"
+    & psql @PsqlArgs -c "DROP SCHEMA IF EXISTS admin, api, import, stage, account, catalog CASCADE;"
     if ($LASTEXITCODE -ne 0) { throw "Schema cleanup failed." }
 } elseif ($existing -eq "t") {
     throw "CBS RMT schemas already exist. Re-run with -Rebuild to replace only CBS RMT schemas."
