@@ -79,6 +79,31 @@ BEGIN
     v := api.get_cast(1,10,NULL,NULL,'appearances','desc');
     IF (v#>>'{pagination,limit}')::integer <> 10 THEN RAISE EXCEPTION 'Cast Archive page size failed'; END IF;
 
+    IF jsonb_array_length(v->'data') > 1 AND
+       ((v->'data'->0->>'appearance_count')::integer < (v->'data'->1->>'appearance_count')::integer) THEN
+        RAISE EXCEPTION 'Cast appearances descending sort failed';
+    END IF;
+
+    v := api.get_cast(1,10,NULL,NULL,'appearances','asc');
+    IF jsonb_array_length(v->'data') > 1 AND
+       ((v->'data'->0->>'appearance_count')::integer > (v->'data'->1->>'appearance_count')::integer) THEN
+        RAISE EXCEPTION 'Cast appearances ascending sort failed';
+    END IF;
+
+    v := api.get_cast(1,10,NULL,NULL,'name','asc');
+    IF jsonb_array_length(v->'data') > 1 AND
+       lower(coalesce(v->'data'->0->>'last_name',v->'data'->0->>'first_name','')) >
+       lower(coalesce(v->'data'->1->>'last_name',v->'data'->1->>'first_name','')) THEN
+        RAISE EXCEPTION 'Cast name ascending sort failed';
+    END IF;
+
+    v := api.get_cast(1,10,NULL,NULL,'name','desc');
+    IF jsonb_array_length(v->'data') > 1 AND
+       lower(coalesce(v->'data'->0->>'last_name',v->'data'->0->>'first_name','')) <
+       lower(coalesce(v->'data'->1->>'last_name',v->'data'->1->>'first_name','')) THEN
+        RAISE EXCEPTION 'Cast name descending sort failed';
+    END IF;
+
     v := api.get_writers();
     IF NOT (v ? 'data') OR NOT (v ? 'pagination') THEN RAISE EXCEPTION 'WriterCollection contract failed'; END IF;
 
