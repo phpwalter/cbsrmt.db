@@ -71,6 +71,7 @@ BEGIN
     IF jsonb_array_length(v->'data') > 0 AND (
         NOT ((v->'data'->0) ? 'appearance_count')
         OR NOT ((v->'data'->0) ? 'portrait')
+        OR NOT ((v->'data'->0) ? 'cast_id_name')
     ) THEN
         RAISE EXCEPTION 'Cast Archive fields missing';
     END IF;
