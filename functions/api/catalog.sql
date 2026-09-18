@@ -520,7 +520,7 @@ BEGIN
       )
     );
 END
-$;
+$get_cast$;
 
 CREATE OR REPLACE FUNCTION api.get_writers(
     p_page integer DEFAULT 1,
