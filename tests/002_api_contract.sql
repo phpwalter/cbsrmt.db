@@ -68,6 +68,15 @@ BEGIN
 
     v := api.get_cast();
     IF NOT (v ? 'data') OR NOT (v ? 'pagination') THEN RAISE EXCEPTION 'CastCollection contract failed'; END IF;
+    IF jsonb_array_length(v->'data') > 0 AND (
+        NOT ((v->'data'->0) ? 'appearance_count')
+        OR NOT ((v->'data'->0) ? 'portrait')
+    ) THEN
+        RAISE EXCEPTION 'Cast Archive fields missing';
+    END IF;
+
+    v := api.get_cast(1,10,NULL,NULL,'appearances','desc');
+    IF (v#>>'{pagination,limit}')::integer <> 10 THEN RAISE EXCEPTION 'Cast Archive page size failed'; END IF;
 
     v := api.get_writers();
     IF NOT (v ? 'data') OR NOT (v ? 'pagination') THEN RAISE EXCEPTION 'WriterCollection contract failed'; END IF;
