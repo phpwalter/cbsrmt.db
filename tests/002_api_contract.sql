@@ -11,7 +11,7 @@ BEGIN
     v := api.get_episode(1);
     IF v->>'episode_number' <> '1' THEN RAISE EXCEPTION 'get_episode(1) failed'; END IF;
     IF NOT (v ? 'broadcast_date') THEN RAISE EXCEPTION 'Episode.broadcast_date missing'; END IF;
-    IF v->>'thumbnail' <> '/public/assets/episodes/1.png' THEN RAISE EXCEPTION 'Episode.thumbnail convention failed'; END IF;
+    IF v->>'thumbnail' <> '/assets/episodes/0001.png' THEN RAISE EXCEPTION 'Episode.thumbnail convention failed'; END IF;
     IF NOT (v ? 'audio') OR NOT ((v->'audio') ? 'available') THEN RAISE EXCEPTION 'Episode.audio contract failed'; END IF;
     IF v ? 'original_air_date' OR v ? 'thumbnail_url' THEN RAISE EXCEPTION 'legacy Episode field leaked'; END IF;
 
