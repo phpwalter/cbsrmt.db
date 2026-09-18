@@ -4,6 +4,7 @@ DROP FUNCTION IF EXISTS api.get_cast_episodes(integer,integer,integer);
 DROP FUNCTION IF EXISTS api.get_writer_episodes(integer,integer,integer);
 DROP FUNCTION IF EXISTS api.search_catalog(text,integer,integer,text);
 DROP FUNCTION IF EXISTS api.get_person(integer);
+DROP FUNCTION IF EXISTS api.get_cast(integer,integer,text);
 DROP FUNCTION IF EXISTS api.get_episodes(integer,integer,text,integer,integer,integer,integer,text,text);
 
 CREATE OR REPLACE FUNCTION api.ping()
