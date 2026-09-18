@@ -5,6 +5,7 @@ The uploaded OpenAPI 3.0.3 contract is the authoritative HTTP resource contract.
 | HTTP endpoint | PostgreSQL function |
 |---|---|
 | `GET /ping` | `api.ping()` |
+| `GET /episode/today` | `api.get_anniversary_broadcasts(targetDate)`; Central-time date selection/cache is handled by the HTTP layer | 
 | `GET /episodes` | `api.get_episodes(page, limit, search, year, genre, cast, writer, sort, order)` |
 | `GET /episodes/{episodeNumber}` | `api.get_episode(episodeNumber)` |
 | `GET /episodes/{episodeNumber}/cast` | `api.get_episode_cast(episodeNumber)` |
