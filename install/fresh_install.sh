@@ -41,6 +41,12 @@ cd "$ROOT"
 command -v psql >/dev/null 2>&1 || { echo "psql is required." >&2; exit 1; }
 command -v python3 >/dev/null 2>&1 || { echo "python3 is required." >&2; exit 1; }
 
+if [[ -z "${PGPASSWORD:-}" ]]; then
+  read -r -s -p "PostgreSQL password for $USER_NAME: " PGPASSWORD
+  echo
+  export PGPASSWORD
+fi
+
 if [[ ! "$DATABASE" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
   echo "Database name may contain only letters, numbers, and underscores and may not begin with a number." >&2
   exit 2
