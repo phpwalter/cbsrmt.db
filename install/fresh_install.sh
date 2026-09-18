@@ -41,6 +41,18 @@ cd "$ROOT"
 command -v psql >/dev/null 2>&1 || { echo "psql is required." >&2; exit 1; }
 command -v python3 >/dev/null 2>&1 || { echo "python3 is required." >&2; exit 1; }
 
+if [[ ! "$DATABASE" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
+  echo "Database name may contain only letters, numbers, and underscores and may not begin with a number." >&2
+  exit 2
+fi
+
+MAINT=(psql -X -v ON_ERROR_STOP=1 -h "$HOST" -p "$PORT" -U "$USER_NAME" -d postgres)
+database_exists="$("${MAINT[@]}" -tA -c "SELECT EXISTS (SELECT 1 FROM pg_database WHERE datname = '$DATABASE');" | tr -d '[:space:]')"
+if [[ "$database_exists" != "t" ]]; then
+  echo "Database '$DATABASE' does not exist; creating it..."
+  "${MAINT[@]}" -c "CREATE DATABASE \"$DATABASE\";"
+fi
+
 PSQL=(psql -X -v ON_ERROR_STOP=1 -h "$HOST" -p "$PORT" -U "$USER_NAME" -d "$DATABASE")
 DSN="host=$HOST port=$PORT dbname=$DATABASE user=$USER_NAME"
 
@@ -78,9 +90,9 @@ echo "Running integrity tests..."
 echo "Running API contract tests..."
 "${PSQL[@]}" -f "$ROOT/tests/002_api_contract.sql"
 
-echo
+echo ""
 echo "Final database counts:"
 "${PSQL[@]}" -c "SELECT (SELECT count(*) FROM catalog.episode) AS episodes, (SELECT count(*) FROM catalog.broadcast) AS broadcast_rows, (SELECT count(*) FROM catalog.broadcast WHERE broadcast_sequence IS NOT NULL) AS actual_broadcasts, (SELECT count(*) FROM catalog.person) AS people, (SELECT count(*) FROM catalog.genre) AS genres, (SELECT count(*) FROM catalog.adaptation) AS adaptations;"
 
-echo
+echo ""
 echo "PASS: CBS RMT PostgreSQL schema and data are installed and validated."
