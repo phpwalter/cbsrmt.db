@@ -219,15 +219,31 @@ BEGIN
         FROM catalog.episode e
         WHERE (p_search IS NULL
                OR e.episode_name ILIKE '%'||p_search||'%'
-               OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%')
+               OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%'
+               OR e.original_air_date::text ILIKE '%'||p_search||'%'
+               OR to_char(e.original_air_date,'FMMonth DD, YYYY') ILIKE '%'||p_search||'%'
+               OR EXISTS (
+                    SELECT 1
+                    FROM catalog.broadcast b
+                    WHERE b.episode_number=e.episode_number
+                      AND (
+                          b.broadcast_date::text ILIKE '%'||p_search||'%'
+                          OR to_char(b.broadcast_date,'FMMonth DD, YYYY') ILIKE '%'||p_search||'%'
+                      )
+               ))
           AND (p_year IS NULL OR extract(year from e.original_air_date)::integer=p_year)
-          AND (p_genre IS NULL OR EXISTS (
+          AND (p_genre IS NULL OR NOT EXISTS (
                 SELECT 1
-                FROM catalog.episode_genre eg
-                JOIN catalog.genre g USING (genre_id)
-                WHERE eg.episode_number=e.episode_number
-                  AND g.genre_id >= 1
-                  AND g.genre_name ILIKE p_genre
+                FROM unnest(string_to_array(p_genre, ',')) requested_genre(name)
+                WHERE btrim(requested_genre.name) <> ''
+                  AND NOT EXISTS (
+                    SELECT 1
+                    FROM catalog.episode_genre eg
+                    JOIN catalog.genre g USING (genre_id)
+                    WHERE eg.episode_number=e.episode_number
+                      AND g.genre_id >= 1
+                      AND lower(g.genre_name)=lower(btrim(requested_genre.name))
+                  )
               ))
           AND (p_cast IS NULL OR EXISTS (
                 SELECT 1
@@ -251,15 +267,31 @@ BEGIN
         FROM catalog.episode e
         WHERE (p_search IS NULL
                OR e.episode_name ILIKE '%'||p_search||'%'
-               OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%')
+               OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%'
+               OR e.original_air_date::text ILIKE '%'||p_search||'%'
+               OR to_char(e.original_air_date,'FMMonth DD, YYYY') ILIKE '%'||p_search||'%'
+               OR EXISTS (
+                    SELECT 1
+                    FROM catalog.broadcast b
+                    WHERE b.episode_number=e.episode_number
+                      AND (
+                          b.broadcast_date::text ILIKE '%'||p_search||'%'
+                          OR to_char(b.broadcast_date,'FMMonth DD, YYYY') ILIKE '%'||p_search||'%'
+                      )
+               ))
           AND (p_year IS NULL OR extract(year from e.original_air_date)::integer=p_year)
-          AND (p_genre IS NULL OR EXISTS (
+          AND (p_genre IS NULL OR NOT EXISTS (
                 SELECT 1
-                FROM catalog.episode_genre eg
-                JOIN catalog.genre g USING (genre_id)
-                WHERE eg.episode_number=e.episode_number
-                  AND g.genre_id >= 1
-                  AND g.genre_name ILIKE p_genre
+                FROM unnest(string_to_array(p_genre, ',')) requested_genre(name)
+                WHERE btrim(requested_genre.name) <> ''
+                  AND NOT EXISTS (
+                    SELECT 1
+                    FROM catalog.episode_genre eg
+                    JOIN catalog.genre g USING (genre_id)
+                    WHERE eg.episode_number=e.episode_number
+                      AND g.genre_id >= 1
+                      AND lower(g.genre_name)=lower(btrim(requested_genre.name))
+                  )
               ))
           AND (p_cast IS NULL OR EXISTS (
                 SELECT 1
