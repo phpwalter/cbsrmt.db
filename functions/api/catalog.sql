@@ -472,47 +472,114 @@ BEGIN
     )
     SELECT count(*) INTO v_total FROM filtered;
 
-    WITH cast_people AS (
-        SELECT
-            p.person_id,
-            p.first_name,
-            p.middle_name,
-            p.last_name,
-            nullif(btrim(concat_ws(' ',p.first_name,p.middle_name,p.last_name)),'') AS display_name,
-            count(DISTINCT ec.episode_number)::integer AS appearance_count
-        FROM catalog.person p
-        JOIN catalog.episode_cast ec USING(person_id)
-        GROUP BY p.person_id,p.first_name,p.middle_name,p.last_name
-    ), filtered AS (
-        SELECT *
-        FROM cast_people
-        WHERE (p_search IS NULL OR display_name ILIKE '%'||p_search||'%')
-          AND (p_initial IS NULL OR upper(left(coalesce(last_name,first_name,''),1))=upper(left(p_initial,1)))
-        ORDER BY
-          CASE WHEN p_sort='appearances' AND lower(p_order)='asc' THEN appearance_count END ASC,
-          CASE WHEN p_sort='appearances' AND lower(p_order)='desc' THEN appearance_count END DESC,
-          CASE WHEN p_sort='name' AND lower(p_order)='asc' THEN lower(display_name) END ASC,
-          CASE WHEN p_sort='name' AND lower(p_order)='desc' THEN lower(display_name) END DESC,
-          lower(coalesce(last_name,'')),
-          lower(coalesce(first_name,'')),
-          person_id
-        OFFSET (v_page-1)*v_limit
-        LIMIT v_limit
-    )
-    SELECT COALESCE(
-        jsonb_agg(api.cast_member_json(person_id)
-          ORDER BY
-            CASE WHEN p_sort='appearances' AND lower(p_order)='asc' THEN appearance_count END ASC,
-            CASE WHEN p_sort='appearances' AND lower(p_order)='desc' THEN appearance_count END DESC,
-            CASE WHEN p_sort='name' AND lower(p_order)='asc' THEN lower(display_name) END ASC,
-            CASE WHEN p_sort='name' AND lower(p_order)='desc' THEN lower(display_name) END DESC,
-            lower(coalesce(last_name,'')),
-            lower(coalesce(first_name,'')),
-            person_id
-        ),
-        '[]'::jsonb
-    ) INTO v_data
-    FROM filtered;
+    IF p_sort='appearances' AND lower(p_order)='desc' THEN
+        WITH cast_people AS (
+            SELECT p.person_id,p.first_name,p.middle_name,p.last_name,
+                   nullif(btrim(concat_ws(' ',p.first_name,p.middle_name,p.last_name)),'') AS display_name,
+                   count(DISTINCT ec.episode_number)::integer AS appearance_count
+            FROM catalog.person p
+            JOIN catalog.episode_cast ec USING(person_id)
+            GROUP BY p.person_id,p.first_name,p.middle_name,p.last_name
+        ), filtered AS (
+            SELECT *
+            FROM cast_people
+            WHERE (p_search IS NULL OR display_name ILIKE '%'||p_search||'%')
+              AND (p_initial IS NULL OR upper(left(coalesce(last_name,first_name,''),1))=upper(left(p_initial,1)))
+        ), paged AS (
+            SELECT *
+            FROM filtered
+            ORDER BY appearance_count DESC, lower(coalesce(last_name,'')), lower(coalesce(first_name,'')), person_id
+            OFFSET (v_page-1)*v_limit
+            LIMIT v_limit
+        )
+        SELECT COALESCE(
+            jsonb_agg(api.cast_member_json(person_id)
+                      ORDER BY appearance_count DESC, lower(coalesce(last_name,'')), lower(coalesce(first_name,'')), person_id),
+            '[]'::jsonb
+        ) INTO v_data
+        FROM paged;
+
+    ELSIF p_sort='appearances' AND lower(p_order)='asc' THEN
+        WITH cast_people AS (
+            SELECT p.person_id,p.first_name,p.middle_name,p.last_name,
+                   nullif(btrim(concat_ws(' ',p.first_name,p.middle_name,p.last_name)),'') AS display_name,
+                   count(DISTINCT ec.episode_number)::integer AS appearance_count
+            FROM catalog.person p
+            JOIN catalog.episode_cast ec USING(person_id)
+            GROUP BY p.person_id,p.first_name,p.middle_name,p.last_name
+        ), filtered AS (
+            SELECT *
+            FROM cast_people
+            WHERE (p_search IS NULL OR display_name ILIKE '%'||p_search||'%')
+              AND (p_initial IS NULL OR upper(left(coalesce(last_name,first_name,''),1))=upper(left(p_initial,1)))
+        ), paged AS (
+            SELECT *
+            FROM filtered
+            ORDER BY appearance_count ASC, lower(coalesce(last_name,'')), lower(coalesce(first_name,'')), person_id
+            OFFSET (v_page-1)*v_limit
+            LIMIT v_limit
+        )
+        SELECT COALESCE(
+            jsonb_agg(api.cast_member_json(person_id)
+                      ORDER BY appearance_count ASC, lower(coalesce(last_name,'')), lower(coalesce(first_name,'')), person_id),
+            '[]'::jsonb
+        ) INTO v_data
+        FROM paged;
+
+    ELSIF p_sort='name' AND lower(p_order)='asc' THEN
+        WITH cast_people AS (
+            SELECT p.person_id,p.first_name,p.middle_name,p.last_name,
+                   nullif(btrim(concat_ws(' ',p.first_name,p.middle_name,p.last_name)),'') AS display_name,
+                   count(DISTINCT ec.episode_number)::integer AS appearance_count
+            FROM catalog.person p
+            JOIN catalog.episode_cast ec USING(person_id)
+            GROUP BY p.person_id,p.first_name,p.middle_name,p.last_name
+        ), filtered AS (
+            SELECT *
+            FROM cast_people
+            WHERE (p_search IS NULL OR display_name ILIKE '%'||p_search||'%')
+              AND (p_initial IS NULL OR upper(left(coalesce(last_name,first_name,''),1))=upper(left(p_initial,1)))
+        ), paged AS (
+            SELECT *
+            FROM filtered
+            ORDER BY lower(coalesce(last_name,'')) ASC, lower(coalesce(first_name,'')) ASC, person_id
+            OFFSET (v_page-1)*v_limit
+            LIMIT v_limit
+        )
+        SELECT COALESCE(
+            jsonb_agg(api.cast_member_json(person_id)
+                      ORDER BY lower(coalesce(last_name,'')) ASC, lower(coalesce(first_name,'')) ASC, person_id),
+            '[]'::jsonb
+        ) INTO v_data
+        FROM paged;
+
+    ELSE
+        WITH cast_people AS (
+            SELECT p.person_id,p.first_name,p.middle_name,p.last_name,
+                   nullif(btrim(concat_ws(' ',p.first_name,p.middle_name,p.last_name)),'') AS display_name,
+                   count(DISTINCT ec.episode_number)::integer AS appearance_count
+            FROM catalog.person p
+            JOIN catalog.episode_cast ec USING(person_id)
+            GROUP BY p.person_id,p.first_name,p.middle_name,p.last_name
+        ), filtered AS (
+            SELECT *
+            FROM cast_people
+            WHERE (p_search IS NULL OR display_name ILIKE '%'||p_search||'%')
+              AND (p_initial IS NULL OR upper(left(coalesce(last_name,first_name,''),1))=upper(left(p_initial,1)))
+        ), paged AS (
+            SELECT *
+            FROM filtered
+            ORDER BY lower(coalesce(last_name,'')) DESC, lower(coalesce(first_name,'')) DESC, person_id DESC
+            OFFSET (v_page-1)*v_limit
+            LIMIT v_limit
+        )
+        SELECT COALESCE(
+            jsonb_agg(api.cast_member_json(person_id)
+                      ORDER BY lower(coalesce(last_name,'')) DESC, lower(coalesce(first_name,'')) DESC, person_id DESC),
+            '[]'::jsonb
+        ) INTO v_data
+        FROM paged;
+    END IF;
 
     RETURN jsonb_build_object(
       'data',v_data,
