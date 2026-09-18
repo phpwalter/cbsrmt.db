@@ -752,7 +752,7 @@ CREATE OR REPLACE FUNCTION api.get_anniversary_broadcasts(p_target_date date)
 RETURNS jsonb
 LANGUAGE plpgsql STABLE SECURITY DEFINER
 SET search_path=pg_catalog,catalog,api
-AS $
+AS $$
 DECLARE
     v_resolved_date date;
     v_broadcasts jsonb;
@@ -798,7 +798,7 @@ BEGIN
         'broadcasts', v_broadcasts
     );
 END
-$;
+$$;
 
 CREATE OR REPLACE FUNCTION api.user_json(p_user_id bigint)
 RETURNS jsonb
