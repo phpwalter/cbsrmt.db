@@ -94,7 +94,7 @@ SELECT jsonb_build_object(
     'episode_name', e.episode_name,
     'episode_plot', e.episode_plot,
     'broadcast_date', e.original_air_date,
-    'thumbnail', '/public/assets/episodes/' || e.episode_number || '.png',
+    'thumbnail', '/assets/episodes/' || lpad(e.episode_number::text,4,'0') || '.png',
     'audio', api.audio_json(e.episode_number)
 )
 FROM catalog.episode e
@@ -111,7 +111,7 @@ SELECT jsonb_build_object(
     'episode_name', e.episode_name,
     'episode_plot', e.episode_plot,
     'broadcast_date', e.original_air_date,
-    'thumbnail', '/public/assets/episodes/' || e.episode_number || '.png',
+    'thumbnail', '/assets/episodes/' || lpad(e.episode_number::text,4,'0') || '.png',
     'audio', api.audio_json(e.episode_number),
     'genres', COALESCE((
         SELECT jsonb_agg(api.genre_json(g.genre_id) ORDER BY g.genre_name)
@@ -747,6 +747,58 @@ BEGIN
     );
 END
 $$;
+
+CREATE OR REPLACE FUNCTION api.get_anniversary_broadcasts(p_target_date date)
+RETURNS jsonb
+LANGUAGE plpgsql STABLE SECURITY DEFINER
+SET search_path=pg_catalog,catalog,api
+AS $
+DECLARE
+    v_resolved_date date;
+    v_broadcasts jsonb;
+BEGIN
+    SELECT max(b.broadcast_date)
+      INTO v_resolved_date
+      FROM catalog.broadcast b
+     WHERE b.broadcast_date <= p_target_date
+       AND b.broadcast_type IN ('original','repeat')
+       AND b.episode_number IS NOT NULL;
+
+    IF v_resolved_date IS NULL THEN
+        RETURN jsonb_build_object(
+            'requested_date', p_target_date,
+            'resolved_broadcast_date', NULL,
+            'fallback_used', false,
+            'broadcasts', '[]'::jsonb
+        );
+    END IF;
+
+    SELECT COALESCE(
+        jsonb_agg(
+            jsonb_build_object(
+                'broadcast_type', b.broadcast_type,
+                'broadcast_sequence', b.broadcast_sequence,
+                'broadcast_date', b.broadcast_date,
+                'episode', api.episode_summary_json(b.episode_number)
+            )
+            ORDER BY b.broadcast_sequence NULLS LAST, b.broadcast_id
+        ),
+        '[]'::jsonb
+    )
+      INTO v_broadcasts
+      FROM catalog.broadcast b
+     WHERE b.broadcast_date = v_resolved_date
+       AND b.broadcast_type IN ('original','repeat')
+       AND b.episode_number IS NOT NULL;
+
+    RETURN jsonb_build_object(
+        'requested_date', p_target_date,
+        'resolved_broadcast_date', v_resolved_date,
+        'fallback_used', v_resolved_date <> p_target_date,
+        'broadcasts', v_broadcasts
+    );
+END
+$;
 
 CREATE OR REPLACE FUNCTION api.user_json(p_user_id bigint)
 RETURNS jsonb
