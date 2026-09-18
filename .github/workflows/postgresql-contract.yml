@@ -1,0 +1,47 @@
+name: PostgreSQL Contract
+
+on:
+  push:
+    branches:
+      - main
+      - postgresql-v1
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      PGPASSWORD: postgres
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fresh install and contract validation
+        run: |
+          bash install/fresh_install.sh \
+            --host localhost \
+            --port 5432 \
+            --database cbsrmt \
+            --user postgres
