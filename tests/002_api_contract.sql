@@ -48,6 +48,14 @@ BEGIN
     v := api.get_episodes(1,5,'1974-01-06',NULL,NULL,NULL,NULL,'episode_number','asc');
     IF jsonb_array_length(v->'data') < 1 THEN RAISE EXCEPTION 'ISO broadcast date search failed'; END IF;
 
+    v := api.get_episodes(1,5,NULL,NULL,NULL,NULL,NULL,'episode_number','asc',6);
+    IF (v#>>'{pagination,page}')::integer <> 2 THEN
+        RAISE EXCEPTION 'focused episode did not resolve to containing page';
+    END IF;
+    IF (v->'data'->0->>'episode_number')::integer <> 6 THEN
+        RAISE EXCEPTION 'focused episode page returned incorrect first episode';
+    END IF;
+
     IF api.get_episode_cast(999999) IS NOT NULL THEN RAISE EXCEPTION 'missing episode cast must map to 404'; END IF;
 
     v := api.get_episode_cast(1);
