@@ -207,7 +207,8 @@ CREATE OR REPLACE FUNCTION api.get_episodes(
     p_cast text DEFAULT NULL,
     p_writer text DEFAULT NULL,
     p_sort text DEFAULT 'episode_number',
-    p_order text DEFAULT 'asc'
+    p_order text DEFAULT 'asc',
+    p_focus_episode integer DEFAULT NULL
 ) RETURNS jsonb
 LANGUAGE plpgsql STABLE SECURITY DEFINER
 SET search_path = pg_catalog, catalog, api
@@ -272,6 +273,77 @@ BEGIN
               ))
     )
     SELECT count(*) INTO v_total FROM filtered;
+
+    IF p_focus_episode IS NOT NULL THEN
+        WITH filtered AS (
+            SELECT e.*
+            FROM catalog.episode e
+            WHERE (p_search IS NULL
+                   OR e.episode_name ILIKE '%'||p_search||'%'
+                   OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%'
+                   OR e.original_air_date::text ILIKE '%'||p_search||'%'
+                   OR to_char(e.original_air_date,'FMMonth FMDD, YYYY') ILIKE '%'||p_search||'%'
+                   OR EXISTS (
+                        SELECT 1
+                        FROM catalog.broadcast b
+                        WHERE b.episode_number=e.episode_number
+                          AND (
+                              b.broadcast_date::text ILIKE '%'||p_search||'%'
+                              OR to_char(b.broadcast_date,'FMMonth FMDD, YYYY') ILIKE '%'||p_search||'%'
+                          )
+                   ))
+              AND (p_year IS NULL OR extract(year from e.original_air_date)::integer=p_year)
+              AND (p_genre IS NULL OR EXISTS (
+                    SELECT 1
+                    FROM catalog.episode_genre eg
+                    JOIN catalog.genre g USING (genre_id)
+                    WHERE eg.episode_number=e.episode_number
+                      AND g.genre_id >= 1
+                      AND EXISTS (
+                        SELECT 1
+                        FROM unnest(string_to_array(p_genre, ',')) requested_genre(name)
+                        WHERE btrim(requested_genre.name) <> ''
+                          AND lower(g.genre_name)=lower(btrim(requested_genre.name))
+                      )
+                  ))
+              AND (p_cast IS NULL OR EXISTS (
+                    SELECT 1
+                    FROM catalog.episode_cast ec
+                    JOIN catalog.person p USING (person_id)
+                    WHERE ec.episode_number=e.episode_number
+                      AND concat_ws(' ',p.first_name,p.middle_name,p.last_name) ILIKE '%'||p_cast||'%'
+                  ))
+              AND (p_writer IS NULL OR EXISTS (
+                    SELECT 1
+                    FROM catalog.episode_writer ew
+                    JOIN catalog.person p USING (person_id)
+                    WHERE ew.episode_number=e.episode_number
+                      AND concat_ws(' ',p.first_name,p.middle_name,p.last_name) ILIKE '%'||p_writer||'%'
+                  ))
+        ), ranked AS (
+            SELECT
+                episode_number,
+                row_number() OVER (
+                    ORDER BY
+                      CASE WHEN p_sort='episode_number' AND lower(p_order)='asc' THEN episode_number END ASC,
+                      CASE WHEN p_sort='episode_number' AND lower(p_order)='desc' THEN episode_number END DESC,
+                      CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN episode_name END ASC,
+                      CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN episode_name END DESC,
+                      CASE WHEN p_sort='broadcast_date' AND lower(p_order)='asc' THEN original_air_date END ASC,
+                      CASE WHEN p_sort='broadcast_date' AND lower(p_order)='desc' THEN original_air_date END DESC,
+                      episode_number
+                ) AS row_number
+            FROM filtered
+        )
+        SELECT ((row_number - 1) / v_limit)::integer + 1
+          INTO v_page
+          FROM ranked
+         WHERE episode_number=p_focus_episode;
+
+        IF v_page IS NULL THEN
+            v_page := 1;
+        END IF;
+    END IF;
 
     WITH filtered AS (
         SELECT e.*
