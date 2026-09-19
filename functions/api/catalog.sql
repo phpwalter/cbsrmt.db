@@ -198,6 +198,8 @@ SELECT CASE
 END
 $$;
 
+DROP FUNCTION IF EXISTS api.get_episodes(integer,integer,text,integer,text,text,text,text,text);
+
 CREATE OR REPLACE FUNCTION api.get_episodes(
     p_page integer DEFAULT 1,
     p_limit integer DEFAULT 5,
