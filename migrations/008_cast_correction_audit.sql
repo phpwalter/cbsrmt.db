@@ -2,6 +2,7 @@ BEGIN;
 
 CREATE TABLE IF NOT EXISTS import.cast_correction_audit (
     correction_id       bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    correction_key      text NOT NULL UNIQUE CHECK (btrim(correction_key) <> ''),
     person_id           integer NOT NULL CHECK (person_id > 0),
     person_code_before  varchar(100),
     person_code_after   varchar(100),
