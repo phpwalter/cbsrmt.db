@@ -7,6 +7,7 @@
 \ir ../migrations/005_staging_tables.sql
 \ir ../migrations/006_roles_and_grants.sql
 \ir ../migrations/007_account_users.sql
+\ir ../migrations/008_cast_correction_audit.sql
 \ir ../functions/import/promote_json.sql
 \ir ../functions/api/catalog.sql
 \ir ../functions/admin/catalog.sql
