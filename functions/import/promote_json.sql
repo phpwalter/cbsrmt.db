@@ -173,7 +173,8 @@ BEGIN
     IF EXISTS (
         SELECT 1
         FROM jsonb_array_elements(v_cast) x
-        WHERE coalesce(x->>'cast_id','') !~ '^[1-9][0-9]*
+        WHERE coalesce(x->>'cast_id','') !~ '^[1-9]'
+           OR coalesce(x->>'cast_id','') ~ '[^0-9]'
     ) THEN
         RAISE EXCEPTION 'cast.json contains an invalid cast_id';
     END IF;
@@ -210,7 +211,8 @@ BEGIN
         SELECT 1
         FROM jsonb_array_elements(v_corrections) x
         WHERE nullif(btrim(x->>'correction_key'),'') IS NULL
-           OR coalesce(x->>'cast_id','') !~ '^[1-9][0-9]*
+           OR coalesce(x->>'cast_id','') !~ '^[1-9]'
+           OR coalesce(x->>'cast_id','') ~ '[^0-9]'
            OR nullif(btrim(x->>'reason'),'') IS NULL
            OR nullif(btrim(x->>'source_reference'),'') IS NULL
            OR jsonb_typeof(x->'before') <> 'object'
