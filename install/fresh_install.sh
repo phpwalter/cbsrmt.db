@@ -96,6 +96,9 @@ echo "Running integrity tests..."
 echo "Running API contract tests..."
 "${PSQL[@]}" -f "$ROOT/tests/002_api_contract.sql"
 
+echo "Running cast correction contract tests..."
+"${PSQL[@]}" -f "$ROOT/tests/003_cast_corrections.sql"
+
 echo ""
 echo "Final database counts:"
 "${PSQL[@]}" -c "SELECT (SELECT count(*) FROM catalog.episode) AS episodes, (SELECT count(*) FROM catalog.broadcast) AS broadcast_rows, (SELECT count(*) FROM catalog.broadcast WHERE broadcast_sequence IS NOT NULL) AS actual_broadcasts, (SELECT count(*) FROM catalog.person) AS people, (SELECT count(*) FROM catalog.genre) AS genres, (SELECT count(*) FROM catalog.adaptation) AS adaptations;"
