@@ -101,6 +101,24 @@ psql -h localhost -p 5432 -U postgres -d cbsrmt -v ON_ERROR_STOP=1 -f tests/002_
 
 The API function installer removes obsolete pre-alignment overloads before creating the OpenAPI-compatible signatures, preventing ambiguous calls on upgraded databases.
 
+## Cast data corrections
+
+Correct cast names in `data/cast.json` while preserving the existing `cast_id`. Every change to `cast_id_name`, `first_name`, `middle_name`, or `last_name` must have a matching provenance record in `data/cast-corrections.json`.
+
+Apply only cast corrections without rebuilding the catalog:
+
+```powershell
+.\install\apply_cast_corrections.ps1 -Database cbsrmt -User root
+```
+
+Validate the correction files without modifying PostgreSQL:
+
+```powershell
+.\install\apply_cast_corrections.ps1 -Database cbsrmt -User root -ValidateOnly
+```
+
+The targeted workflow updates `catalog.person` by stable `cast_id`, records changes in `import.cast_correction_audit`, and leaves `catalog.episode_cast` unchanged. See `docs/cast-corrections.md` for the correction record format and verification rules.
+
 ## Manual installation
 
 The individual pieces remain runnable for development and debugging:
@@ -112,6 +130,7 @@ python -m pip install -r requirements.txt
 python tools/load_json.py --dsn "$DATABASE_URL" --data-dir data
 psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f tests/001_integrity.sql
 psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f tests/002_api_contract.sql
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f tests/003_cast_corrections.sql
 ```
 
 `install/schema.sql` orchestrates all migrations and database functions in the required order.
