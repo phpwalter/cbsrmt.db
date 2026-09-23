@@ -10,7 +10,7 @@ except ImportError as exc:
     raise SystemExit("psycopg is required: pip install 'psycopg[binary]'") from exc
 
 FILES = [
-    "episodes.json", "cbsrmt_episode_dataset.json", "cast.json", "writers.json", "genre.json",
+    "episodes.json", "cbsrmt_episode_dataset.json", "cast.json", "cast-corrections.json", "writers.json", "genre.json",
     "appearance.json", "episode-writer.json", "episode_genre.json", "adaptations.json", "episode_adaptation.json",
 ]
 
