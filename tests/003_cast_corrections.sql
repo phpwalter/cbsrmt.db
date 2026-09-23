@@ -65,6 +65,28 @@ BEGIN
     DO UPDATE SET payload=excluded.payload,loaded_at=now();
 
     INSERT INTO stage.source_document(source_name,payload,loaded_at)
+    VALUES('cast-corrections.json','[]'::jsonb,now())
+    ON CONFLICT(source_name)
+    DO UPDATE SET payload=excluded.payload,loaded_at=now();
+
+    BEGIN
+        PERFORM import.promote_cast();
+        RAISE EXCEPTION 'Unaudited cast identity change was unexpectedly accepted';
+    EXCEPTION
+        WHEN OTHERS THEN
+            IF SQLERRM = 'Unaudited cast identity change was unexpectedly accepted' THEN
+                RAISE;
+            END IF;
+            IF position('requires an exact matching cast-corrections.json audit record' in SQLERRM) = 0 THEN
+                RAISE EXCEPTION 'Unexpected unaudited-correction error: %',SQLERRM;
+            END IF;
+    END;
+
+    IF (SELECT first_name FROM catalog.person WHERE person_id=v_person_id) IS DISTINCT FROM v_first_name THEN
+        RAISE EXCEPTION 'Rejected cast correction modified catalog.person';
+    END IF;
+
+    INSERT INTO stage.source_document(source_name,payload,loaded_at)
     VALUES(
         'cast-corrections.json',
         jsonb_build_array(jsonb_build_object(
