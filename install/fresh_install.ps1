@@ -93,6 +93,10 @@ Write-Host "Running API contract tests..."
 & psql @PsqlArgs -f (Join-Path $Root "tests/002_api_contract.sql")
 if ($LASTEXITCODE -ne 0) { throw "API contract tests failed." }
 
+Write-Host "Running cast correction contract tests..."
+& psql @PsqlArgs -f (Join-Path $Root "tests/003_cast_corrections.sql")
+if ($LASTEXITCODE -ne 0) { throw "Cast correction contract tests failed." }
+
 Write-Host ""
 Write-Host "Final database counts:"
 & psql @PsqlArgs -c "SELECT (SELECT count(*) FROM catalog.episode) AS episodes, (SELECT count(*) FROM catalog.broadcast) AS broadcast_rows, (SELECT count(*) FROM catalog.broadcast WHERE broadcast_sequence IS NOT NULL) AS actual_broadcasts, (SELECT count(*) FROM catalog.person) AS people, (SELECT count(*) FROM catalog.genre) AS genres, (SELECT count(*) FROM catalog.adaptation) AS adaptations;"
