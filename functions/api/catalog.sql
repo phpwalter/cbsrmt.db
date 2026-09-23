@@ -55,16 +55,26 @@ CREATE OR REPLACE FUNCTION api.writer_json(p_person_id integer)
 RETURNS jsonb
 LANGUAGE sql STABLE SECURITY DEFINER
 SET search_path = pg_catalog, catalog
-AS $$
+AS $writer$
 SELECT jsonb_build_object(
     'id', p.person_id,
     'first_name', p.first_name,
     'last_name', p.last_name,
-    'display_name', nullif(btrim(concat_ws(' ',p.first_name,p.middle_name,p.last_name)),'')
+    'display_name', nullif(btrim(concat_ws(' ',p.first_name,p.middle_name,p.last_name)),''),
+    'writer_id_name', p.person_code,
+    'appearance_count', (
+        SELECT count(DISTINCT ew.episode_number)
+        FROM catalog.episode_writer ew
+        WHERE ew.person_id=p.person_id
+    ),
+    'portrait', CASE
+        WHEN p.person_code IS NULL OR btrim(p.person_code)='' THEN NULL
+        ELSE '/assets/cast/' || p.person_code || '.png'
+    END
 )
 FROM catalog.person p
 WHERE p.person_id=p_person_id
-$$;
+$writer$;
 
 CREATE OR REPLACE FUNCTION api.audio_json(p_episode_number integer)
 RETURNS jsonb
@@ -667,16 +677,104 @@ BEGIN
 END
 $get_cast$;
 
+DROP FUNCTION IF EXISTS api.get_writers(integer,integer,text);
+
 CREATE OR REPLACE FUNCTION api.get_writers(
     p_page integer DEFAULT 1,
-    p_limit integer DEFAULT 5,
-    p_search text DEFAULT NULL
+    p_limit integer DEFAULT 10,
+    p_search text DEFAULT NULL,
+    p_initial text DEFAULT NULL,
+    p_sort text DEFAULT 'appearances',
+    p_order text DEFAULT 'desc'
 ) RETURNS jsonb
-LANGUAGE sql STABLE SECURITY DEFINER
-SET search_path=pg_catalog,api
-AS $$
-SELECT api.get_people('writer',p_page,p_limit,p_search)
-$$;
+LANGUAGE plpgsql STABLE SECURITY DEFINER
+SET search_path=pg_catalog,catalog,api
+AS $get_writers$
+DECLARE
+    v_page integer := greatest(coalesce(p_page,1),1);
+    v_limit integer := least(greatest(coalesce(p_limit,10),1),100);
+    v_total bigint;
+    v_data jsonb;
+BEGIN
+    IF p_sort NOT IN ('appearances','name') THEN
+        RAISE EXCEPTION 'Invalid writer sort field: %', p_sort;
+    END IF;
+    IF lower(p_order) NOT IN ('asc','desc') THEN
+        RAISE EXCEPTION 'Invalid sort direction: %', p_order;
+    END IF;
+
+    WITH writer_people AS (
+        SELECT p.person_id,p.first_name,p.middle_name,p.last_name,
+               nullif(btrim(concat_ws(' ',p.first_name,p.middle_name,p.last_name)),'') AS display_name,
+               count(DISTINCT ew.episode_number)::integer AS appearance_count
+        FROM catalog.person p
+        JOIN catalog.episode_writer ew USING(person_id)
+        GROUP BY p.person_id,p.first_name,p.middle_name,p.last_name
+    ), filtered AS (
+        SELECT *
+        FROM writer_people
+        WHERE (p_search IS NULL OR display_name ILIKE '%'||p_search||'%')
+          AND (p_initial IS NULL OR upper(left(coalesce(last_name,first_name,''),1))=upper(left(p_initial,1)))
+    )
+    SELECT count(*) INTO v_total FROM filtered;
+
+    WITH writer_people AS (
+        SELECT p.person_id,p.first_name,p.middle_name,p.last_name,
+               nullif(btrim(concat_ws(' ',p.first_name,p.middle_name,p.last_name)),'') AS display_name,
+               count(DISTINCT ew.episode_number)::integer AS appearance_count
+        FROM catalog.person p
+        JOIN catalog.episode_writer ew USING(person_id)
+        GROUP BY p.person_id,p.first_name,p.middle_name,p.last_name
+    ), filtered AS (
+        SELECT *
+        FROM writer_people
+        WHERE (p_search IS NULL OR display_name ILIKE '%'||p_search||'%')
+          AND (p_initial IS NULL OR upper(left(coalesce(last_name,first_name,''),1))=upper(left(p_initial,1)))
+    ), paged AS (
+        SELECT *
+        FROM filtered
+        ORDER BY
+          CASE WHEN p_sort='appearances' AND lower(p_order)='desc' THEN appearance_count END DESC,
+          CASE WHEN p_sort='appearances' AND lower(p_order)='asc' THEN appearance_count END ASC,
+          CASE WHEN p_sort='name' AND lower(p_order)='asc' THEN lower(coalesce(last_name,'')) END ASC,
+          CASE WHEN p_sort='name' AND lower(p_order)='desc' THEN lower(coalesce(last_name,'')) END DESC,
+          CASE WHEN p_sort='name' AND lower(p_order)='asc' THEN lower(coalesce(first_name,'')) END ASC,
+          CASE WHEN p_sort='name' AND lower(p_order)='desc' THEN lower(coalesce(first_name,'')) END DESC,
+          lower(coalesce(last_name,'')) ASC,
+          lower(coalesce(first_name,'')) ASC,
+          person_id ASC
+        OFFSET (v_page-1)*v_limit
+        LIMIT v_limit
+    )
+    SELECT COALESCE(
+        jsonb_agg(
+            api.writer_json(person_id)
+            ORDER BY
+              CASE WHEN p_sort='appearances' AND lower(p_order)='desc' THEN appearance_count END DESC,
+              CASE WHEN p_sort='appearances' AND lower(p_order)='asc' THEN appearance_count END ASC,
+              CASE WHEN p_sort='name' AND lower(p_order)='asc' THEN lower(coalesce(last_name,'')) END ASC,
+              CASE WHEN p_sort='name' AND lower(p_order)='desc' THEN lower(coalesce(last_name,'')) END DESC,
+              CASE WHEN p_sort='name' AND lower(p_order)='asc' THEN lower(coalesce(first_name,'')) END ASC,
+              CASE WHEN p_sort='name' AND lower(p_order)='desc' THEN lower(coalesce(first_name,'')) END DESC,
+              lower(coalesce(last_name,'')) ASC,
+              lower(coalesce(first_name,'')) ASC,
+              person_id ASC
+        ),
+        '[]'::jsonb
+    ) INTO v_data
+    FROM paged;
+
+    RETURN jsonb_build_object(
+      'data',v_data,
+      'pagination',jsonb_build_object(
+        'page',v_page,
+        'limit',v_limit,
+        'total',v_total,
+        'pages',CASE WHEN v_total=0 THEN 0 ELSE ceil(v_total::numeric/v_limit)::integer END
+      )
+    );
+END
+$get_writers$;
 
 CREATE OR REPLACE FUNCTION api.get_cast_member(p_cast_id integer)
 RETURNS jsonb

@@ -112,8 +112,39 @@ BEGIN
         RAISE EXCEPTION 'Cast name descending sort failed';
     END IF;
 
-    v := api.get_writers();
+    v := api.get_writers(1,10,NULL,NULL,'appearances','desc');
     IF NOT (v ? 'data') OR NOT (v ? 'pagination') THEN RAISE EXCEPTION 'WriterCollection contract failed'; END IF;
+    IF (v#>>'{pagination,limit}')::integer <> 10 THEN RAISE EXCEPTION 'Writers Archive page size failed'; END IF;
+    IF jsonb_array_length(v->'data') > 0 AND NOT (
+        (v->'data'->0) ? 'appearance_count' AND
+        (v->'data'->0) ? 'writer_id_name' AND
+        (v->'data'->0) ? 'portrait'
+    ) THEN RAISE EXCEPTION 'Writers Archive fields missing'; END IF;
+
+    IF jsonb_array_length(v->'data') > 1 AND
+       ((v->'data'->0->>'appearance_count')::integer < (v->'data'->1->>'appearance_count')::integer) THEN
+        RAISE EXCEPTION 'Writer appearances descending sort failed';
+    END IF;
+
+    v := api.get_writers(1,10,NULL,NULL,'appearances','asc');
+    IF jsonb_array_length(v->'data') > 1 AND
+       ((v->'data'->0->>'appearance_count')::integer > (v->'data'->1->>'appearance_count')::integer) THEN
+        RAISE EXCEPTION 'Writer appearances ascending sort failed';
+    END IF;
+
+    v := api.get_writers(1,10,NULL,NULL,'name','asc');
+    IF jsonb_array_length(v->'data') > 1 AND
+       lower(coalesce(v->'data'->0->>'last_name',v->'data'->0->>'first_name','')) >
+       lower(coalesce(v->'data'->1->>'last_name',v->'data'->1->>'first_name','')) THEN
+        RAISE EXCEPTION 'Writer name ascending sort failed';
+    END IF;
+
+    v := api.get_writers(1,10,NULL,NULL,'name','desc');
+    IF jsonb_array_length(v->'data') > 1 AND
+       lower(coalesce(v->'data'->0->>'last_name',v->'data'->0->>'first_name','')) <
+       lower(coalesce(v->'data'->1->>'last_name',v->'data'->1->>'first_name','')) THEN
+        RAISE EXCEPTION 'Writer name descending sort failed';
+    END IF;
 
     v := api.get_genres();
     IF NOT (v ? 'data') THEN RAISE EXCEPTION 'genres envelope failed'; END IF;
