@@ -13,6 +13,7 @@ DECLARE
     v_episodes jsonb;
     v_broadcasts jsonb;
     v_cast jsonb;
+    v_cast_corrections jsonb;
     v_writers jsonb;
     v_genres jsonb;
     v_appearance jsonb;
@@ -24,6 +25,7 @@ BEGIN
     SELECT payload INTO STRICT v_episodes FROM stage.source_document WHERE source_name='episodes.json';
     SELECT payload INTO STRICT v_broadcasts FROM stage.source_document WHERE source_name='cbsrmt_episode_dataset.json';
     SELECT payload INTO STRICT v_cast FROM stage.source_document WHERE source_name='cast.json';
+    SELECT payload INTO STRICT v_cast_corrections FROM stage.source_document WHERE source_name='cast-corrections.json';
     SELECT payload INTO STRICT v_writers FROM stage.source_document WHERE source_name='writers.json';
     SELECT payload INTO STRICT v_genres FROM stage.source_document WHERE source_name='genre.json';
     SELECT payload INTO STRICT v_appearance FROM stage.source_document WHERE source_name='appearance.json';
@@ -58,6 +60,31 @@ BEGIN
         SELECT value x, 2 precedence FROM jsonb_array_elements(v_writers)
     ) s
     ORDER BY (x->>'cast_id')::integer, precedence;
+
+    INSERT INTO import.cast_correction_audit(
+        correction_key,person_id,
+        person_code_before,person_code_after,
+        first_name_before,first_name_after,
+        middle_name_before,middle_name_after,
+        last_name_before,last_name_after,
+        reason,source_reference
+    )
+    SELECT
+        x->>'correction_key',
+        (x->>'cast_id')::integer,
+        nullif(btrim(x->'before'->>'cast_id_name'),''),
+        nullif(btrim(x->'after'->>'cast_id_name'),''),
+        nullif(btrim(x->'before'->>'first_name'),''),
+        nullif(btrim(x->'after'->>'first_name'),''),
+        nullif(btrim(x->'before'->>'middle_name'),''),
+        nullif(btrim(x->'after'->>'middle_name'),''),
+        nullif(btrim(x->'before'->>'last_name'),''),
+        nullif(btrim(x->'after'->>'last_name'),''),
+        x->>'reason',
+        x->>'source_reference'
+    FROM jsonb_array_elements(v_cast_corrections) x
+    WHERE nullif(btrim(x->>'correction_key'),'') IS NOT NULL
+    ON CONFLICT (correction_key) DO NOTHING;
 
     INSERT INTO catalog.genre(genre_id, genre_name)
     SELECT (x->>'genre_id')::smallint, x->>'genre_name'
