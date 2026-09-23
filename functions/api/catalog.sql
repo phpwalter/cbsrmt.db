@@ -742,6 +742,7 @@ BEGIN
           CASE WHEN p_sort='name' AND lower(p_order)='desc' THEN lower(coalesce(first_name,'')) END DESC,
           lower(coalesce(last_name,'')) ASC,
           lower(coalesce(first_name,'')) ASC,
+          CASE WHEN p_sort='name' AND lower(p_order)='desc' THEN person_id END DESC,
           person_id ASC
         OFFSET (v_page-1)*v_limit
         LIMIT v_limit
@@ -758,6 +759,7 @@ BEGIN
               CASE WHEN p_sort='name' AND lower(p_order)='desc' THEN lower(coalesce(first_name,'')) END DESC,
               lower(coalesce(last_name,'')) ASC,
               lower(coalesce(first_name,'')) ASC,
+              CASE WHEN p_sort='name' AND lower(p_order)='desc' THEN person_id END DESC,
               person_id ASC
         ),
         '[]'::jsonb
