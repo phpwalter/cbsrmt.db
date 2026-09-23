@@ -15,7 +15,7 @@ if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
     throw "Required command 'python' was not found in PATH."
 }
 
-if ([string]::IsNullOrWhiteSpace($env:PGPASSWORD)) {
+if (-not $ValidateOnly -and [string]::IsNullOrWhiteSpace($env:PGPASSWORD)) {
     $securePassword = Read-Host "PostgreSQL password for $User" -AsSecureString
     $passwordPtr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($securePassword)
     try {
