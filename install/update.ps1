@@ -54,9 +54,12 @@ if ($LASTEXITCODE -ne 0) {
 Run-PsqlFile "migrations/001_extensions_and_schemas.sql"
 Run-PsqlFile "migrations/007_account_users.sql"
 Run-PsqlFile "migrations/006_roles_and_grants.sql"
+Run-PsqlFile "migrations/008_cast_correction_audit.sql"
+Run-PsqlFile "functions/import/promote_json.sql"
 Run-PsqlFile "functions/api/catalog.sql"
 Run-PsqlFile "functions/admin/catalog.sql"
 Run-PsqlFile "tests/002_api_contract.sql"
+Run-PsqlFile "tests/003_cast_corrections.sql"
 
 if ($null -ne $UserId) {
     Write-Host ""
