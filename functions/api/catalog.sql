@@ -242,6 +242,8 @@ BEGIN
         SELECT e.*
         FROM catalog.episode e
         WHERE (p_search IS NULL
+               OR e.episode_number::text ILIKE '%'||p_search||'%'
+               OR lpad(e.episode_number::text,4,'0') ILIKE '%'||p_search||'%'
                OR e.episode_name ILIKE '%'||p_search||'%'
                OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%'
                OR e.original_air_date::text ILIKE '%'||p_search||'%'
@@ -291,6 +293,8 @@ BEGIN
             SELECT e.*
             FROM catalog.episode e
             WHERE (p_search IS NULL
+                   OR e.episode_number::text ILIKE '%'||p_search||'%'
+                   OR lpad(e.episode_number::text,4,'0') ILIKE '%'||p_search||'%'
                    OR e.episode_name ILIKE '%'||p_search||'%'
                    OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%'
                    OR e.original_air_date::text ILIKE '%'||p_search||'%'
@@ -361,6 +365,8 @@ BEGIN
         SELECT e.*
         FROM catalog.episode e
         WHERE (p_search IS NULL
+               OR e.episode_number::text ILIKE '%'||p_search||'%'
+               OR lpad(e.episode_number::text,4,'0') ILIKE '%'||p_search||'%'
                OR e.episode_name ILIKE '%'||p_search||'%'
                OR coalesce(e.episode_plot,'') ILIKE '%'||p_search||'%'
                OR e.original_air_date::text ILIKE '%'||p_search||'%'
