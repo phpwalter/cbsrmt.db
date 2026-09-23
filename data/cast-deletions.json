@@ -1,0 +1,52 @@
+[
+  {
+    "deletion_key": "cast-0099-unused-record",
+    "cast_id": "99",
+    "cast_id_name": "kelliott",
+    "first_name": "Kristoffer",
+    "middle_name": "",
+    "last_name": "Elliott",
+    "reason": "No acting appearance or episode-writer relationship exists for this cast_id.",
+    "source_reference": "Validated against data/appearance.json and data/episode-writer.json"
+  },
+  {
+    "deletion_key": "cast-0109-unused-record",
+    "cast_id": "109",
+    "cast_id_name": "lkibbey",
+    "first_name": "Lois",
+    "middle_name": "",
+    "last_name": "Kibbey",
+    "reason": "No acting appearance or episode-writer relationship exists for this cast_id.",
+    "source_reference": "Validated against data/appearance.json and data/episode-writer.json"
+  },
+  {
+    "deletion_key": "cast-0110-unused-record",
+    "cast_id": "110",
+    "cast_id_name": "jgifford",
+    "first_name": "Jack",
+    "middle_name": "",
+    "last_name": "Gifford",
+    "reason": "No acting appearance or episode-writer relationship exists for this cast_id.",
+    "source_reference": "Validated against data/appearance.json and data/episode-writer.json"
+  },
+  {
+    "deletion_key": "cast-0126-unused-record",
+    "cast_id": "126",
+    "cast_id_name": "amadsen",
+    "first_name": "A.",
+    "middle_name": "",
+    "last_name": "Madsen",
+    "reason": "No acting appearance or episode-writer relationship exists for this cast_id.",
+    "source_reference": "Validated against data/appearance.json and data/episode-writer.json"
+  },
+  {
+    "deletion_key": "cast-0309-unused-record",
+    "cast_id": "309",
+    "cast_id_name": "wwindom",
+    "first_name": "William",
+    "middle_name": "",
+    "last_name": "Windom",
+    "reason": "No acting appearance or episode-writer relationship exists for this cast_id.",
+    "source_reference": "Validated against data/appearance.json and data/episode-writer.json"
+  }
+]
