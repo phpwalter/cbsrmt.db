@@ -14,6 +14,7 @@ DECLARE
     v_broadcasts jsonb;
     v_cast jsonb;
     v_cast_corrections jsonb;
+    v_cast_deletions jsonb;
     v_writers jsonb;
     v_genres jsonb;
     v_appearance jsonb;
@@ -26,6 +27,7 @@ BEGIN
     SELECT payload INTO STRICT v_broadcasts FROM stage.source_document WHERE source_name='cbsrmt_episode_dataset.json';
     SELECT payload INTO STRICT v_cast FROM stage.source_document WHERE source_name='cast.json';
     SELECT payload INTO STRICT v_cast_corrections FROM stage.source_document WHERE source_name='cast-corrections.json';
+    SELECT payload INTO STRICT v_cast_deletions FROM stage.source_document WHERE source_name='cast-deletions.json';
     SELECT payload INTO STRICT v_writers FROM stage.source_document WHERE source_name='writers.json';
     SELECT payload INTO STRICT v_genres FROM stage.source_document WHERE source_name='genre.json';
     SELECT payload INTO STRICT v_appearance FROM stage.source_document WHERE source_name='appearance.json';
@@ -85,6 +87,22 @@ BEGIN
     FROM jsonb_array_elements(v_cast_corrections) x
     WHERE nullif(btrim(x->>'correction_key'),'') IS NOT NULL
     ON CONFLICT (correction_key) DO NOTHING;
+
+    INSERT INTO import.cast_deletion_audit(
+        deletion_key,person_id,person_code,first_name,middle_name,last_name,reason,source_reference
+    )
+    SELECT
+        x->>'deletion_key',
+        (x->>'cast_id')::integer,
+        nullif(btrim(x->>'cast_id_name'),''),
+        nullif(btrim(x->>'first_name'),''),
+        nullif(btrim(x->>'middle_name'),''),
+        nullif(btrim(x->>'last_name'),''),
+        x->>'reason',
+        x->>'source_reference'
+    FROM jsonb_array_elements(v_cast_deletions) x
+    WHERE nullif(btrim(x->>'deletion_key'),'') IS NOT NULL
+    ON CONFLICT (deletion_key) DO NOTHING;
 
     INSERT INTO catalog.genre(genre_id, genre_name)
     SELECT (x->>'genre_id')::smallint, x->>'genre_name'
@@ -148,10 +166,13 @@ AS $promote_cast$
 DECLARE
     v_cast jsonb;
     v_corrections jsonb;
+    v_deletions jsonb;
     v_staged_count integer;
     v_identity_changes integer;
     v_rows_updated integer;
+    v_rows_deleted integer;
     v_audit_rows integer;
+    v_deletion_audit_rows integer;
     v_episode_cast_before bigint;
     v_episode_cast_after bigint;
 BEGIN
@@ -163,11 +184,18 @@ BEGIN
       FROM stage.source_document
      WHERE source_name='cast-corrections.json';
 
+    SELECT payload INTO STRICT v_deletions
+      FROM stage.source_document
+     WHERE source_name='cast-deletions.json';
+
     IF jsonb_typeof(v_cast) <> 'array' THEN
         RAISE EXCEPTION 'cast.json must contain a JSON array';
     END IF;
     IF jsonb_typeof(v_corrections) <> 'array' THEN
         RAISE EXCEPTION 'cast-corrections.json must contain a JSON array';
+    END IF;
+    IF jsonb_typeof(v_deletions) <> 'array' THEN
+        RAISE EXCEPTION 'cast-deletions.json must contain a JSON array';
     END IF;
 
     IF EXISTS (
@@ -228,6 +256,62 @@ BEGIN
         HAVING count(*) > 1
     ) THEN
         RAISE EXCEPTION 'cast-corrections.json contains duplicate correction_key values';
+    END IF;
+
+    IF EXISTS (
+        SELECT 1
+        FROM jsonb_array_elements(v_deletions) x
+        WHERE nullif(btrim(x->>'deletion_key'),'') IS NULL
+           OR coalesce(x->>'cast_id','') !~ '^[1-9]'
+           OR coalesce(x->>'cast_id','') ~ '[^0-9]'
+           OR nullif(btrim(x->>'cast_id_name'),'') IS NULL
+           OR nullif(btrim(x->>'reason'),'') IS NULL
+           OR nullif(btrim(x->>'source_reference'),'') IS NULL
+    ) THEN
+        RAISE EXCEPTION 'cast-deletions.json contains an invalid deletion record';
+    END IF;
+
+    IF EXISTS (
+        SELECT x->>'deletion_key'
+        FROM jsonb_array_elements(v_deletions) x
+        GROUP BY x->>'deletion_key'
+        HAVING count(*) > 1
+    ) THEN
+        RAISE EXCEPTION 'cast-deletions.json contains duplicate deletion_key values';
+    END IF;
+
+    IF EXISTS (
+        SELECT (x->>'cast_id')::integer
+        FROM jsonb_array_elements(v_deletions) x
+        GROUP BY (x->>'cast_id')::integer
+        HAVING count(*) > 1
+    ) THEN
+        RAISE EXCEPTION 'cast-deletions.json contains duplicate cast_id values';
+    END IF;
+
+    IF EXISTS (
+        SELECT 1
+        FROM jsonb_array_elements(v_deletions) d
+        JOIN jsonb_array_elements(v_cast) c
+          ON (c->>'cast_id')::integer=(d->>'cast_id')::integer
+    ) THEN
+        RAISE EXCEPTION 'A cast deletion cannot reference a cast_id still present in cast.json';
+    END IF;
+
+    IF EXISTS (
+        SELECT 1
+        FROM jsonb_array_elements(v_deletions) d
+        JOIN catalog.episode_cast ec ON ec.person_id=(d->>'cast_id')::integer
+    ) THEN
+        RAISE EXCEPTION 'Cannot delete cast_id with acting episode relationships';
+    END IF;
+
+    IF EXISTS (
+        SELECT 1
+        FROM jsonb_array_elements(v_deletions) d
+        JOIN catalog.episode_writer ew ON ew.person_id=(d->>'cast_id')::integer
+    ) THEN
+        RAISE EXCEPTION 'Cannot delete cast_id with writer episode relationships';
     END IF;
 
     SELECT count(*) INTO v_staged_count FROM jsonb_array_elements(v_cast);
@@ -415,6 +499,48 @@ BEGIN
 
     GET DIAGNOSTICS v_rows_updated = ROW_COUNT;
 
+    INSERT INTO import.cast_deletion_audit(
+        deletion_key,person_id,person_code,first_name,middle_name,last_name,reason,source_reference
+    )
+    SELECT
+        d->>'deletion_key',
+        p.person_id,
+        p.person_code,
+        p.first_name,
+        p.middle_name,
+        p.last_name,
+        d->>'reason',
+        d->>'source_reference'
+    FROM jsonb_array_elements(v_deletions) d
+    JOIN catalog.person p ON p.person_id=(d->>'cast_id')::integer
+    WHERE p.person_code IS NOT DISTINCT FROM nullif(btrim(d->>'cast_id_name'),'')
+      AND p.first_name IS NOT DISTINCT FROM nullif(btrim(d->>'first_name'),'')
+      AND p.middle_name IS NOT DISTINCT FROM nullif(btrim(d->>'middle_name'),'')
+      AND p.last_name IS NOT DISTINCT FROM nullif(btrim(d->>'last_name'),'')
+    ON CONFLICT (deletion_key) DO NOTHING;
+
+    GET DIAGNOSTICS v_deletion_audit_rows = ROW_COUNT;
+
+    IF EXISTS (
+        SELECT 1
+        FROM jsonb_array_elements(v_deletions) d
+        JOIN catalog.person p ON p.person_id=(d->>'cast_id')::integer
+        WHERE p.person_code IS DISTINCT FROM nullif(btrim(d->>'cast_id_name'),'')
+           OR p.first_name IS DISTINCT FROM nullif(btrim(d->>'first_name'),'')
+           OR p.middle_name IS DISTINCT FROM nullif(btrim(d->>'middle_name'),'')
+           OR p.last_name IS DISTINCT FROM nullif(btrim(d->>'last_name'),'')
+    ) THEN
+        RAISE EXCEPTION 'Cast deletion audit identity does not match catalog.person';
+    END IF;
+
+    DELETE FROM catalog.person p
+    USING jsonb_array_elements(v_deletions) d
+    WHERE p.person_id=(d->>'cast_id')::integer
+      AND NOT EXISTS (SELECT 1 FROM catalog.episode_cast ec WHERE ec.person_id=p.person_id)
+      AND NOT EXISTS (SELECT 1 FROM catalog.episode_writer ew WHERE ew.person_id=p.person_id);
+
+    GET DIAGNOSTICS v_rows_deleted = ROW_COUNT;
+
     SELECT count(*) INTO v_episode_cast_after FROM catalog.episode_cast;
     IF v_episode_cast_after <> v_episode_cast_before THEN
         RAISE EXCEPTION 'Cast correction changed episode_cast relationship count';
@@ -424,7 +550,9 @@ BEGIN
         'staged_cast_records',v_staged_count,
         'identity_changes',v_identity_changes,
         'rows_updated',v_rows_updated,
+        'rows_deleted',v_rows_deleted,
         'audit_rows_inserted',v_audit_rows,
+        'deletion_audit_rows_inserted',v_deletion_audit_rows,
         'episode_cast_relationships',v_episode_cast_after
     );
 END
