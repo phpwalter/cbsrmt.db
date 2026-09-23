@@ -69,6 +69,11 @@ BEGIN
     ON CONFLICT(source_name)
     DO UPDATE SET payload=excluded.payload,loaded_at=now();
 
+    INSERT INTO stage.source_document(source_name,payload,loaded_at)
+    VALUES('cast-deletions.json','[]'::jsonb,now())
+    ON CONFLICT(source_name)
+    DO UPDATE SET payload=excluded.payload,loaded_at=now();
+
     BEGIN
         PERFORM import.promote_cast();
         RAISE EXCEPTION 'Unaudited cast identity change was unexpectedly accepted';
@@ -142,7 +147,92 @@ BEGIN
         RAISE EXCEPTION 'Cast correction audit row was not created';
     END IF;
 
-    RAISE NOTICE 'PASS: targeted cast correction preserves episode relationships';
+    INSERT INTO stage.source_document(source_name,payload,loaded_at)
+    VALUES('cast.json','[]'::jsonb,now())
+    ON CONFLICT(source_name)
+    DO UPDATE SET payload=excluded.payload,loaded_at=now();
+
+    INSERT INTO stage.source_document(source_name,payload,loaded_at)
+    VALUES('cast-corrections.json','[]'::jsonb,now())
+    ON CONFLICT(source_name)
+    DO UPDATE SET payload=excluded.payload,loaded_at=now();
+
+    INSERT INTO stage.source_document(source_name,payload,loaded_at)
+    VALUES(
+        'cast-deletions.json',
+        jsonb_build_array(jsonb_build_object(
+            'deletion_key','__contract_referenced_delete__',
+            'cast_id',v_person_id::text,
+            'cast_id_name',coalesce(v_person_code,''),
+            'first_name',coalesce(v_after_first_name,''),
+            'middle_name',coalesce(v_middle_name,''),
+            'last_name',coalesce(v_last_name,''),
+            'reason','Contract test must reject referenced cast deletion',
+            'source_reference','tests/003_cast_corrections.sql'
+        )),
+        now()
+    )
+    ON CONFLICT(source_name)
+    DO UPDATE SET payload=excluded.payload,loaded_at=now();
+
+    BEGIN
+        PERFORM import.promote_cast();
+        RAISE EXCEPTION 'Referenced cast deletion was unexpectedly accepted';
+    EXCEPTION
+        WHEN OTHERS THEN
+            IF SQLERRM = 'Referenced cast deletion was unexpectedly accepted' THEN
+                RAISE;
+            END IF;
+            IF position('Cannot delete cast_id with acting episode relationships' in SQLERRM) = 0 THEN
+                RAISE EXCEPTION 'Unexpected referenced-deletion error: %',SQLERRM;
+            END IF;
+    END;
+
+    INSERT INTO catalog.person(person_id,person_code,first_name,last_name)
+    VALUES(999999,'contract-unused','Contract','Unused');
+
+    INSERT INTO stage.source_document(source_name,payload,loaded_at)
+    VALUES(
+        'cast-deletions.json',
+        jsonb_build_array(jsonb_build_object(
+            'deletion_key','__contract_unused_delete__',
+            'cast_id','999999',
+            'cast_id_name','contract-unused',
+            'first_name','Contract',
+            'middle_name','',
+            'last_name','Unused',
+            'reason','Contract test safe unreferenced deletion',
+            'source_reference','tests/003_cast_corrections.sql'
+        )),
+        now()
+    )
+    ON CONFLICT(source_name)
+    DO UPDATE SET payload=excluded.payload,loaded_at=now();
+
+    v_result := import.promote_cast();
+
+    IF (v_result->>'rows_deleted')::integer <> 1 THEN
+        RAISE EXCEPTION 'Expected one safe cast deletion, got %',v_result->>'rows_deleted';
+    END IF;
+    IF EXISTS (SELECT 1 FROM catalog.person WHERE person_id=999999) THEN
+        RAISE EXCEPTION 'Unreferenced cast person was not deleted';
+    END IF;
+    IF NOT EXISTS (
+        SELECT 1 FROM import.cast_deletion_audit
+         WHERE deletion_key='__contract_unused_delete__'
+           AND person_id=999999
+    ) THEN
+        RAISE EXCEPTION 'Cast deletion audit row was not created';
+    END IF;
+
+    SELECT count(*) INTO v_after_appearances
+      FROM catalog.episode_cast
+     WHERE person_id=v_person_id;
+    IF v_after_appearances <> v_before_appearances THEN
+        RAISE EXCEPTION 'Cast deletion workflow changed existing appearance relationships';
+    END IF;
+
+    RAISE NOTICE 'PASS: targeted cast correction and deletion preserve episode relationships';
 END
 $cast_correction_test$;
 
