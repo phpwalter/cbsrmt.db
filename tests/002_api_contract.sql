@@ -48,6 +48,18 @@ BEGIN
     v := api.get_episodes(1,5,'1974-01-06',NULL,NULL,NULL,NULL,'episode_number','asc');
     IF jsonb_array_length(v->'data') < 1 THEN RAISE EXCEPTION 'ISO broadcast date search failed'; END IF;
 
+    v := api.get_episodes(1,5,'523',NULL,NULL,NULL,NULL,'episode_number','asc');
+    IF jsonb_array_length(v->'data') <> 1
+       OR (v->'data'->0->>'episode_number')::integer <> 523 THEN
+        RAISE EXCEPTION 'episode-number search for 523 failed';
+    END IF;
+
+    v := api.get_episodes(1,5,'0523',NULL,NULL,NULL,NULL,'episode_number','asc');
+    IF jsonb_array_length(v->'data') <> 1
+       OR (v->'data'->0->>'episode_number')::integer <> 523 THEN
+        RAISE EXCEPTION 'zero-padded episode-number search for 0523 failed';
+    END IF;
+
     v := api.get_episodes(1,5,NULL,NULL,NULL,NULL,NULL,'episode_number','asc',6);
     IF (v#>>'{pagination,page}')::integer <> 2 THEN
         RAISE EXCEPTION 'focused episode did not resolve to containing page';
