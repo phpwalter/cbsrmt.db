@@ -126,9 +126,29 @@ BEGIN
            nullif(x->>'id','')::integer
     FROM jsonb_array_elements(v_broadcasts) x;
 
-    INSERT INTO catalog.episode_cast(episode_number, person_id)
-    SELECT DISTINCT (x->>'episode_id')::integer, (x->>'cast_id')::integer
-    FROM jsonb_array_elements(v_appearance) x;
+    WITH source_rows AS (
+        SELECT
+            (x->>'episode_id')::integer AS episode_number,
+            (x->>'cast_id')::integer AS person_id,
+            (x->>'id')::integer AS source_order
+        FROM jsonb_array_elements(v_appearance) x
+    ), ranked AS (
+        SELECT
+            episode_number,
+            person_id,
+            row_number() OVER (
+                PARTITION BY episode_number
+                ORDER BY source_order, person_id
+            )::integer AS billing_order
+        FROM source_rows
+    )
+    INSERT INTO catalog.episode_cast(episode_number, person_id, cast_role, billing_order)
+    SELECT
+        episode_number,
+        person_id,
+        CASE WHEN billing_order=1 THEN 'star' ELSE 'co_star' END,
+        billing_order
+    FROM ranked;
 
     INSERT INTO catalog.episode_writer(episode_number, person_id)
     SELECT DISTINCT (x->>'episode_id')::integer, (x->>'writer_id')::integer
