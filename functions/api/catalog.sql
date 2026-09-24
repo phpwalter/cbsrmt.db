@@ -141,11 +141,23 @@ SELECT jsonb_build_object(
         WHERE eg.episode_number=e.episode_number
           AND g.genre_id >= 1
     ), '[]'::jsonb),
-    'cast', COALESCE((
-        SELECT jsonb_agg(api.cast_member_json(p.person_id)
-                         ORDER BY p.last_name,p.first_name,p.person_id)
+    'star', (
+        SELECT api.cast_member_json(ec.person_id)
         FROM catalog.episode_cast ec
-        JOIN catalog.person p USING (person_id)
+        WHERE ec.episode_number=e.episode_number
+          AND ec.cast_role='star'
+        ORDER BY ec.billing_order
+        LIMIT 1
+    ),
+    'co_stars', COALESCE((
+        SELECT jsonb_agg(api.cast_member_json(ec.person_id) ORDER BY ec.billing_order)
+        FROM catalog.episode_cast ec
+        WHERE ec.episode_number=e.episode_number
+          AND ec.cast_role='co_star'
+    ), '[]'::jsonb),
+    'cast', COALESCE((
+        SELECT jsonb_agg(api.cast_member_json(ec.person_id) ORDER BY ec.billing_order)
+        FROM catalog.episode_cast ec
         WHERE ec.episode_number=e.episode_number
     ), '[]'::jsonb),
     'writers', COALESCE((
@@ -178,10 +190,15 @@ SELECT CASE
     ELSE jsonb_build_object(
         'data',
         COALESCE((
-            SELECT jsonb_agg(api.cast_member_json(p.person_id)
-                             ORDER BY p.last_name,p.first_name,p.person_id)
+            SELECT jsonb_agg(
+                       api.cast_member_json(ec.person_id)
+                       || jsonb_build_object(
+                            'cast_role', ec.cast_role,
+                            'billing_order', ec.billing_order
+                          )
+                       ORDER BY ec.billing_order
+                   )
             FROM catalog.episode_cast ec
-            JOIN catalog.person p USING (person_id)
             WHERE ec.episode_number=p_episode_number
         ), '[]'::jsonb)
     )
