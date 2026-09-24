@@ -20,6 +20,9 @@ BEGIN
     IF jsonb_array_length(v->'broadcasts') < 1 THEN RAISE EXCEPTION 'anniversary fallback returned no broadcasts'; END IF;
 
     v := api.get_episode(1);
+    IF v->'star' IS NULL THEN RAISE EXCEPTION 'episode star missing'; END IF;
+    IF jsonb_typeof(v->'co_stars') <> 'array' THEN RAISE EXCEPTION 'episode co_stars missing'; END IF;
+    IF jsonb_array_length(v->'cast') < 1 THEN RAISE EXCEPTION 'episode cast missing'; END IF;
     IF v->>'episode_number' <> '1' THEN RAISE EXCEPTION 'get_episode(1) failed'; END IF;
     IF NOT (v ? 'broadcast_date') THEN RAISE EXCEPTION 'Episode.broadcast_date missing'; END IF;
     IF v->>'thumbnail' <> '/assets/episodes/0001.png' THEN RAISE EXCEPTION 'Episode.thumbnail convention failed'; END IF;
