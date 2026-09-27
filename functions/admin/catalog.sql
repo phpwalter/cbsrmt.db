@@ -9,11 +9,47 @@ BEGIN
 END $$;
 
 CREATE OR REPLACE FUNCTION admin.add_episode_cast(p_episode_number integer,p_person_id integer)
-RETURNS void LANGUAGE sql SECURITY DEFINER SET search_path=pg_catalog,catalog AS $$
- INSERT INTO catalog.episode_cast VALUES(p_episode_number,p_person_id) ON CONFLICT DO NOTHING
+RETURNS void
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path=pg_catalog,catalog
+AS $$
+    INSERT INTO catalog.episode_cast(
+        episode_number,
+        person_id,
+        cast_role,
+        billing_order
+    )
+    SELECT
+        p_episode_number,
+        p_person_id,
+        CASE
+            WHEN EXISTS (
+                SELECT 1
+                FROM catalog.episode_cast
+                WHERE episode_number=p_episode_number
+                  AND cast_role='star'
+            ) THEN 'co_star'
+            ELSE 'star'
+        END,
+        COALESCE((
+            SELECT max(billing_order) + 1
+            FROM catalog.episode_cast
+            WHERE episode_number=p_episode_number
+        ),1)
+    ON CONFLICT (episode_number,person_id) DO NOTHING
 $$;
+
 CREATE OR REPLACE FUNCTION admin.remove_episode_cast(p_episode_number integer,p_person_id integer)
-RETURNS void LANGUAGE sql SECURITY DEFINER SET search_path=pg_catalog,catalog AS $ DELETE FROM catalog.episode_cast WHERE episode_number=p_episode_number AND person_id=p_person_id $;
+RETURNS void
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path=pg_catalog,catalog
+AS $$
+    DELETE FROM catalog.episode_cast
+    WHERE episode_number=p_episode_number
+      AND person_id=p_person_id
+$$;
 
 CREATE OR REPLACE FUNCTION admin.set_cast_character(
     p_episode_number integer,
@@ -25,7 +61,7 @@ RETURNS jsonb
 LANGUAGE plpgsql
 SECURITY DEFINER
 SET search_path=pg_catalog,catalog
-AS $
+AS $$
 DECLARE
     v_character_name text := nullif(btrim(p_character_name),'');
     v_source text := nullif(btrim(p_source),'');
@@ -52,7 +88,9 @@ BEGIN
         'character_name',v_character_name,
         'character_source',v_source
     );
-END $;
+END
+$$;
+
 CREATE OR REPLACE FUNCTION admin.add_episode_writer(p_episode_number integer,p_person_id integer)
 RETURNS void LANGUAGE sql SECURITY DEFINER SET search_path=pg_catalog,catalog AS $$ INSERT INTO catalog.episode_writer VALUES(p_episode_number,p_person_id) ON CONFLICT DO NOTHING $$;
 CREATE OR REPLACE FUNCTION admin.remove_episode_writer(p_episode_number integer,p_person_id integer)
