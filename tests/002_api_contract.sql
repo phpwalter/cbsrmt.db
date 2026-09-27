@@ -21,6 +21,7 @@ BEGIN
 
     v := api.get_episode(1);
     IF v->'star' IS NULL THEN RAISE EXCEPTION 'episode star missing'; END IF;
+    IF NOT ((v->'star') ? 'character_name') THEN RAISE EXCEPTION 'episode star character_name missing'; END IF;
     IF jsonb_typeof(v->'co_stars') <> 'array' THEN RAISE EXCEPTION 'episode co_stars missing'; END IF;
     IF jsonb_array_length(v->'cast') < 1 THEN RAISE EXCEPTION 'episode cast missing'; END IF;
     IF v->>'episode_number' <> '1' THEN RAISE EXCEPTION 'get_episode(1) failed'; END IF;
