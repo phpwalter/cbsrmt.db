@@ -78,6 +78,9 @@ BEGIN
     IF jsonb_array_length(v->'data') > 0 AND NOT ((v->'data'->0) ? 'id') THEN
         RAISE EXCEPTION 'CastMember.id missing';
     END IF;
+    IF jsonb_array_length(v->'data') > 0 AND NOT ((v->'data'->0) ? 'character_name') THEN
+        RAISE EXCEPTION 'CastCredit.character_name missing';
+    END IF;
 
     v := api.get_episode_writers(1);
     IF NOT (v ? 'data') THEN RAISE EXCEPTION 'episode writer envelope failed'; END IF;
