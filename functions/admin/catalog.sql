@@ -13,7 +13,46 @@ RETURNS void LANGUAGE sql SECURITY DEFINER SET search_path=pg_catalog,catalog AS
  INSERT INTO catalog.episode_cast VALUES(p_episode_number,p_person_id) ON CONFLICT DO NOTHING
 $$;
 CREATE OR REPLACE FUNCTION admin.remove_episode_cast(p_episode_number integer,p_person_id integer)
-RETURNS void LANGUAGE sql SECURITY DEFINER SET search_path=pg_catalog,catalog AS $$ DELETE FROM catalog.episode_cast WHERE episode_number=p_episode_number AND person_id=p_person_id $$;
+RETURNS void LANGUAGE sql SECURITY DEFINER SET search_path=pg_catalog,catalog AS $ DELETE FROM catalog.episode_cast WHERE episode_number=p_episode_number AND person_id=p_person_id $;
+
+CREATE OR REPLACE FUNCTION admin.set_cast_character(
+    p_episode_number integer,
+    p_person_id integer,
+    p_character_name text,
+    p_source text DEFAULT NULL
+)
+RETURNS jsonb
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path=pg_catalog,catalog
+AS $
+DECLARE
+    v_character_name text := nullif(btrim(p_character_name),'');
+    v_source text := nullif(btrim(p_source),'');
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM catalog.episode_cast
+        WHERE episode_number=p_episode_number
+          AND person_id=p_person_id
+    ) THEN
+        RAISE EXCEPTION 'Cast member % is not credited in episode %', p_person_id, p_episode_number;
+    END IF;
+
+    UPDATE catalog.episode_cast
+       SET character_name=v_character_name,
+           character_source=v_source,
+           character_updated_at=now()
+     WHERE episode_number=p_episode_number
+       AND person_id=p_person_id;
+
+    RETURN jsonb_build_object(
+        'episode_number',p_episode_number,
+        'person_id',p_person_id,
+        'character_name',v_character_name,
+        'character_source',v_source
+    );
+END $;
 CREATE OR REPLACE FUNCTION admin.add_episode_writer(p_episode_number integer,p_person_id integer)
 RETURNS void LANGUAGE sql SECURITY DEFINER SET search_path=pg_catalog,catalog AS $$ INSERT INTO catalog.episode_writer VALUES(p_episode_number,p_person_id) ON CONFLICT DO NOTHING $$;
 CREATE OR REPLACE FUNCTION admin.remove_episode_writer(p_episode_number integer,p_person_id integer)
