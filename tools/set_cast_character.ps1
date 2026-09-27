@@ -30,16 +30,32 @@ if ([string]::IsNullOrWhiteSpace($env:PGPASSWORD)) {
     }
 }
 
+function ConvertTo-PgLiteral([string]$Value) {
+    if ($null -eq $Value) {
+        return "NULL"
+    }
+
+    return "'" + $Value.Replace("'", "''") + "'"
+}
+
+$characterLiteral = ConvertTo-PgLiteral $CharacterName
+$sourceLiteral = if ([string]::IsNullOrWhiteSpace($Source)) {
+    "NULL"
+}
+else {
+    ConvertTo-PgLiteral $Source
+}
+
 $sql = @"
 SELECT admin.set_cast_character(
-    :episode_number::integer,
-    :person_id::integer,
-    :'character_name',
-    NULLIF(:'source','')
+    $EpisodeNumber,
+    $PersonId,
+    $characterLiteral,
+    $sourceLiteral
 );
 "@
 
-& psql -X -h $HostName -p $Port -U $User -d $Database -v ON_ERROR_STOP=1 -v "episode_number=$EpisodeNumber" -v "person_id=$PersonId" -v "character_name=$CharacterName" -v "source=$Source" -c $sql
+& psql -X -h $HostName -p $Port -U $User -d $Database -v ON_ERROR_STOP=1 -c $sql
 
 if ($LASTEXITCODE -ne 0) {
     throw "Failed to update cast character."
