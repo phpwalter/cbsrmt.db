@@ -80,7 +80,7 @@ CREATE OR REPLACE FUNCTION api.audio_json(p_episode_number integer)
 RETURNS jsonb
 LANGUAGE sql STABLE SECURITY DEFINER
 SET search_path = pg_catalog, catalog
-AS $$
+AS $
 SELECT COALESCE(
     (
         SELECT jsonb_build_object(
@@ -96,6 +96,19 @@ SELECT COALESCE(
         ORDER BY m.media_id DESC
         LIMIT 1
     ),
+    (
+        SELECT jsonb_build_object(
+            'available', e.audio_uri IS NOT NULL AND btrim(e.audio_uri) <> '',
+            'stream_url', e.audio_uri,
+            'duration_seconds', NULL,
+            'media_type', CASE
+                WHEN e.audio_uri IS NOT NULL AND btrim(e.audio_uri) <> '' THEN 'audio/mpeg'
+                ELSE NULL
+            END
+        )
+        FROM catalog.episode e
+        WHERE e.episode_number=p_episode_number
+    ),
     jsonb_build_object(
         'available', false,
         'stream_url', NULL,
@@ -103,7 +116,7 @@ SELECT COALESCE(
         'media_type', NULL
     )
 )
-$$;
+$;
 
 CREATE OR REPLACE FUNCTION api.episode_summary_json(p_episode_number integer)
 RETURNS jsonb
