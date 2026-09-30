@@ -40,7 +40,7 @@ BEGIN
     END IF;
 
     v := api.get_episode(6);
-    IF v#>>'{audio,stream_url}' <> 'https://stream.cbsrmt.com/CBSRMT.com%2074-01-11%20e0006%20Honeymoon%20with%20Death.mp3' THEN
+    IF v#>>'{audio,stream_url}' <> 'https://stream.cbsrmt.com/CBSRMT.com%2074-01-11%20e0006%20Honeymoon%20With%20Death.mp3' THEN
         RAISE EXCEPTION 'episode 6 derived stream URI failed: %', v#>>'{audio,stream_url}';
     END IF;
 
