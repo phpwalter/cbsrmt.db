@@ -80,7 +80,7 @@ CREATE OR REPLACE FUNCTION api.audio_json(p_episode_number integer)
 RETURNS jsonb
 LANGUAGE sql STABLE SECURITY DEFINER
 SET search_path = pg_catalog, catalog
-AS $
+AS $$
 SELECT COALESCE(
     (
         SELECT jsonb_build_object(
@@ -116,7 +116,7 @@ SELECT COALESCE(
         'media_type', NULL
     )
 )
-$;
+$$;
 
 CREATE OR REPLACE FUNCTION api.episode_summary_json(p_episode_number integer)
 RETURNS jsonb
