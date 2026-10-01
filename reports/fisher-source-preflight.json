@@ -1,0 +1,119 @@
+{
+  "source_rows": 188,
+  "verified_against_repository": 176,
+  "expected_import_episode_count": 176,
+  "expected_skipped_episode_count": 12,
+  "title_mismatches": [
+    {
+      "episode_number": 51,
+      "source_title": "A Long Time to Die",
+      "database_title": "Sending [The]"
+    },
+    {
+      "episode_number": 52,
+      "source_title": "The Sending",
+      "database_title": "Creature From The Swamp [The]"
+    },
+    {
+      "episode_number": 63,
+      "source_title": "Death by Whose Hands",
+      "database_title": "Death By Whose Hand"
+    },
+    {
+      "episode_number": 464,
+      "source_title": "The Paradise Cafe",
+      "database_title": "Paradise Caf? [The]"
+    },
+    {
+      "episode_number": 540,
+      "source_title": "Somebody Stop Me!",
+      "database_title": "Somebody Help Me!"
+    },
+    {
+      "episode_number": 593,
+      "source_title": "A Casual Affair",
+      "database_title": "Casual Affair"
+    },
+    {
+      "episode_number": 1145,
+      "source_title": "The Legend of Alexander (1 of 5) - Courage",
+      "database_title": "Legend Of Alexander, Part One: Courage [The]"
+    },
+    {
+      "episode_number": 1146,
+      "source_title": "The Legend of Alexander (2 of 5) - Assassination",
+      "database_title": "Legend Of Alexander, Part Two: Assassination [The]"
+    },
+    {
+      "episode_number": 1147,
+      "source_title": "The Legend of Alexander (3 of 5) - Divide and Conquer",
+      "database_title": "Legend Of Alexander, Part Three: Divide And Conquer [The]"
+    },
+    {
+      "episode_number": 1148,
+      "source_title": "The Legend of Alexander (4 of 5) - The Oracle",
+      "database_title": "Legend Of Alexander, Part Four: The Oracle [The]"
+    },
+    {
+      "episode_number": 1149,
+      "source_title": "The Legend of Alexander (5 of 5) - The Legend Begins",
+      "database_title": "Legend Of Alexander, Part Five: The Legend Begins [The]"
+    },
+    {
+      "episode_number": 1298,
+      "source_title": "The Blue Sedan",
+      "database_title": "Death At A Distance"
+    }
+  ],
+  "missing_episodes": [],
+  "unmatched_actors": [
+    {
+      "episode_number": 55,
+      "actor": "Patricia Roe"
+    },
+    {
+      "episode_number": 64,
+      "actor": "Marian Hailey"
+    },
+    {
+      "episode_number": 65,
+      "actor": "Carmen Mathews"
+    },
+    {
+      "episode_number": 68,
+      "actor": "Joseph Sullivan"
+    },
+    {
+      "episode_number": 76,
+      "actor": "Joseph Julian"
+    },
+    {
+      "episode_number": 320,
+      "actor": "Joan Lorring"
+    },
+    {
+      "episode_number": 320,
+      "actor": "Robert J. Green"
+    },
+    {
+      "episode_number": 342,
+      "actor": "Anzie Strickland"
+    },
+    {
+      "episode_number": 559,
+      "actor": "Jean Copeland"
+    },
+    {
+      "episode_number": 614,
+      "actor": "Corinne Orr"
+    },
+    {
+      "episode_number": 1269,
+      "actor": "Lois Turenne"
+    }
+  ],
+  "unmatched_actor_count": 11,
+  "ambiguous_actors": [],
+  "ambiguous_actor_count": 0,
+  "malformed_credits": []
+}
