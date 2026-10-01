@@ -28,6 +28,7 @@ BEGIN
     IF NOT (v ? 'broadcast_date') THEN RAISE EXCEPTION 'Episode.broadcast_date missing'; END IF;
     IF v->>'thumbnail' <> '/assets/episodes/0001.png' THEN RAISE EXCEPTION 'Episode.thumbnail convention failed'; END IF;
     IF NOT (v ? 'audio') OR NOT ((v->'audio') ? 'available') THEN RAISE EXCEPTION 'Episode.audio contract failed'; END IF;
+    IF NOT (v ? 'fisher_rubric') THEN RAISE EXCEPTION 'Episode.fisher_rubric contract failed'; END IF;
     IF NOT (v#>>'{audio,available}')::boolean THEN RAISE EXCEPTION 'derived Episode.audio must be available'; END IF;
     IF v#>>'{audio,stream_url}' <> 'https://stream.cbsrmt.com/CBSRMT.com%2074-01-06%20e0001%20The%20Old%20Ones%20Are%20Hard%20to%20Kill.mp3' THEN
         RAISE EXCEPTION 'episode 1 derived stream URI failed: %', v#>>'{audio,stream_url}';
@@ -47,7 +48,9 @@ BEGIN
     v := api.get_episodes();
     IF jsonb_array_length(v->'data') <> 5 THEN RAISE EXCEPTION 'default page size must be 5'; END IF;
     IF (v#>>'{pagination,total}')::integer <> 1399 THEN RAISE EXCEPTION 'pagination total must be 1399'; END IF;
-    IF NOT ((v->'data'->0) ? 'broadcast_date') OR NOT ((v->'data'->0) ? 'thumbnail') THEN
+    IF NOT ((v->'data'->0) ? 'broadcast_date')
+       OR NOT ((v->'data'->0) ? 'thumbnail')
+       OR NOT ((v->'data'->0) ? 'fisher_rubric') THEN
         RAISE EXCEPTION 'EpisodeSummary contract failed';
     END IF;
 
