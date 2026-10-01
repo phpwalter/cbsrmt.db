@@ -43,7 +43,6 @@ def normalize_title(value: str) -> str:
     value = unicodedata.normalize("NFKD", value)
     value = "".join(ch for ch in value if not unicodedata.combining(ch))
     value = value.casefold().replace("&", " and ").replace("’", "'")
-    value = re.sub(r"\b(the|an|a)\b", " ", value)
     value = re.sub(r"[^a-z0-9]+", " ", value)
     return " ".join(value.split())
 
