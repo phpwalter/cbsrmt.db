@@ -9,7 +9,9 @@ Rules:
 - The first supplied performer is the star; remaining performers are co-stars.
 - Unmatched performers are skipped and reported.
 - Bracketed uncertainty annotations are removed from stored character names.
-- fisher_rubric is updated only for verified episodes.
+- fisher_rubric and recording metadata are updated only for verified episodes.
+- recording_quality preserves the explicit source classification.
+- commercials and news accept TRUE/FALSE boolean values.
 """
 
 from __future__ import annotations
@@ -74,6 +76,31 @@ def parse_credit(value: str) -> tuple[str, str | None] | None:
     return actor, character
 
 
+def parse_optional_bool(value, field_name: str) -> bool | None:
+    if value is None or value == "":
+        return None
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        normalized = value.strip().upper()
+        if normalized == "TRUE":
+            return True
+        if normalized == "FALSE":
+            return False
+    raise ValueError(f"{field_name} must be TRUE/FALSE or null, got {value!r}")
+
+
+def normalize_recording_quality(value) -> str | None:
+    if value is None or value == "":
+        return None
+    normalized = str(value).strip().upper()
+    if normalized not in {"EXCELLENT", "GOOD", "FAIR", "POOR"}:
+        raise ValueError(
+            "recording_quality must be EXCELLENT, GOOD, FAIR, POOR, or null"
+        )
+    return normalized
+
+
 def load_source(path: Path) -> list[dict]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, list):
@@ -113,6 +140,7 @@ def import_fisher_data(conn, source: list[dict], dry_run: bool = False) -> dict:
         "source_rows": len(source),
         "verified_episodes": 0,
         "updated_fisher_rubric": 0,
+        "updated_recording_metadata": 0,
         "cast_replaced_for_episodes": 0,
         "cast_credits_inserted": 0,
         "title_mismatches": [],
@@ -129,6 +157,17 @@ def import_fisher_data(conn, source: list[dict], dry_run: bool = False) -> dict:
             episode_number = int(row["episode_number"])
             source_title = str(row["episode_title"]).strip()
             fisher_rubric = row.get("fisher_rubric")
+            recording_quality = normalize_recording_quality(
+                row.get("recording_quality", row.get("Recording Quality"))
+            )
+            commercials = parse_optional_bool(
+                row.get("commercials", row.get("Commercials")),
+                "commercials",
+            )
+            news = parse_optional_bool(
+                row.get("news", row.get("News")),
+                "news",
+            )
             cast_roles = str(row.get("cast_roles") or "").strip()
 
             cur.execute(
@@ -218,12 +257,22 @@ def import_fisher_data(conn, source: list[dict], dry_run: bool = False) -> dict:
                 """
                 UPDATE catalog.episode
                    SET fisher_rubric = %s,
+                       recording_quality = %s,
+                       commercials = %s,
+                       news = %s,
                        updated_at = now()
                  WHERE episode_number = %s
                 """,
-                (fisher_rubric, episode_number),
+                (
+                    fisher_rubric,
+                    recording_quality,
+                    commercials,
+                    news,
+                    episode_number,
+                ),
             )
             report["updated_fisher_rubric"] += 1
+            report["updated_recording_metadata"] += 1
 
             cur.execute(
                 "DELETE FROM catalog.episode_cast WHERE episode_number = %s",
