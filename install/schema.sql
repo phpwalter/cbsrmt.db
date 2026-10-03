@@ -12,6 +12,7 @@
 \ir ../migrations/010_cast_characters.sql
 \ir ../migrations/011_episode_audio_uri.sql
 \ir ../migrations/012_fisher_rubric.sql
+\ir ../migrations/013_episode_metadata.sql
 \ir ../functions/import/promote_json.sql
 \ir ../functions/api/catalog.sql
 \ir ../functions/admin/catalog.sql
