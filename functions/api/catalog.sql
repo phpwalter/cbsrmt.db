@@ -130,7 +130,10 @@ SELECT jsonb_build_object(
     'broadcast_date', e.original_air_date,
     'thumbnail', '/assets/episodes/' || lpad(e.episode_number::text,4,'0') || '.png',
     'audio', api.audio_json(e.episode_number),
-    'fisher_rubric', e.fisher_rubric
+    'fisher_rubric', e.fisher_rubric,
+    'recording_quality', e.recording_quality,
+    'commercials', e.commercials,
+    'news', e.news
 )
 FROM catalog.episode e
 WHERE e.episode_number=p_episode_number
@@ -149,6 +152,9 @@ SELECT jsonb_build_object(
     'thumbnail', '/assets/episodes/' || lpad(e.episode_number::text,4,'0') || '.png',
     'audio', api.audio_json(e.episode_number),
     'fisher_rubric', e.fisher_rubric,
+    'recording_quality', e.recording_quality,
+    'commercials', e.commercials,
+    'news', e.news,
     'genres', COALESCE((
         SELECT jsonb_agg(api.genre_json(g.genre_id) ORDER BY g.genre_name)
         FROM catalog.episode_genre eg
