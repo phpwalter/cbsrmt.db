@@ -257,9 +257,9 @@ def import_fisher_data(conn, source: list[dict], dry_run: bool = False) -> dict:
                 """
                 UPDATE catalog.episode
                    SET fisher_rubric = %s,
-                       recording_quality = %s,
-                       commercials = %s,
-                       news = %s,
+                       recording_quality = COALESCE(%s, recording_quality),
+                       commercials = COALESCE(%s, commercials),
+                       news = COALESCE(%s, news),
                        updated_at = now()
                  WHERE episode_number = %s
                 """,
@@ -272,7 +272,8 @@ def import_fisher_data(conn, source: list[dict], dry_run: bool = False) -> dict:
                 ),
             )
             report["updated_fisher_rubric"] += 1
-            report["updated_recording_metadata"] += 1
+            if any(value is not None for value in (recording_quality, commercials, news)):
+                report["updated_recording_metadata"] += 1
 
             cur.execute(
                 "DELETE FROM catalog.episode_cast WHERE episode_number = %s",
