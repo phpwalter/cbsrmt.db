@@ -1,7 +1,7 @@
 BEGIN;
 
 -- Authoritative CBSRMT title corrections confirmed during Fisher rubric reconciliation.
-UPDATE catalog.episode SET episode_name = 'Death By Whos Hands', updated_at = now()
+UPDATE catalog.episode SET episode_name = 'Death By Whose Hands', updated_at = now()
 WHERE episode_number = 63;
 
 UPDATE catalog.episode SET episode_name = 'The Paradise Caf' || chr(233), updated_at = now()
