@@ -4,7 +4,7 @@ BEGIN;
 UPDATE catalog.episode SET episode_name = 'Death By Whos Hands', updated_at = now()
 WHERE episode_number = 63;
 
-UPDATE catalog.episode SET episode_name = 'The Paradise Café', updated_at = now()
+UPDATE catalog.episode SET episode_name = 'The Paradise Caf' || chr(233), updated_at = now()
 WHERE episode_number = 464;
 
 UPDATE catalog.episode SET episode_name = 'Somebody Stop Me!', updated_at = now()
