@@ -11,9 +11,23 @@ CREATE OR REPLACE FUNCTION api.ping()
 RETURNS jsonb
 LANGUAGE sql STABLE SECURITY DEFINER
 SET search_path = pg_catalog
-AS $$
+AS $
 SELECT jsonb_build_object('status','ok')
-$$;
+$;
+
+CREATE OR REPLACE FUNCTION api.alpha_sort_key(p_value text)
+RETURNS text
+LANGUAGE sql IMMUTABLE PARALLEL SAFE
+SET search_path = pg_catalog
+AS $
+SELECT regexp_replace(
+           lower(coalesce(p_value,'')),
+           '[^[:alnum:][:space:]]',
+           '',
+           'g'
+       )
+$;
+
 
 CREATE OR REPLACE FUNCTION api.genre_json(p_genre_id integer)
 RETURNS jsonb
@@ -391,8 +405,8 @@ BEGIN
                     ORDER BY
                       CASE WHEN p_sort='episode_number' AND lower(p_order)='asc' THEN episode_number END ASC,
                       CASE WHEN p_sort='episode_number' AND lower(p_order)='desc' THEN episode_number END DESC,
-                      CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN episode_name END ASC,
-                      CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN episode_name END DESC,
+                      CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN api.alpha_sort_key(episode_name) END ASC,
+                      CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN api.alpha_sort_key(episode_name) END DESC,
                       CASE WHEN p_sort='broadcast_date' AND lower(p_order)='asc' THEN original_air_date END ASC,
                       CASE WHEN p_sort='broadcast_date' AND lower(p_order)='desc' THEN original_air_date END DESC,
                       episode_number
@@ -459,8 +473,8 @@ BEGIN
         ORDER BY
           CASE WHEN p_sort='episode_number' AND lower(p_order)='asc' THEN e.episode_number END ASC,
           CASE WHEN p_sort='episode_number' AND lower(p_order)='desc' THEN e.episode_number END DESC,
-          CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN e.episode_name END ASC,
-          CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN e.episode_name END DESC,
+          CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN api.alpha_sort_key(e.episode_name) END ASC,
+          CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN api.alpha_sort_key(e.episode_name) END DESC,
           CASE WHEN p_sort='broadcast_date' AND lower(p_order)='asc' THEN e.original_air_date END ASC,
           CASE WHEN p_sort='broadcast_date' AND lower(p_order)='desc' THEN e.original_air_date END DESC,
           e.episode_number
@@ -473,8 +487,8 @@ BEGIN
             ORDER BY
               CASE WHEN p_sort='episode_number' AND lower(p_order)='asc' THEN episode_number END ASC,
               CASE WHEN p_sort='episode_number' AND lower(p_order)='desc' THEN episode_number END DESC,
-              CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN episode_name END ASC,
-              CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN episode_name END DESC,
+              CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN api.alpha_sort_key(episode_name) END ASC,
+              CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN api.alpha_sort_key(episode_name) END DESC,
               CASE WHEN p_sort='broadcast_date' AND lower(p_order)='asc' THEN original_air_date END ASC,
               CASE WHEN p_sort='broadcast_date' AND lower(p_order)='desc' THEN original_air_date END DESC,
               episode_number
@@ -905,8 +919,8 @@ BEGIN
         ORDER BY
           CASE WHEN p_sort='episode_number' AND lower(p_order)='asc' THEN e.episode_number END ASC,
           CASE WHEN p_sort='episode_number' AND lower(p_order)='desc' THEN e.episode_number END DESC,
-          CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN e.episode_name END ASC,
-          CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN e.episode_name END DESC,
+          CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN api.alpha_sort_key(e.episode_name) END ASC,
+          CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN api.alpha_sort_key(e.episode_name) END DESC,
           CASE WHEN p_sort='broadcast_date' AND lower(p_order)='asc' THEN e.original_air_date END ASC,
           CASE WHEN p_sort='broadcast_date' AND lower(p_order)='desc' THEN e.original_air_date END DESC,
           e.episode_number
@@ -919,8 +933,8 @@ BEGIN
             ORDER BY
               CASE WHEN p_sort='episode_number' AND lower(p_order)='asc' THEN episode_number END ASC,
               CASE WHEN p_sort='episode_number' AND lower(p_order)='desc' THEN episode_number END DESC,
-              CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN episode_name END ASC,
-              CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN episode_name END DESC,
+              CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN api.alpha_sort_key(episode_name) END ASC,
+              CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN api.alpha_sort_key(episode_name) END DESC,
               CASE WHEN p_sort='broadcast_date' AND lower(p_order)='asc' THEN original_air_date END ASC,
               CASE WHEN p_sort='broadcast_date' AND lower(p_order)='desc' THEN original_air_date END DESC,
               episode_number
@@ -1028,8 +1042,8 @@ BEGIN
         ORDER BY
           CASE WHEN p_sort='episode_number' AND lower(p_order)='asc' THEN e.episode_number END ASC,
           CASE WHEN p_sort='episode_number' AND lower(p_order)='desc' THEN e.episode_number END DESC,
-          CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN e.episode_name END ASC,
-          CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN e.episode_name END DESC,
+          CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN api.alpha_sort_key(e.episode_name) END ASC,
+          CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN api.alpha_sort_key(e.episode_name) END DESC,
           CASE WHEN p_sort='broadcast_date' AND lower(p_order)='asc' THEN e.original_air_date END ASC,
           CASE WHEN p_sort='broadcast_date' AND lower(p_order)='desc' THEN e.original_air_date END DESC,
           e.episode_number
@@ -1042,8 +1056,8 @@ BEGIN
             ORDER BY
               CASE WHEN p_sort='episode_number' AND lower(p_order)='asc' THEN episode_number END ASC,
               CASE WHEN p_sort='episode_number' AND lower(p_order)='desc' THEN episode_number END DESC,
-              CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN episode_name END ASC,
-              CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN episode_name END DESC,
+              CASE WHEN p_sort='episode_name' AND lower(p_order)='asc' THEN api.alpha_sort_key(episode_name) END ASC,
+              CASE WHEN p_sort='episode_name' AND lower(p_order)='desc' THEN api.alpha_sort_key(episode_name) END DESC,
               CASE WHEN p_sort='broadcast_date' AND lower(p_order)='asc' THEN original_air_date END ASC,
               CASE WHEN p_sort='broadcast_date' AND lower(p_order)='desc' THEN original_air_date END DESC,
               episode_number
@@ -1145,16 +1159,16 @@ BEGIN
     ), paged AS (
         SELECT *
         FROM results
-        ORDER BY type,sort_title,sort_id
+        ORDER BY type,api.alpha_sort_key(sort_title),sort_id
         OFFSET (v_page-1)*v_limit
         LIMIT v_limit
     )
     SELECT jsonb_build_object(
-        'episodes', COALESCE(jsonb_agg(payload ORDER BY sort_title,sort_id)
+        'episodes', COALESCE(jsonb_agg(payload ORDER BY api.alpha_sort_key(sort_title),sort_id)
                              FILTER (WHERE type='episode'),'[]'::jsonb),
-        'cast', COALESCE(jsonb_agg(payload ORDER BY sort_title,sort_id)
+        'cast', COALESCE(jsonb_agg(payload ORDER BY api.alpha_sort_key(sort_title),sort_id)
                          FILTER (WHERE type='cast'),'[]'::jsonb),
-        'writers', COALESCE(jsonb_agg(payload ORDER BY sort_title,sort_id)
+        'writers', COALESCE(jsonb_agg(payload ORDER BY api.alpha_sort_key(sort_title),sort_id)
                             FILTER (WHERE type='writer'),'[]'::jsonb)
     )
     INTO v_data
