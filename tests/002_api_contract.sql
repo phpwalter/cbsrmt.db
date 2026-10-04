@@ -87,6 +87,16 @@ BEGIN
         RAISE EXCEPTION 'zero-padded episode-number search for 0523 failed';
     END IF;
 
+    -- Alphabetical episode-name sorting must ignore punctuation without
+    -- changing stored/displayed titles. Trailing article notation continues
+    -- to be handled by the stored CBSRMT title convention.
+    IF api.alpha_sort_key('The ''Different'' People') <> api.alpha_sort_key('The Different People') THEN
+        RAISE EXCEPTION 'punctuation-insensitive alpha sort key failed';
+    END IF;
+    IF api.alpha_sort_key('A-B.C!') <> api.alpha_sort_key('ABC') THEN
+        RAISE EXCEPTION 'general punctuation removal from alpha sort key failed';
+    END IF;
+
     v := api.get_episodes(1,5,NULL,NULL,NULL,NULL,NULL,'episode_number','asc',6);
     IF (v#>>'{pagination,page}')::integer <> 2 THEN
         RAISE EXCEPTION 'focused episode did not resolve to containing page';
