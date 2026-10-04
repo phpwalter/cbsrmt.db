@@ -1,26 +1,11 @@
 {
   "source_rows": 188,
-  "verified_episodes": 169,
+  "verified_episodes": 184,
   "updated_fisher_rubric": 0,
   "updated_recording_metadata": 0,
   "cast_replaced_for_episodes": 0,
   "cast_credits_inserted": 0,
   "title_mismatches": [
-    {
-      "episode_number": 40,
-      "source_title": "Walking Corpse",
-      "database_title": "Walking Corpse [The]"
-    },
-    {
-      "episode_number": 44,
-      "source_title": "Horla",
-      "database_title": "Horla [The]"
-    },
-    {
-      "episode_number": 45,
-      "source_title": "Horse That Wasn't for Sale",
-      "database_title": "Horse That Wasn't For Sale [The]"
-    },
     {
       "episode_number": 51,
       "source_title": "A Long Time to Die",
@@ -34,72 +19,12 @@
     {
       "episode_number": 63,
       "source_title": "Death by Whose Hands",
-      "database_title": "Death By Whose Hand"
-    },
-    {
-      "episode_number": 65,
-      "source_title": "Unearthly Gift",
-      "database_title": "Unearthly Gift [The]"
-    },
-    {
-      "episode_number": 66,
-      "source_title": "Black Cat",
-      "database_title": "Black Cat [The]"
-    },
-    {
-      "episode_number": 70,
-      "source_title": "Locked Room",
-      "database_title": "Locked Room [The]"
+      "database_title": "Death By Whos Hands"
     },
     {
       "episode_number": 464,
       "source_title": "Paradise Cafe [The]",
-      "database_title": "Paradise Caf? [The]"
-    },
-    {
-      "episode_number": 540,
-      "source_title": "Somebody Stop Me!",
-      "database_title": "Somebody Help Me!"
-    },
-    {
-      "episode_number": 593,
-      "source_title": "Casual Affair [A]",
-      "database_title": "Casual Affair"
-    },
-    {
-      "episode_number": 765,
-      "source_title": "Another Place [In]",
-      "database_title": "In Another Place"
-    },
-    {
-      "episode_number": 1023,
-      "source_title": "Sheer Terror [The]",
-      "database_title": "Sheer Terror"
-    },
-    {
-      "episode_number": 1145,
-      "source_title": "Legend of Alexander (1 of 5) - Courage [The]",
-      "database_title": "Legend Of Alexander, Part One: Courage [The]"
-    },
-    {
-      "episode_number": 1146,
-      "source_title": "Legend of Alexander (2 of 5) - Assassination [The]",
-      "database_title": "Legend Of Alexander, Part Two: Assassination [The]"
-    },
-    {
-      "episode_number": 1147,
-      "source_title": "Legend of Alexander (3 of 5) - Divide and Conquer [The]",
-      "database_title": "Legend Of Alexander, Part Three: Divide And Conquer [The]"
-    },
-    {
-      "episode_number": 1148,
-      "source_title": "Legend of Alexander (4 of 5) - The Oracle [The]",
-      "database_title": "Legend Of Alexander, Part Four: The Oracle [The]"
-    },
-    {
-      "episode_number": 1149,
-      "source_title": "Legend of Alexander (5 of 5) - The Legend Begins [The]",
-      "database_title": "Legend Of Alexander, Part Five: The Legend Begins [The]"
+      "database_title": "The Paradise CafÃ©"
     }
   ],
   "missing_episodes": [],
