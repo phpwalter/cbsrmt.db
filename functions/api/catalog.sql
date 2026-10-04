@@ -11,22 +11,22 @@ CREATE OR REPLACE FUNCTION api.ping()
 RETURNS jsonb
 LANGUAGE sql STABLE SECURITY DEFINER
 SET search_path = pg_catalog
-AS $
+AS $ping$
 SELECT jsonb_build_object('status','ok')
-$;
+$ping$;
 
 CREATE OR REPLACE FUNCTION api.alpha_sort_key(p_value text)
 RETURNS text
 LANGUAGE sql IMMUTABLE PARALLEL SAFE
 SET search_path = pg_catalog
-AS $
+AS $alpha_sort_key$
 SELECT regexp_replace(
            lower(coalesce(p_value,'')),
            '[^[:alnum:][:space:]]',
            '',
            'g'
        )
-$;
+$alpha_sort_key$;
 
 
 CREATE OR REPLACE FUNCTION api.genre_json(p_genre_id integer)
