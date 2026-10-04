@@ -135,7 +135,12 @@ def build_person_index(cur) -> tuple[dict[str, int], dict[str, list[int]]]:
     return unique, ambiguous
 
 
-def import_fisher_data(conn, source: list[dict], dry_run: bool = False) -> dict:
+def import_fisher_data(
+    conn,
+    source: list[dict],
+    dry_run: bool = False,
+    metadata_only: bool = False,
+) -> dict:
     report = {
         "source_rows": len(source),
         "verified_episodes": 0,
@@ -169,6 +174,7 @@ def import_fisher_data(conn, source: list[dict], dry_run: bool = False) -> dict:
                 "news",
             )
             cast_roles = str(row.get("cast_roles") or "").strip()
+            replace_cast = bool(cast_roles) and not metadata_only
 
             cur.execute(
                 """
@@ -203,8 +209,13 @@ def import_fisher_data(conn, source: list[dict], dry_run: bool = False) -> dict:
             report["verified_episodes"] += 1
 
             credits: list[dict] = []
+            if replace_cast:
+                raw_credits = [item.strip() for item in cast_roles.split(";") if item.strip()]
+            else:
+                raw_credits = []
+
             for billing_order, raw_credit in enumerate(
-                [item.strip() for item in cast_roles.split(";") if item.strip()],
+                raw_credits,
                 start=1,
             ):
                 parsed = parse_credit(raw_credit)
@@ -275,37 +286,38 @@ def import_fisher_data(conn, source: list[dict], dry_run: bool = False) -> dict:
             if any(value is not None for value in (recording_quality, commercials, news)):
                 report["updated_recording_metadata"] += 1
 
-            cur.execute(
-                "DELETE FROM catalog.episode_cast WHERE episode_number = %s",
-                (episode_number,),
-            )
-
-            for credit in credits:
+            if replace_cast:
                 cur.execute(
-                    """
-                    INSERT INTO catalog.episode_cast(
-                        episode_number,
-                        person_id,
-                        cast_role,
-                        billing_order,
-                        character_name,
-                        character_source,
-                        character_updated_at
-                    )
-                    VALUES(%s,%s,%s,%s,%s,%s,now())
-                    """,
-                    (
-                        episode_number,
-                        credit["person_id"],
-                        credit["cast_role"],
-                        credit["billing_order"],
-                        credit["character_name"],
-                        "Fisher rubric dataset",
-                    ),
+                    "DELETE FROM catalog.episode_cast WHERE episode_number = %s",
+                    (episode_number,),
                 )
-                report["cast_credits_inserted"] += 1
 
-            report["cast_replaced_for_episodes"] += 1
+                for credit in credits:
+                    cur.execute(
+                        """
+                        INSERT INTO catalog.episode_cast(
+                            episode_number,
+                            person_id,
+                            cast_role,
+                            billing_order,
+                            character_name,
+                            character_source,
+                            character_updated_at
+                        )
+                        VALUES(%s,%s,%s,%s,%s,%s,now())
+                        """,
+                        (
+                            episode_number,
+                            credit["person_id"],
+                            credit["cast_role"],
+                            credit["billing_order"],
+                            credit["character_name"],
+                            "Fisher rubric dataset",
+                        ),
+                    )
+                    report["cast_credits_inserted"] += 1
+
+                report["cast_replaced_for_episodes"] += 1
 
     if dry_run:
         conn.rollback()
@@ -329,6 +341,11 @@ def main() -> None:
         help="Path for import review report.",
     )
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--metadata-only",
+        action="store_true",
+        help="Update Fisher/recording metadata only; never replace episode cast.",
+    )
     args = parser.parse_args()
 
     source_path = Path(args.source)
@@ -336,7 +353,12 @@ def main() -> None:
     source = load_source(source_path)
 
     with psycopg.connect(args.dsn) as conn:
-        report = import_fisher_data(conn, source, dry_run=args.dry_run)
+        report = import_fisher_data(
+            conn,
+            source,
+            dry_run=args.dry_run,
+            metadata_only=args.metadata_only,
+        )
 
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(
