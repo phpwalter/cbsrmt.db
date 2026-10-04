@@ -46,7 +46,60 @@ def normalize_title(value: str) -> str:
     value = "".join(ch for ch in value if not unicodedata.combining(ch))
     value = value.casefold().replace("&", " and ").replace("’", "'")
     value = re.sub(r"[^a-z0-9]+", " ", value)
-    return " ".join(value.split())
+    value = " ".join(value.split())
+
+    # Treat leading English articles as catalog-format noise. CBSRMT sources
+    # inconsistently store them at the front, in trailing brackets, or omit them.
+    value = re.sub(r"^(?:the|an|a)\s+", "", value)
+    return value
+
+
+TITLE_EQUIVALENTS = {
+    765: {
+        "another place in",
+        "in another place",
+    },
+    1145: {
+        "legend of alexander 1 of 5 courage",
+        "legend of alexander part one courage",
+        "legend of alexander pt 1 courage",
+    },
+    1146: {
+        "legend of alexander 2 of 5 assassination",
+        "legend of alexander part two assassination",
+        "legend of alexander pt 2 assassination",
+    },
+    1147: {
+        "legend of alexander 3 of 5 divide and conquer",
+        "legend of alexander part three divide and conquer",
+        "legend of alexander pt 3 divide and conquer",
+    },
+    1148: {
+        "legend of alexander 4 of 5 oracle",
+        "legend of alexander part four oracle",
+        "legend of alexander pt 4 oracle",
+    },
+    1149: {
+        "legend of alexander 5 of 5 legend begins",
+        "legend of alexander part five legend begins",
+        "legend of alexander pt 5 legend begins",
+    },
+}
+
+
+def titles_match(episode_number: int, source_title: str, database_title: str) -> bool:
+    source_key = normalize_title(source_title)
+    database_key = normalize_title(database_title)
+
+    if source_key == database_key:
+        return True
+
+    equivalents = TITLE_EQUIVALENTS.get(episode_number)
+    return bool(
+        equivalents
+        and source_key in equivalents
+        and database_key in equivalents
+    )
 
 
 def normalize_person_name(value: str) -> str:
@@ -196,7 +249,7 @@ def import_fisher_data(
                 continue
 
             database_title = result[0]
-            if normalize_title(database_title) != normalize_title(source_title):
+            if not titles_match(episode_number, source_title, database_title):
                 report["title_mismatches"].append(
                     {
                         "episode_number": episode_number,
