@@ -90,6 +90,12 @@ echo "Installing loader dependency..."
 echo "Reconciling, staging, and importing JSON data..."
 "$PYTHON" "$ROOT/tools/load_json.py" --dsn "$DSN" --data-dir "$ROOT/data"
 
+echo "Synchronizing authoritative episode genres..."
+"${PSQL[@]}" -f "$ROOT/migrations/015_episode_genre_sync.sql"
+
+echo "Refreshing API functions..."
+"${PSQL[@]}" -f "$ROOT/functions/api/catalog.sql"
+
 echo "Running integrity tests..."
 "${PSQL[@]}" -f "$ROOT/tests/001_integrity.sql"
 
