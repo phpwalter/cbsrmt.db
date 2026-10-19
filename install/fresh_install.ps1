@@ -85,6 +85,14 @@ Write-Host "Reconciling, staging, and importing JSON data..."
 & $VenvPython (Join-Path $Root "tools/load_json.py") --dsn $Dsn --data-dir (Join-Path $Root "data")
 if ($LASTEXITCODE -ne 0) { throw "JSON data import failed." }
 
+Write-Host "Synchronizing authoritative episode genres..."
+& psql @PsqlArgs -f (Join-Path $Root "migrations/015_episode_genre_sync.sql")
+if ($LASTEXITCODE -ne 0) { throw "Episode genre synchronization failed." }
+
+Write-Host "Refreshing API functions..."
+& psql @PsqlArgs -f (Join-Path $Root "functions/api/catalog.sql")
+if ($LASTEXITCODE -ne 0) { throw "API function refresh failed." }
+
 Write-Host "Running integrity tests..."
 & psql @PsqlArgs -f (Join-Path $Root "tests/001_integrity.sql")
 if ($LASTEXITCODE -ne 0) { throw "Integrity tests failed." }
