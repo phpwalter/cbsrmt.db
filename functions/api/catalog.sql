@@ -147,7 +147,13 @@ SELECT jsonb_build_object(
     'fisher_rubric', e.fisher_rubric,
     'recording_quality', e.recording_quality,
     'commercials', e.commercials,
-    'news', e.news
+    'news', e.news,
+    'genres', COALESCE((
+        SELECT jsonb_agg(api.genre_json(g.genre_id) ORDER BY g.genre_name)
+        FROM catalog.episode_genre eg
+        JOIN catalog.genre g USING (genre_id)
+        WHERE eg.episode_number=e.episode_number AND g.genre_id >= 1
+    ), '[]'::jsonb)
 )
 FROM catalog.episode e
 WHERE e.episode_number=p_episode_number
