@@ -19,11 +19,23 @@ BEGIN
     IF (v->>'resolved_broadcast_date')::date >= DATE '1982-01-01' THEN RAISE EXCEPTION 'anniversary fallback did not resolve to prior date'; END IF;
     IF jsonb_array_length(v->'broadcasts') < 1 THEN RAISE EXCEPTION 'anniversary fallback returned no broadcasts'; END IF;
 
+    IF (SELECT count(*) FROM catalog.episode_genre) <> 1946
+       OR (SELECT count(DISTINCT episode_number) FROM catalog.episode_genre) <> 1399
+       OR EXISTS (SELECT 1 FROM catalog.episode_genre WHERE genre_id = 0) THEN
+        RAISE EXCEPTION 'Episode genre snapshot synchronization failed';
+    END IF;
+
     v := api.get_episode(1);
     IF v->'star' IS NULL THEN RAISE EXCEPTION 'episode star missing'; END IF;
     IF NOT ((v->'star') ? 'character_name') THEN RAISE EXCEPTION 'episode star character_name missing'; END IF;
     IF jsonb_typeof(v->'co_stars') <> 'array' THEN RAISE EXCEPTION 'episode co_stars missing'; END IF;
     IF jsonb_array_length(v->'cast') < 1 THEN RAISE EXCEPTION 'episode cast missing'; END IF;
+    IF jsonb_typeof(v->'genres') <> 'array' OR jsonb_array_length(v->'genres') = 0 THEN
+        RAISE EXCEPTION 'Episode genres missing from GET episode';
+    END IF;
+    IF EXISTS (SELECT 1 FROM jsonb_array_elements(v->'genres') g WHERE (g->>'id')::integer < 1 OR NOT (g ? 'name')) THEN
+        RAISE EXCEPTION 'GET episode has invalid genre objects';
+    END IF;
     IF v->>'episode_number' <> '1' THEN RAISE EXCEPTION 'get_episode(1) failed'; END IF;
     IF NOT (v ? 'broadcast_date') THEN RAISE EXCEPTION 'Episode.broadcast_date missing'; END IF;
     IF v->>'thumbnail' <> '/assets/episodes/0001.png' THEN RAISE EXCEPTION 'Episode.thumbnail convention failed'; END IF;
@@ -51,6 +63,9 @@ BEGIN
     v := api.get_episodes();
     IF jsonb_array_length(v->'data') <> 5 THEN RAISE EXCEPTION 'default page size must be 5'; END IF;
     IF (v#>>'{pagination,total}')::integer <> 1399 THEN RAISE EXCEPTION 'pagination total must be 1399'; END IF;
+    IF jsonb_typeof(v->'data'->0->'genres') <> 'array' OR jsonb_array_length(v->'data'->0->'genres') = 0 THEN
+        RAISE EXCEPTION 'EpisodeSummary genres missing';
+    END IF;
     IF NOT ((v->'data'->0) ? 'broadcast_date')
        OR NOT ((v->'data'->0) ? 'thumbnail')
        OR NOT ((v->'data'->0) ? 'fisher_rubric')
